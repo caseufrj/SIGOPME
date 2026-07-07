@@ -1,20 +1,41 @@
-# Banco de Dados
+# SIGOPME - Banco de Dados
 
-## Tabela LICITACOES
+## LICITACOES
 
-- ID
-- NUMERO_LICITACAO
-- ATA
-- FORNECEDOR
-- COD_ITEM
-- NOME_MATERIAL
-- QTD_LICITADA
-- VALOR_UND
+Representa os itens vinculados a atas vigentes.
 
-## Tabela MOVIMENTACOES
+Campos:
 
-- ID
-- DATA
-- COD_ITEM
-- TIPO_MOVIMENTO
-- QUANTIDADE
+- Id
+- NumeroLicitacao
+- TipoLicitacao
+- Ata
+- Consignado
+- Contrato
+- NumeroContrato
+- Processo
+- Vigencia
+- Fornecedor
+- Cnpj
+- CodConsig
+- CodItem
+- Sirep
+- NomeMaterial
+- QtdLicitada
+- ValorUnd
+- RP
+- SC
+- Especialidade
+
+- Todos os cálculos do sistema serão baseados nesta tabela.
+
+Campos:
+
+- Id
+- DataMovimento
+- CodItem
+- NumeroLicitacao
+- TipoMovimento
+- Quantidade
+- Observacao
+- Usuario
