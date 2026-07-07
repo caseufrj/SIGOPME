@@ -1,3 +1,20 @@
+CREATE TABLE Usuarios (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Nome TEXT NOT NULL,
+    Login TEXT NOT NULL UNIQUE,
+    SenhaHash TEXT NOT NULL,
+    Perfil TEXT NOT NULL,
+    Ativo INTEGER NOT NULL DEFAULT 1,
+    DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Configuracoes (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    NomeHospital TEXT,
+    CaminhoBackup TEXT,
+    UltimoBackup DATETIME
+);
+
 CREATE TABLE Licitacoes (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
@@ -60,6 +77,8 @@ CREATE TABLE NotasFiscais (
 
     NumeroNF TEXT NOT NULL,
 
+    ChaveAcesso TEXT,
+
     DataNF DATETIME NOT NULL,
 
     Fornecedor TEXT NOT NULL,
@@ -91,7 +110,7 @@ CREATE TABLE NotaItens (
     ValorTotal REAL,
 
     FOREIGN KEY (NotaFiscalId)
-        REFERENCES NotasFiscais(Id)
+    REFERENCES NotasFiscais(Id)
 );
 
 CREATE TABLE Solicitacoes (
@@ -100,6 +119,10 @@ CREATE TABLE Solicitacoes (
     NumeroSolicitacao TEXT,
 
     DataSolicitacao DATETIME NOT NULL,
+
+    Cirurgia TEXT,
+
+    PacienteRegistro TEXT,
 
     Especialidade TEXT,
 
@@ -124,21 +147,17 @@ CREATE TABLE SolicitacaoItens (
     Status TEXT NOT NULL,
 
     FOREIGN KEY (SolicitacaoId)
-        REFERENCES Solicitacoes(Id)
+    REFERENCES Solicitacoes(Id)
 );
 
-CREATE TABLE Usuarios (
-    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE INDEX IDX_Licitacoes_CodItem
+ON Licitacoes(CodItem);
 
-    Nome TEXT NOT NULL,
+CREATE INDEX IDX_Licitacoes_Fornecedor
+ON Licitacoes(Fornecedor);
 
-    Login TEXT NOT NULL UNIQUE,
+CREATE INDEX IDX_Licitacoes_Ata
+ON Licitacoes(Ata);
 
-    SenhaHash TEXT NOT NULL,
-
-    Perfil TEXT NOT NULL,
-
-    Ativo INTEGER NOT NULL DEFAULT 1,
-
-    DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+CREATE INDEX IDX_Movimentacoes_CodItem
+ON Movimentacoes(CodItem);
