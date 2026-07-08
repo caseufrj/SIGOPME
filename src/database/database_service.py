@@ -29,25 +29,35 @@ class DatabaseService:
 
             print(f"\nCarregando: {arquivo}")
         
-            try:
+            with open(
+                arquivo,
+                "r",
+                encoding="utf-8"
+            ) as f:
         
-                with open(
-                    arquivo,
-                    "r",
-                    encoding="utf-8"
-                ) as f:
+                sql = f.read()
         
-                    sql = f.read()
+            for comando in sql.split(";"):
         
-                conn.executescript(sql)
+                comando = comando.strip()
         
-            except Exception as e:
+                if not comando:
+                    continue
         
-                print(f"\nERRO NO ARQUIVO:")
-                print(arquivo)
-                print(e)
+                print("\nEXECUTANDO:")
+                print(comando[:300])
         
-                raise
+                try:
+                    conn.execute(comando)
+        
+                except Exception as e:
+        
+                    print("\nERRO NO COMANDO:")
+                    print(comando)
+                    print("\nERRO:")
+                    print(e)
+        
+                    raise
 
         conn.commit()
         conn.close()
