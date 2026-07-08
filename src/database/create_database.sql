@@ -1,3 +1,9 @@
+PRAGMA foreign_keys = ON;
+
+-- =========================
+-- USUÁRIOS
+-- =========================
+
 CREATE TABLE IF NOT EXISTS Usuarios (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Nome TEXT NOT NULL,
@@ -8,6 +14,10 @@ CREATE TABLE IF NOT EXISTS Usuarios (
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- =========================
+-- CONFIGURAÇÕES
+-- =========================
+
 CREATE TABLE IF NOT EXISTS Configuracoes (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     NomeHospital TEXT,
@@ -15,7 +25,12 @@ CREATE TABLE IF NOT EXISTS Configuracoes (
     UltimoBackup DATETIME
 );
 
+-- =========================
+-- LICITAÇÕES
+-- =========================
+
 CREATE TABLE IF NOT EXISTS Licitacoes (
+
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
     NumeroLicitacao TEXT NOT NULL,
@@ -52,12 +67,23 @@ CREATE TABLE IF NOT EXISTS Licitacoes (
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- =========================
+-- TIPOS DE MOVIMENTAÇÃO
+-- =========================
+
 CREATE TABLE IF NOT EXISTS TiposMovimentacao (
+
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
+
     Nome TEXT NOT NULL UNIQUE
 );
 
+-- =========================
+-- MOVIMENTAÇÕES
+-- =========================
+
 CREATE TABLE IF NOT EXISTS Movimentacoes (
+
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
     DataMovimento DATETIME NOT NULL,
@@ -77,7 +103,12 @@ CREATE TABLE IF NOT EXISTS Movimentacoes (
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- =========================
+-- NOTAS FISCAIS
+-- =========================
+
 CREATE TABLE IF NOT EXISTS NotasFiscais (
+
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
     NumeroNF TEXT NOT NULL,
@@ -99,7 +130,12 @@ CREATE TABLE IF NOT EXISTS NotasFiscais (
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- =========================
+-- ITENS DA NF
+-- =========================
+
 CREATE TABLE IF NOT EXISTS NotaItens (
+
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
     NotaFiscalId INTEGER NOT NULL,
@@ -115,10 +151,15 @@ CREATE TABLE IF NOT EXISTS NotaItens (
     ValorTotal REAL,
 
     FOREIGN KEY (NotaFiscalId)
-        REFERENCES NotasFiscais(Id)
+    REFERENCES NotasFiscais(Id)
 );
 
+-- =========================
+-- SOLICITAÇÕES
+-- =========================
+
 CREATE TABLE IF NOT EXISTS Solicitacoes (
+
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
     NumeroSolicitacao TEXT,
@@ -138,7 +179,12 @@ CREATE TABLE IF NOT EXISTS Solicitacoes (
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- =========================
+-- ITENS SOLICITADOS
+-- =========================
+
 CREATE TABLE IF NOT EXISTS SolicitacaoItens (
+
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
     SolicitacaoId INTEGER NOT NULL,
@@ -152,17 +198,24 @@ CREATE TABLE IF NOT EXISTS SolicitacaoItens (
     Status TEXT NOT NULL,
 
     FOREIGN KEY (SolicitacaoId)
-        REFERENCES Solicitacoes(Id)
+    REFERENCES Solicitacoes(Id)
 );
 
-CREATE INDEX IF NOT EXISTS IDX_LICITACOES_CODITEM
-ON Licitacoes(CodItem);
+-- =========================
+-- ÍNDICES
+-- =========================
+
+CREATE INDEX IF NOT EXISTS IDX_LICITACOES_CODIGO
+ON Licitacoes (CodItem);
 
 CREATE INDEX IF NOT EXISTS IDX_LICITACOES_FORNECEDOR
-ON Licitacoes(Fornecedor);
+ON Licitacoes (Fornecedor);
 
 CREATE INDEX IF NOT EXISTS IDX_LICITACOES_ATA
-ON Licitacoes(Ata);
+ON Licitacoes (Ata);
 
-CREATE INDEX IF NOT EXISTS IDX_MOVIMENTACOES_CODITEM
-ON Movimentacoes(CodItem);
+CREATE INDEX IF NOT EXISTS IDX_MOVIMENTACOES_ITEM
+ON Movimentacoes (CodItem);
+
+CREATE INDEX IF NOT EXISTS IDX_MOVIMENTACOES_LICITACAO
+ON Movimentacoes (NumeroLicitacao);
