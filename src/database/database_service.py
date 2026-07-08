@@ -1,10 +1,13 @@
 from pathlib import Path
 import sqlite3
+import os
 
 
 class DatabaseService:
 
-    DB_PATH = Path("banco.db")
+    BASE_DIR = Path(os.getcwd())
+
+    DB_PATH = BASE_DIR / "banco.db"
 
     @classmethod
     def get_connection(cls):
