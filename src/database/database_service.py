@@ -39,8 +39,19 @@ class DatabaseService:
                 "r",
                 encoding="utf-8"
             ) as f:
-
-                conn.executescript(f.read())
+            
+                sql = f.read()
+            
+            try:
+                conn.executescript(sql)
+            
+            except Exception as e:
+                print("\n====================")
+                print("ARQUIVO COM ERRO:")
+                print(arquivo)
+                print("====================")
+                print(e)
+                raise
 
         conn.commit()
         conn.close()
