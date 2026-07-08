@@ -2,6 +2,7 @@ import tkinter as tk
 
 from database.database_service import DatabaseService
 from views.licitacoes_view import LicitacoesView
+from views.dashboard_view import DashboardView
 
 
 class MainView(tk.Tk):
@@ -53,6 +54,14 @@ class MainView(tk.Tk):
 
         self.config(menu=menu_bar)
 
+        menu_bar.add_command(
+            label="Dashboard",
+            command=self.abrir_dashboard
+        )
+
 
     def abrir_licitacoes(self):
         LicitacoesView(self)
+
+    def abrir_dashboard(self):
+        DashboardView(self)
