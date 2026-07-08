@@ -4,6 +4,8 @@ from tkinter import filedialog
 from tkinter import messagebox
 
 from services.importacao_excel import ImportacaoExcelService
+from services.licitacao_service import LicitacaoService
+
 
 class LicitacoesView(tk.Toplevel):
 
@@ -87,3 +89,18 @@ class LicitacoesView(tk.Toplevel):
             "Importação",
             f"{quantidade} registros importados."
         )
+
+    def carregar_dados(self):
+
+        for item in self.grid.get_children():
+            self.grid.delete(item)
+    
+        registros = LicitacaoService.listar_todos()
+    
+        for registro in registros:
+    
+            self.grid.insert(
+                "",
+                "end",
+                values=registro
+            )
