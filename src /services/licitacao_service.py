@@ -115,10 +115,10 @@ class LicitacaoService:
                 QtdLicitada
             FROM Licitacoes
             WHERE
-                CodItem LIKE ?
-                OR NomeMaterial LIKE ?
-                OR Fornecedor LIKE ?
-                OR Ata LIKE ?
+                UPPER(CodItem) LIKE UPPER(?)
+                OR UPPER(NomeMaterial) LIKE UPPER(?)
+                OR UPPER(Fornecedor) LIKE UPPER(?)
+                OR UPPER(Ata) LIKE UPPER(?)
             ORDER BY NomeMaterial
         """, (
             f"%{texto}%",
