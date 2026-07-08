@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS Movimentacoes (
             'EXTRAVIADO',
             'PAGO'
         )
-    )
+    ),
 
     Quantidade INTEGER NOT NULL,
 
