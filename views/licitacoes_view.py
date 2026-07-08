@@ -32,6 +32,14 @@ class LicitacoesView(tk.Toplevel):
 
         btn_pesquisar.pack(side="left")
 
+        btn_importar = tk.Button(
+            frm_filtro,
+            text="Importar Excel",
+            command=self.importar_excel
+        )
+        
+        btn_importar.pack(side="left", padx=10)
+
         colunas = (
             "Codigo",
             "Descricao",
@@ -57,4 +65,25 @@ class LicitacoesView(tk.Toplevel):
             expand=True,
             padx=10,
             pady=10
+        )
+
+    def importar_excel(self):
+
+        arquivo = filedialog.askopenfilename(
+            title="Selecionar planilha",
+            filetypes=[
+                ("Excel", "*.xlsx")
+            ]
+        )
+    
+        if not arquivo:
+            return
+    
+        quantidade = ImportacaoExcelService.importar_licitacoes(
+            arquivo
+        )
+    
+        messagebox.showinfo(
+            "Importação",
+            f"{quantidade} registros importados."
         )
