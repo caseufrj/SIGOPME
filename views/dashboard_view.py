@@ -164,4 +164,3 @@ class DashboardView(tk.Toplevel):
                 tk.END,
                 texto
             )
-``
