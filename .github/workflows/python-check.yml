@@ -10,9 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Mostrar estrutura
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Listar arquivos
         run: |
           pwd
           ls -R
+
+      - name: Verificar sintaxe
+        run: |
+          python -m compileall .
