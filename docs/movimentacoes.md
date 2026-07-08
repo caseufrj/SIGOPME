@@ -22,6 +22,16 @@ Efeitos:
 - Reduz Saldo Pedido
 - Não altera Saldo Financeiro
 
+Licitação: PE123
+Item: 456789
+Quantidade: 10
+
+Resultado:
+
+Consignação +10
+Saldo Pedido -10
+
+
 ---
 
 ## ENTRADA_VENDA
@@ -53,6 +63,15 @@ Efeitos:
 
 - Aumenta Utilizado
 - Aumenta Em Pagamento
+
+Licitação: PE123
+Item: 456789
+Quantidade: 2
+
+Resultado:
+
+Em Consignação -2
+Em Pagamento +2
 
 ---
 
@@ -86,3 +105,13 @@ Efeitos:
 - Aumenta Pago
 - Reduz Em Pagamento
 - Reduz Saldo Financeiro
+
+Licitação: PE123
+Item: 456789
+Quantidade: 2
+
+Resultado:
+
+Em Pagamento -2
+Pago +2
+Saldo Financeiro - valor
