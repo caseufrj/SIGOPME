@@ -25,9 +25,6 @@ class LicitacoesView(tk.Toplevel):
 
         tk.Label(frm_filtro, text="Pesquisar").pack(side="left")
 
-        self.txt_pesquisa = tk.Entry(frm_filtro, width=50)
-        self.txt_pesquisa.pack(side="left", padx=10)
-
         btn_pesquisar = tk.Button(
             frm_filtro,
             text="Pesquisar",
@@ -35,6 +32,20 @@ class LicitacoesView(tk.Toplevel):
         )
 
         btn_pesquisar.pack(side="left")
+        self.txt_pesquisa = tk.Entry(
+            frm_filtro,
+            width=50
+        )
+        
+        self.txt_pesquisa.pack(
+            side="left",
+            padx=10
+        )
+        
+        self.txt_pesquisa.bind(
+            "<Return>",
+            lambda event: self.pesquisar()
+        )
 
         btn_importar = tk.Button(
             frm_filtro,
@@ -70,6 +81,14 @@ class LicitacoesView(tk.Toplevel):
             padx=10,
             pady=10
         )
+        self.lbl_total = tk.Label(
+            self,
+            text="0 registros"
+        )
+        
+        self.lbl_total.pack(
+            pady=5
+        )
 
     def importar_excel(self):
 
@@ -86,6 +105,7 @@ class LicitacoesView(tk.Toplevel):
         quantidade = ImportacaoExcelService.importar_licitacoes(
             arquivo
         )
+        self.carregar_dados()
     
         messagebox.showinfo(
             "Importação",
@@ -94,10 +114,25 @@ class LicitacoesView(tk.Toplevel):
 
     def carregar_dados(self):
 
+        registros = LicitacaoService.listar_todos()
+    
+        self.preencher_grid(registros)
+        
+    def pesquisar(self):
+
+        texto = self.txt_pesquisa.get().strip()
+    
+        if texto == "":
+            registros = LicitacaoService.listar_todos()
+        else:
+            registros = LicitacaoService.pesquisar(texto)
+    
+        self.preencher_grid(registros)
+
+    def preencher_grid(self, registros):
+
         for item in self.grid.get_children():
             self.grid.delete(item)
-    
-        registros = LicitacaoService.listar_todos()
     
         for registro in registros:
     
@@ -106,3 +141,8 @@ class LicitacoesView(tk.Toplevel):
                 "end",
                 values=registro
             )
+    
+        self.lbl_total.config(
+            text=f"{len(registros)} registros encontrados"
+        )
+
