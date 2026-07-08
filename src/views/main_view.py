@@ -24,87 +24,66 @@ class MainView(tk.Tk):
 
     def criar_layout(self):
 
-        self.menu_lateral = tk.Frame(
-            self,
-            width=200,
-            bg="#EAEAEA"
-        )
-
-        self.menu_lateral.pack(
-            side="left",
-            fill="y"
-        )
-
-        self.menu_lateral.pack_propagate(False)
-
         titulo = tk.Label(
-            self.menu_lateral,
+            self,
             text="SIGOPME",
-            bg="#EAEAEA",
-            font=("Arial", 14, "bold")
+            font=("Arial", 20, "bold")
         )
 
-        titulo.pack(
-            pady=20
+        titulo.pack(pady=10)
+
+        barra_menu = tk.Frame(self)
+
+        barra_menu.pack(
+            fill="x",
+            padx=10
         )
 
-        btn_dashboard = tk.Button(
-            self.menu_lateral,
+        tk.Button(
+            barra_menu,
             text="Dashboard",
             command=self.mostrar_dashboard
+        ).pack(
+            side="left",
+            padx=5
         )
 
-        btn_dashboard.pack(
-            fill="x",
-            padx=10,
-            pady=5
-        )
-
-        btn_licitacoes = tk.Button(
-            self.menu_lateral,
+        tk.Button(
+            barra_menu,
             text="Licitações",
             command=self.mostrar_licitacoes
+        ).pack(
+            side="left",
+            padx=5
         )
 
-        btn_licitacoes.pack(
-            fill="x",
-            padx=10,
-            pady=5
-        )
-
-        btn_movimentacoes = tk.Button(
-            self.menu_lateral,
+        tk.Button(
+            barra_menu,
             text="Movimentações",
             command=self.mostrar_movimentacoes
+        ).pack(
+            side="left",
+            padx=5
         )
 
-        btn_movimentacoes.pack(
-            fill="x",
-            padx=10,
-            pady=5
-        )
-
-        btn_relatorios = tk.Button(
-            self.menu_lateral,
+        tk.Button(
+            barra_menu,
             text="Relatórios",
             command=self.mostrar_relatorios
-        )
-
-        btn_relatorios.pack(
-            fill="x",
-            padx=10,
-            pady=5
+        ).pack(
+            side="left",
+            padx=5
         )
 
         self.area_conteudo = tk.Frame(
-            self,
-            bg="white"
+            self
         )
 
         self.area_conteudo.pack(
-            side="right",
             fill="both",
-            expand=True
+            expand=True,
+            padx=10,
+            pady=10
         )
 
         self.status_bar = tk.Label(
@@ -127,11 +106,9 @@ class MainView(tk.Tk):
 
         self.limpar_area()
 
-        frame = DashboardFrame(
+        DashboardFrame(
             self.area_conteudo
-        )
-
-        frame.pack(
+        ).pack(
             fill="both",
             expand=True
         )
@@ -140,11 +117,9 @@ class MainView(tk.Tk):
 
         self.limpar_area()
 
-        frame = LicitacoesFrame(
+        LicitacoesFrame(
             self.area_conteudo
-        )
-
-        frame.pack(
+        ).pack(
             fill="both",
             expand=True
         )
@@ -153,11 +128,9 @@ class MainView(tk.Tk):
 
         self.limpar_area()
 
-        frame = MovimentacoesFrame(
+        MovimentacoesFrame(
             self.area_conteudo
-        )
-
-        frame.pack(
+        ).pack(
             fill="both",
             expand=True
         )
@@ -166,11 +139,9 @@ class MainView(tk.Tk):
 
         self.limpar_area()
 
-        frame = RelatoriosFrame(
+        RelatoriosFrame(
             self.area_conteudo
-        )
-
-        frame.pack(
+        ).pack(
             fill="both",
             expand=True
         )
