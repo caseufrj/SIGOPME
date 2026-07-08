@@ -219,3 +219,21 @@ ON Movimentacoes (CodItem);
 
 CREATE INDEX IF NOT EXISTS IDX_MOVIMENTACOES_LICITACAO
 ON Movimentacoes (NumeroLicitacao);
+
+-- =========================
+-- AUDITORIA
+-- =========================
+
+CREATE TABLE Auditoria (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    Usuario TEXT NOT NULL,
+
+    Acao TEXT NOT NULL,
+
+    Tabela TEXT NOT NULL,
+
+    RegistroId INTEGER,
+
+    DataHora DATETIME DEFAULT CURRENT_TIMESTAMP
+);
