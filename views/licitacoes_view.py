@@ -16,6 +16,7 @@ class LicitacoesView(tk.Toplevel):
         self.geometry("1200x700")
 
         self.criar_componentes()
+        self.carregar_dados()
 
     def criar_componentes(self):
 
@@ -29,7 +30,8 @@ class LicitacoesView(tk.Toplevel):
 
         btn_pesquisar = tk.Button(
             frm_filtro,
-            text="Pesquisar"
+            text="Pesquisar",
+            command=self.pesquisar
         )
 
         btn_pesquisar.pack(side="left")
