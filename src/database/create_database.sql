@@ -94,17 +94,7 @@ CREATE TABLE IF NOT EXISTS Movimentacoes (
 
     CodItem TEXT NOT NULL,
 
-    TipoMovimento TEXT NOT NULL CHECK (
-        TipoMovimento IN (
-            'ENTRADA_CONSIGNACAO',
-            'ENTRADA_VENDA',
-            'RETIRADO',
-            'UTILIZADO',
-            'DEVOLVIDO',
-            'EXTRAVIADO',
-            'PAGO'
-        )
-    ),
+    TipoMovimento TEXT NOT NULL CHECK,
 
     Quantidade INTEGER NOT NULL,
 
