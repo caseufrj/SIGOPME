@@ -20,9 +20,14 @@ CREATE TABLE IF NOT EXISTS Usuarios (
 
 CREATE TABLE IF NOT EXISTS Configuracoes (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
+
     NomeHospital TEXT,
+
     CaminhoBackup TEXT,
-    UltimoBackup DATETIME
+
+    UltimoBackup DATETIME,
+
+    VersaoSistema TEXT
 );
 
 -- =========================
