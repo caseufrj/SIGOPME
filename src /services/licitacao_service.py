@@ -98,3 +98,37 @@ class LicitacaoService:
         conn.close()
 
         return resultado
+
+    @staticmethod
+    def pesquisar(texto):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+                CodItem,
+                NomeMaterial,
+                Fornecedor,
+                Ata,
+                QtdLicitada
+            FROM Licitacoes
+            WHERE
+                CodItem LIKE ?
+                OR NomeMaterial LIKE ?
+                OR Fornecedor LIKE ?
+                OR Ata LIKE ?
+            ORDER BY NomeMaterial
+        """, (
+            f"%{texto}%",
+            f"%{texto}%",
+            f"%{texto}%",
+            f"%{texto}%"
+        ))
+    
+        resultado = cursor.fetchall()
+    
+        conn.close()
+    
+        return resultado
