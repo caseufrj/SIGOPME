@@ -27,30 +27,26 @@ class DatabaseService:
 
         for arquivo in arquivos:
 
-            print(f"Carregando: {arquivo}")
-
-            if not arquivo.exists():
-                raise FileNotFoundError(
-                    f"Arquivo não encontrado: {arquivo}"
-                )
-
-            with open(
-                arquivo,
-                "r",
-                encoding="utf-8"
-            ) as f:
-            
-                sql = f.read()
-            
+            print(f"\nCarregando: {arquivo}")
+        
             try:
+        
+                with open(
+                    arquivo,
+                    "r",
+                    encoding="utf-8"
+                ) as f:
+        
+                    sql = f.read()
+        
                 conn.executescript(sql)
-            
+        
             except Exception as e:
-                print("\n====================")
-                print("ARQUIVO COM ERRO:")
+        
+                print(f"\nERRO NO ARQUIVO:")
                 print(arquivo)
-                print("====================")
                 print(e)
+        
                 raise
 
         conn.commit()
