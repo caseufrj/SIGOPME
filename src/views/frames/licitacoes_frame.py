@@ -13,24 +13,3 @@ class LicitacoesFrame(tk.Frame):
         )
 
         titulo.pack(pady=20)
-
-        btn_novo = tk.Button(
-            self,
-            text="Novo"
-        )
-
-        btn_novo.pack(pady=5)
-
-        btn_editar = tk.Button(
-            self,
-            text="Editar"
-        )
-
-        btn_editar.pack(pady=5)
-
-        btn_excluir = tk.Button(
-            self,
-            text="Excluir"
-        )
-
-        btn_excluir.pack(pady=5)
