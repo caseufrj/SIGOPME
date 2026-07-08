@@ -16,26 +16,33 @@ class DatabaseService:
 
     @classmethod
     def initialize_database(cls):
-    
+
         conn = cls.get_connection()
-    
+
         arquivos = [
-            "database/create_database.sql",
-            "database/views.sql",
-            "database/seed_data.sql"
+            cls.BASE_DIR / "database" / "create_database.sql",
+            cls.BASE_DIR / "database" / "views.sql",
+            cls.BASE_DIR / "database" / "seed_data.sql"
         ]
-    
+
         for arquivo in arquivos:
-    
+
+            print(f"Carregando: {arquivo}")
+
+            if not arquivo.exists():
+                raise FileNotFoundError(
+                    f"Arquivo não encontrado: {arquivo}"
+                )
+
             with open(
                 arquivo,
                 "r",
                 encoding="utf-8"
             ) as f:
-    
+
                 conn.executescript(f.read())
-    
+
         conn.commit()
         conn.close()
-    
+
         print("Banco inicializado com sucesso.")
