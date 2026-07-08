@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from database.database_service import DatabaseService
+from views.licitacoes_view import LicitacoesView
 
 
 class MainView(tk.Tk):
@@ -33,7 +34,8 @@ class MainView(tk.Tk):
         )
 
         cadastro_menu.add_command(
-            label="Licitações"
+            label="Licitações",
+            command=self.abrir_licitacoes
         )
 
         cadastro_menu.add_command(
@@ -50,3 +52,7 @@ class MainView(tk.Tk):
         )
 
         self.config(menu=menu_bar)
+
+
+    def abrir_licitacoes(self):
+        LicitacoesView(self)
