@@ -18,3 +18,29 @@ VALUES ('EXTRAVIADO');
 
 INSERT INTO TiposMovimentacao (Nome)
 VALUES ('PAGO');
+
+INSERT OR IGNORE INTO Usuarios (
+    Id,
+    Nome,
+    Login,
+    SenhaHash,
+    Perfil
+)
+VALUES (
+    1,
+    'Administrador',
+    'admin',
+    'admin',
+    'ADMIN'
+);
+
+INSERT OR IGNORE INTO Configuracoes (
+    Id,
+    NomeHospital,
+    VersaoSistema
+)
+VALUES (
+    1,
+    'HU-CAS/UFRJ',
+    '0.1'
+);
