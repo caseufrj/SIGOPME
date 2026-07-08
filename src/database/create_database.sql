@@ -64,6 +64,8 @@ CREATE TABLE IF NOT EXISTS Licitacoes (
 
     Especialidade TEXT,
 
+    Ativo INTEGER DEFAULT 1,
+
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -92,9 +94,23 @@ CREATE TABLE IF NOT EXISTS Movimentacoes (
 
     CodItem TEXT NOT NULL,
 
-    TipoMovimento TEXT NOT NULL,
+    TipoMovimento TEXT NOT NULL CHECK (
+        TipoMovimento IN (
+            'ENTRADA_CONSIGNACAO',
+            'ENTRADA_VENDA',
+            'RETIRADO',
+            'UTILIZADO',
+            'DEVOLVIDO',
+            'EXTRAVIADO',
+            'PAGO'
+        )
+    )
 
     Quantidade INTEGER NOT NULL,
+
+    ValorUnitario REAL,
+
+    DocumentoOrigem TEXT,
 
     Observacao TEXT,
 
@@ -124,6 +140,8 @@ CREATE TABLE IF NOT EXISTS NotasFiscais (
     TipoNota TEXT NOT NULL,
 
     ValorTotal REAL,
+
+    Status TEXT DEFAULT 'ABERTA',
 
     Observacao TEXT,
 
@@ -195,7 +213,16 @@ CREATE TABLE IF NOT EXISTS SolicitacaoItens (
 
     Quantidade INTEGER NOT NULL,
 
-    Status TEXT NOT NULL,
+    Status TEXT NOT NULL CHECK (
+        Status IN (
+            'SOLICITADO',
+            'RETIRADO',
+            'UTILIZADO',
+            'DEVOLVIDO',
+            'EXTRAVIADO',
+            'PAGO'
+        )
+    ),
 
     FOREIGN KEY (SolicitacaoId)
     REFERENCES Solicitacoes(Id)
@@ -224,7 +251,7 @@ ON Movimentacoes (NumeroLicitacao);
 -- AUDITORIA
 -- =========================
 
-CREATE TABLE Auditoria (
+CREATE TABLE IF NOT EXISTS Auditoria (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
     Usuario TEXT NOT NULL,
