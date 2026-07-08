@@ -85,8 +85,28 @@ CREATE TABLE IF NOT EXISTS TiposMovimentacao (
 -- =========================
 
 CREATE TABLE IF NOT EXISTS Movimentacoes (
+
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Quantidade INTEGER
+
+    DataMovimento DATETIME NOT NULL,
+
+    NumeroLicitacao TEXT NOT NULL,
+
+    CodItem TEXT NOT NULL,
+
+    TipoMovimento TEXT NOT NULL,
+
+    Quantidade INTEGER NOT NULL,
+
+    ValorUnitario REAL,
+
+    DocumentoOrigem TEXT,
+
+    Observacao TEXT,
+
+    Usuario TEXT,
+
+    DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- =========================
