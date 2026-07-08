@@ -1,8 +1,11 @@
 import tkinter as tk
 
 from database.database_service import DatabaseService
-from views.licitacoes_view import LicitacoesView
-from views.dashboard_view import DashboardView
+
+from views.frames.dashboard_frame import DashboardFrame
+from views.frames.licitacoes_frame import LicitacoesFrame
+from views.frames.movimentacoes_frame import MovimentacoesFrame
+from views.frames.relatorios_frame import RelatoriosFrame
 
 
 class MainView(tk.Tk):
@@ -15,53 +18,159 @@ class MainView(tk.Tk):
         self.title("SIGOPME")
         self.geometry("1200x700")
 
-        self.create_menu()
+        self.criar_layout()
+
+        self.mostrar_dashboard()
+
+    def criar_layout(self):
+
+        self.menu_lateral = tk.Frame(
+            self,
+            width=200,
+            bg="#EAEAEA"
+        )
+
+        self.menu_lateral.pack(
+            side="left",
+            fill="y"
+        )
+
+        self.menu_lateral.pack_propagate(False)
 
         titulo = tk.Label(
-            self,
+            self.menu_lateral,
             text="SIGOPME",
-            font=("Arial", 24, "bold")
+            bg="#EAEAEA",
+            font=("Arial", 14, "bold")
         )
 
-        titulo.pack(pady=20)
-
-    def create_menu(self):
-
-        menu_bar = tk.Menu(self)
-
-        cadastro_menu = tk.Menu(
-            menu_bar,
-            tearoff=0
+        titulo.pack(
+            pady=20
         )
 
-        cadastro_menu.add_command(
-            label="Licitações",
-            command=self.abrir_licitacoes
+        btn_dashboard = tk.Button(
+            self.menu_lateral,
+            text="Dashboard",
+            command=self.mostrar_dashboard
         )
 
-        cadastro_menu.add_command(
-            label="Notas Fiscais"
+        btn_dashboard.pack(
+            fill="x",
+            padx=10,
+            pady=5
         )
 
-        cadastro_menu.add_command(
-            label="Solicitações"
+        btn_licitacoes = tk.Button(
+            self.menu_lateral,
+            text="Licitações",
+            command=self.mostrar_licitacoes
         )
 
-        menu_bar.add_cascade(
-            label="Cadastros",
-            menu=cadastro_menu
+        btn_licitacoes.pack(
+            fill="x",
+            padx=10,
+            pady=5
         )
 
-        self.config(menu=menu_bar)
-
-        menu_bar.add_command(
-            label="Dashboard",
-            command=self.abrir_dashboard
+        btn_movimentacoes = tk.Button(
+            self.menu_lateral,
+            text="Movimentações",
+            command=self.mostrar_movimentacoes
         )
 
+        btn_movimentacoes.pack(
+            fill="x",
+            padx=10,
+            pady=5
+        )
 
-    def abrir_licitacoes(self):
-        LicitacoesView(self)
+        btn_relatorios = tk.Button(
+            self.menu_lateral,
+            text="Relatórios",
+            command=self.mostrar_relatorios
+        )
 
-    def abrir_dashboard(self):
-        DashboardView(self)
+        btn_relatorios.pack(
+            fill="x",
+            padx=10,
+            pady=5
+        )
+
+        self.area_conteudo = tk.Frame(
+            self,
+            bg="white"
+        )
+
+        self.area_conteudo.pack(
+            side="right",
+            fill="both",
+            expand=True
+        )
+
+        self.status_bar = tk.Label(
+            self,
+            text="SIGOPME v0.1",
+            anchor="w"
+        )
+
+        self.status_bar.pack(
+            side="bottom",
+            fill="x"
+        )
+
+    def limpar_area(self):
+
+        for widget in self.area_conteudo.winfo_children():
+            widget.destroy()
+
+    def mostrar_dashboard(self):
+
+        self.limpar_area()
+
+        frame = DashboardFrame(
+            self.area_conteudo
+        )
+
+        frame.pack(
+            fill="both",
+            expand=True
+        )
+
+    def mostrar_licitacoes(self):
+
+        self.limpar_area()
+
+        frame = LicitacoesFrame(
+            self.area_conteudo
+        )
+
+        frame.pack(
+            fill="both",
+            expand=True
+        )
+
+    def mostrar_movimentacoes(self):
+
+        self.limpar_area()
+
+        frame = MovimentacoesFrame(
+            self.area_conteudo
+        )
+
+        frame.pack(
+            fill="both",
+            expand=True
+        )
+
+    def mostrar_relatorios(self):
+
+        self.limpar_area()
+
+        frame = RelatoriosFrame(
+            self.area_conteudo
+        )
+
+        frame.pack(
+            fill="both",
+            expand=True
+        )
