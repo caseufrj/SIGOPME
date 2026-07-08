@@ -1,13 +1,14 @@
-import sqlite3
 from pathlib import Path
+import sqlite3
 
 
 class DatabaseService:
 
-    DB_PATH = Path("database/banco.db")
+    DB_PATH = Path("banco.db")
 
     @classmethod
     def get_connection(cls):
+
         return sqlite3.connect(cls.DB_PATH)
 
     @classmethod
