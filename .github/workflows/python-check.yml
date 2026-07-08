@@ -1,28 +1,35 @@
-name: Python Check
+name: Build SIGOPME
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
+
+  build:
+
+    runs-on: windows-latest
 
     steps:
+
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Listar arquivos
+      - name: Instalar dependências
         run: |
-          pwd
-          ls -R
+          pip install pyinstaller
+          pip install openpyxl
 
-      - name: Verificar sintaxe
+      - name: Gerar EXE
         run: |
-          python -m compileall .
+          pyinstaller --onefile --console --name SIGOPME src/main.py
+
+      - name: Publicar artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: SIGOPME-EXE
+          path: dist/SIGOPME.exe
