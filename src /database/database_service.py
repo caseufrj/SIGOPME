@@ -29,4 +29,3 @@ class DatabaseService:
         conn.close()
 
         print("Banco inicializado.")
-`
