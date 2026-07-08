@@ -223,4 +223,3 @@ class DashboardService:
         conn.close()
 
         return registros
-`
