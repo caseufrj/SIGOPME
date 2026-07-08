@@ -11,21 +11,27 @@ class DatabaseService:
         return sqlite3.connect(cls.DB_PATH)
 
     @classmethod
-    def initialize_database(cls):
+def initialize_database(cls):
 
-        conn = cls.get_connection()
+    conn = cls.get_connection()
+
+    arquivos = [
+        "database/create_database.sql",
+        "database/views.sql",
+        "database/seed_data.sql"
+    ]
+
+    for arquivo in arquivos:
 
         with open(
-            "database/create_database.sql",
+            arquivo,
             "r",
             encoding="utf-8"
-        ) as file:
+        ) as f:
 
-            script = file.read()
+            conn.executescript(f.read())
 
-        conn.executescript(script)
+    conn.commit()
+    conn.close()
 
-        conn.commit()
-        conn.close()
-
-        print("Banco inicializado.")
+    print("Banco inicializado com sucesso.")
