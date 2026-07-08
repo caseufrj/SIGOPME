@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS Movimentacoes (
 
     CodItem TEXT NOT NULL,
 
-    TipoMovimento TEXT NOT NULL CHECK,
+    TipoMovimento TEXT NOT NULL,
 
     Quantidade INTEGER NOT NULL,
 
