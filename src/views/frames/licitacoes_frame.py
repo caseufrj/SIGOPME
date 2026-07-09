@@ -75,13 +75,26 @@ class LicitacoesFrame(tk.Frame):
 
         colunas = (
             "id",
+        
             "licitacao",
             "ata",
-            "codigo",
-            "descricao",
             "fornecedor",
-            "quantidade",
-            "valor"
+            "tipo",
+        
+            "codigo_item",
+            "material",
+        
+            "qtd_licitada",
+            "valor",
+        
+            "saldo_pedido",
+            "saldo_financeiro",
+        
+            "consignacao",
+            "retirado",
+            "utilizado",
+            "em_pagamento",
+            "pago"
         )
 
         self.grid = ttk.Treeview(
