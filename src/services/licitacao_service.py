@@ -12,13 +12,30 @@ class LicitacaoService:
 
         cursor.execute("""
             SELECT
+                Id,
+                NumeroLicitacao,
+                Ata,
+                Fornecedor,
+                TipoLicitacao,
                 CodItem,
                 NomeMaterial,
-                Fornecedor,
-                Ata,
-                QtdLicitada
+                QtdLicitada,
+                ValorUnd,
+            
+                QtdLicitada AS SaldoPedido,
+            
+                (QtdLicitada * ValorUnd) AS SaldoFinanceiro,
+            
+                0 AS Consignacao,
+                0 AS Retirado,
+                0 AS Utilizado,
+                0 AS EmPagamento,
+                0 AS Pago
+            
             FROM Licitacoes
-            ORDER BY NomeMaterial
+            WHERE Ativo = 1
+            ORDER BY NumeroLicitacao
+
         """)
 
         resultado = cursor.fetchall()
@@ -135,11 +152,12 @@ class LicitacaoService:
 
     @staticmethod
     def inserir(
-        numero_licitacao,
+        licitacao,
         ata,
-        codigo,
-        descricao,
         fornecedor,
+        tipo_licitacao,
+        codigo_item,
+        nome_material,
         quantidade,
         valor
     ):
