@@ -51,7 +51,8 @@ class LicitacoesFrame(tk.Frame):
 
         tk.Button(
             barra_acoes,
-            text="Excluir"
+            text="Excluir",
+            command=self.excluir
         ).pack(
             side="left",
             padx=5
@@ -138,10 +139,108 @@ class LicitacoesFrame(tk.Frame):
             "valor",
             text="Valor Unit."
         )
+        self.grid.heading(
+            "tipo",
+            text="Tipo Licitação"
+        )
+        
+        self.grid.heading(
+            "saldo_pedido",
+            text="Saldo Pedido"
+        )
+        
+        self.grid.heading(
+            "saldo_financeiro",
+            text="Saldo Financeiro"
+        )
+        
+        self.grid.heading(
+            "consignacao",
+            text="Consignação"
+        )
+        
+        self.grid.heading(
+            "retirado",
+            text="Retirado"
+        )
+        
+        self.grid.heading(
+            "utilizado",
+            text="Utilizado"
+        )
+        
+        self.grid.heading(
+            "em_pagamento",
+            text="Em Pagamento"
+        )
+        
+        self.grid.heading(
+            "pago",
+            text="Pago"
+        )
 
         self.grid.column(
             "material",
             width=350
+        )
+        self.grid.heading(
+            "saldo_pedido",
+            text="Saldo Pedido"
+        )
+        
+        self.grid.heading(
+            "saldo_financeiro",
+            text="Saldo Financeiro"
+        )
+        
+        self.grid.heading(
+            "consignacao",
+            text="Consignação"
+        )
+        
+        self.grid.heading(
+            "retirado",
+            text="Retirado"
+        )
+        
+        self.grid.heading(
+            "utilizado",
+            text="Utilizado"
+        )
+        
+        self.grid.heading(
+            "em_pagamento",
+            text="Em Pagamento"
+        )
+        
+        self.grid.heading(
+            "pago",
+            text="Pago"
+        )
+
+        self.grid.column(
+            "fornecedor",
+            width=220
+        )
+        
+        self.grid.column(
+            "tipo",
+            width=120
+        )
+        
+        self.grid.column(
+            "codigo_item",
+            width=100
+        )
+        
+        self.grid.column(
+            "material",
+            width=280
+        )
+        
+        self.grid.column(
+            "saldo_financeiro",
+            width=130
         )
 
         self.grid.pack(
@@ -171,12 +270,12 @@ class LicitacoesFrame(tk.Frame):
         )
 
     def novo(self):
-    
+
         janela = tk.Toplevel(self)
     
         janela.title("Nova Licitação")
     
-        janela.geometry("500x400")
+        janela.geometry("600x500")
     
         tk.Label(
             janela,
@@ -196,22 +295,6 @@ class LicitacoesFrame(tk.Frame):
     
         tk.Label(
             janela,
-            text="Código Item"
-        ).pack()
-    
-        txt_codigo = tk.Entry(janela)
-        txt_codigo.pack(fill="x", padx=10)
-    
-        tk.Label(
-            janela,
-            text="Nome Material"
-        ).pack()
-    
-        txt_descricao = tk.Entry(janela)
-        txt_descricao.pack(fill="x", padx=10)
-    
-        tk.Label(
-            janela,
             text="Fornecedor"
         ).pack()
     
@@ -220,7 +303,31 @@ class LicitacoesFrame(tk.Frame):
     
         tk.Label(
             janela,
-            text="Quantidade"
+            text="Tipo Licitação"
+        ).pack()
+    
+        txt_tipo = tk.Entry(janela)
+        txt_tipo.pack(fill="x", padx=10)
+    
+        tk.Label(
+            janela,
+            text="Código Item"
+        ).pack()
+    
+        txt_codigo_item = tk.Entry(janela)
+        txt_codigo_item.pack(fill="x", padx=10)
+    
+        tk.Label(
+            janela,
+            text="Nome Material"
+        ).pack()
+    
+        txt_material = tk.Entry(janela)
+        txt_material.pack(fill="x", padx=10)
+    
+        tk.Label(
+            janela,
+            text="Quantidade Licitada"
         ).pack()
     
         txt_qtd_licitada = tk.Entry(janela)
@@ -235,26 +342,26 @@ class LicitacoesFrame(tk.Frame):
         txt_valor.pack(fill="x", padx=10)
     
         def salvar():
-
+    
             try:
-        
+    
                 qtd_licitada = int(
                     txt_qtd_licitada.get()
                 )
-        
+    
                 valor = float(
                     txt_valor.get().replace(",", ".")
                 )
-        
+    
             except ValueError:
-        
+    
                 messagebox.showerror(
                     "Erro",
                     "Quantidade e Valor devem ser numéricos."
                 )
-        
+    
                 return
-        
+    
             LicitacaoService.inserir(
                 txt_licitacao.get(),
                 txt_ata.get(),
@@ -264,15 +371,6 @@ class LicitacoesFrame(tk.Frame):
                 txt_material.get(),
                 qtd_licitada,
                 valor
-            )
-        
-            self.carregar_dados()
-        
-            janela.destroy()
-        
-            messagebox.showinfo(
-                "SIGOPME",
-                "Licitação cadastrada."
             )
     
             self.carregar_dados()
@@ -291,7 +389,6 @@ class LicitacoesFrame(tk.Frame):
         ).pack(
             pady=10
         )
-    
     
     def carregar_dados(self):
     
