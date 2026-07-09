@@ -42,7 +42,8 @@ class LicitacoesFrame(tk.Frame):
         )
         tk.Button(
             barra_acoes,
-            text="Editar"
+            text="Editar",
+            command=self.editar
         ).pack(
             side="left",
             padx=5
