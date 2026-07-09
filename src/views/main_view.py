@@ -7,6 +7,7 @@ from views.frames.licitacoes_frame import LicitacoesFrame
 from views.frames.movimentacoes_frame import MovimentacoesFrame
 from views.frames.relatorios_frame import RelatoriosFrame
 from views.frames.cadastros_frame import CadastrosFrame
+from views.frames.entradas_frame import EntradasFrame
 
 
 class MainView(tk.Tk):
@@ -70,7 +71,7 @@ class MainView(tk.Tk):
         tk.Button(
             barra_menu,
             text="Entradas",
-            command=self.mostrar_movimentacoes
+            command=self.mostrar_entradas
         ).pack(
             side="left",
             padx=5
@@ -165,6 +166,17 @@ class MainView(tk.Tk):
         )
     
         frame.pack(
+            fill="both",
+            expand=True
+        )
+
+    def mostrar_entradas(self):
+
+        self.limpar_area()
+    
+        EntradasFrame(
+            self.area_conteudo
+        ).pack(
             fill="both",
             expand=True
         )
