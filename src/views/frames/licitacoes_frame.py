@@ -410,40 +410,143 @@ class LicitacoesFrame(tk.Frame):
         )
 
     def editar(self):
-    
+
         selecionado = self.grid.selection()
-        
+    
         if not selecionado:
-        
+    
             messagebox.showwarning(
                 "SIGOPME",
                 "Selecione um registro para editar."
             )
-        
+    
             return
-        
+    
         item = self.grid.item(
             selecionado[0]
         )
-        
+    
         id_registro = item["values"][0]
-        
+    
         dados = LicitacaoService.obter_por_id(
             id_registro
         )
-        
+    
         if not dados:
-        
+    
             messagebox.showerror(
                 "SIGOPME",
                 "Registro não encontrado."
             )
-        
+    
             return
-        
-        messagebox.showinfo(
-            "SIGOPME",
-            f"Editar registro ID {id_registro}"
+    
+        (
+            _id,
+            licitacao,
+            ata,
+            fornecedor,
+            tipo,
+            codigo_item,
+            nome_material,
+            qtd_licitada,
+            valor
+        ) = dados
+    
+        janela = tk.Toplevel(self)
+    
+        janela.title("Editar Licitação")
+    
+        janela.geometry("600x500")
+    
+        tk.Label(janela, text="Licitação").pack()
+        txt_licitacao = tk.Entry(janela)
+        txt_licitacao.pack(fill="x", padx=10)
+        txt_licitacao.insert(0, licitacao)
+    
+        tk.Label(janela, text="Ata").pack()
+        txt_ata = tk.Entry(janela)
+        txt_ata.pack(fill="x", padx=10)
+        txt_ata.insert(0, ata)
+    
+        tk.Label(janela, text="Fornecedor").pack()
+        txt_fornecedor = tk.Entry(janela)
+        txt_fornecedor.pack(fill="x", padx=10)
+        txt_fornecedor.insert(0, fornecedor)
+    
+        tk.Label(janela, text="Tipo Licitação").pack()
+        txt_tipo = tk.Entry(janela)
+        txt_tipo.pack(fill="x", padx=10)
+        txt_tipo.insert(0, tipo)
+    
+        tk.Label(janela, text="Código Item").pack()
+        txt_codigo_item = tk.Entry(janela)
+        txt_codigo_item.pack(fill="x", padx=10)
+        txt_codigo_item.insert(0, codigo_item)
+    
+        tk.Label(janela, text="Nome Material").pack()
+        txt_material = tk.Entry(janela)
+        txt_material.pack(fill="x", padx=10)
+        txt_material.insert(0, nome_material)
+    
+        tk.Label(janela, text="Qtd Licitada").pack()
+        txt_qtd = tk.Entry(janela)
+        txt_qtd.pack(fill="x", padx=10)
+        txt_qtd.insert(0, qtd_licitada)
+    
+        tk.Label(janela, text="Valor Unitário").pack()
+        txt_valor = tk.Entry(janela)
+        txt_valor.pack(fill="x", padx=10)
+        txt_valor.insert(0, valor)
+    
+        def salvar_edicao():
+    
+            try:
+    
+                quantidade = int(
+                    txt_qtd.get()
+                )
+    
+                valor_unitario = float(
+                    txt_valor.get().replace(",", ".")
+                )
+    
+            except ValueError:
+    
+                messagebox.showerror(
+                    "Erro",
+                    "Quantidade e Valor inválidos."
+                )
+    
+                return
+    
+            LicitacaoService.atualizar(
+                id_registro,
+                txt_licitacao.get(),
+                txt_ata.get(),
+                txt_fornecedor.get(),
+                txt_tipo.get(),
+                txt_codigo_item.get(),
+                txt_material.get(),
+                quantidade,
+                valor_unitario
+            )
+    
+            self.carregar_dados()
+    
+            janela.destroy()
+    
+            messagebox.showinfo(
+                "SIGOPME",
+                "Registro atualizado com sucesso."
+            )
+    
+        tk.Button(
+            janela,
+            text="Salvar Alterações",
+            command=salvar_edicao
+        ).pack(
+            pady=10
         )
         
     def excluir(self):
