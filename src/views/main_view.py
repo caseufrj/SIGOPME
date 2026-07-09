@@ -6,6 +6,7 @@ from views.frames.dashboard_frame import DashboardFrame
 from views.frames.licitacoes_frame import LicitacoesFrame
 from views.frames.movimentacoes_frame import MovimentacoesFrame
 from views.frames.relatorios_frame import RelatoriosFrame
+from views.frames.cadastros_frame import CadastrosFrame
 
 
 class MainView(tk.Tk):
@@ -52,6 +53,15 @@ class MainView(tk.Tk):
             barra_menu,
             text="Licitações",
             command=self.mostrar_licitacoes
+        ).pack(
+            side="left",
+            padx=5
+        )
+
+        tk.Button(
+            barra_menu,
+            text="Cadastros",
+            command=self.mostrar_cadastros
         ).pack(
             side="left",
             padx=5
@@ -142,6 +152,19 @@ class MainView(tk.Tk):
         RelatoriosFrame(
             self.area_conteudo
         ).pack(
+            fill="both",
+            expand=True
+        )
+
+    def mostrar_cadastros(self):
+
+        self.limpar_area()
+    
+        frame = CadastrosFrame(
+            self.area_conteudo
+        )
+    
+        frame.pack(
             fill="both",
             expand=True
         )
