@@ -307,30 +307,4 @@ class LicitacaoService:
         conn.commit()
         conn.close()
 
-    def editar(self):
-
-        selecionado = self.grid.selection()
-    
-        if not selecionado:
-    
-            messagebox.showwarning(
-                "SIGOPME",
-                "Selecione um registro."
-            )
-    
-            return
-    
-        item = self.grid.item(
-            selecionado[0]
-        )
-    
-        id_registro = item["values"][0]
-    
-        dados = LicitacaoService.obter_por_id(
-            id_registro
-        )
-    
-        messagebox.showinfo(
-            "SIGOPME",
-            f"Editar registro {id_registro}"
-        )
+ 
