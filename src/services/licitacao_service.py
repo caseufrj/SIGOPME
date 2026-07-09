@@ -1,5 +1,5 @@
 from database.database_service import DatabaseService
-
+from services.fornecedor_service import FornecedorService
 
 class LicitacaoService:
 
