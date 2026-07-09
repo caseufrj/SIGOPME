@@ -132,3 +132,70 @@ class LicitacaoService:
         conn.close()
     
         return resultado
+
+    @staticmethod
+    def inserir(
+        numero_licitacao,
+        ata,
+        codigo,
+        descricao,
+        fornecedor,
+        quantidade,
+        valor
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            INSERT INTO Licitacoes (
+                NumeroLicitacao,
+                Ata,
+                CodItem,
+                NomeMaterial,
+                Fornecedor,
+                QtdLicitada,
+                ValorUnd
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (
+            numero_licitacao,
+            ata,
+            codigo,
+            descricao,
+            fornecedor,
+            quantidade,
+            valor
+        ))
+    
+        conn.commit()
+        conn.close()
+
+    @staticmethod
+    def listar_todos():
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+                Id,
+                NumeroLicitacao,
+                Ata,
+                CodItem,
+                NomeMaterial,
+                Fornecedor,
+                QtdLicitada,
+                ValorUnd
+            FROM Licitacoes
+            WHERE Ativo = 1
+            ORDER BY NomeMaterial
+        """)
+    
+        dados = cursor.fetchall()
+    
+        conn.close()
+    
+        return dados
