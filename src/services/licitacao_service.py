@@ -250,6 +250,10 @@ class LicitacaoService:
         valor
     ):
     
+        FornecedorService.obter_ou_criar(
+            fornecedor
+        )
+    
         conn = DatabaseService.get_connection()
     
         cursor = conn.cursor()
