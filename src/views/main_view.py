@@ -49,7 +49,7 @@ class MainView(tk.Tk):
             padx=5
         )
 
-         tk.Button(
+        tk.Button(
             barra_menu,
             text="Cadastros",
             command=self.mostrar_cadastros
