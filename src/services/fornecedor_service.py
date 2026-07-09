@@ -137,3 +137,36 @@ class FornecedorService:
     
         conn.commit()
         conn.close()
+
+    @staticmethod
+    def pesquisar(texto):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+                Id,
+                Nome,
+                Cnpj,
+                Telefone,
+                Contato,
+                Email
+            FROM Fornecedores
+            WHERE
+                UPPER(Nome) LIKE UPPER(?)
+                OR UPPER(Cnpj) LIKE UPPER(?)
+                OR UPPER(Contato) LIKE UPPER(?)
+            ORDER BY Nome
+        """, (
+            f"%{texto}%",
+            f"%{texto}%",
+            f"%{texto}%"
+        ))
+    
+        dados = cursor.fetchall()
+    
+        conn.close()
+    
+        return dados
