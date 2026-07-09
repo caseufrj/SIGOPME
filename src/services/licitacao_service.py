@@ -149,16 +149,15 @@ class LicitacaoService:
     
         return resultado
 
-    @staticmethod
-    def inserir(
-        licitacao,
-        ata,
-        fornecedor,
-        tipo_licitacao,
-        codigo_item,
-        nome_material,
-        quantidade,
-        valor
+    INSERT INTO Licitacoes (
+        NumeroLicitacao,
+        Ata,
+        Fornecedor,
+        TipoLicitacao,
+        CodItem,
+        NomeMaterial,
+        QtdLicitada,
+        ValorUnd
     ):
     
         conn = DatabaseService.get_connection()
