@@ -218,3 +218,91 @@ class LicitacaoService:
         conn.close()
     
         return dados
+
+    @staticmethod
+    def obter_por_id(id_registro):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+                Id,
+                NumeroLicitacao,
+                Ata,
+                Fornecedor,
+                TipoLicitacao,
+                CodItem,
+                NomeMaterial,
+                QtdLicitada,
+                ValorUnd
+            FROM Licitacoes
+            WHERE Id = ?
+        """, (id_registro,))
+    
+        resultado = cursor.fetchone()
+    
+        conn.close()
+    
+        return resultado
+
+    @staticmethod
+    def atualizar(
+        id_registro,
+        licitacao,
+        ata,
+        fornecedor,
+        tipo_licitacao,
+        codigo_item,
+        nome_material,
+        quantidade,
+        valor
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE Licitacoes
+            SET
+                NumeroLicitacao = ?,
+                Ata = ?,
+                Fornecedor = ?,
+                TipoLicitacao = ?,
+                CodItem = ?,
+                NomeMaterial = ?,
+                QtdLicitada = ?,
+                ValorUnd = ?
+            WHERE Id = ?
+        """, (
+            licitacao,
+            ata,
+            fornecedor,
+            tipo_licitacao,
+            codigo_item,
+            nome_material,
+            quantidade,
+            valor,
+            id_registro
+        ))
+    
+        conn.commit()
+        conn.close()
+
+    @staticmethod
+    def excluir(id_registro):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE Licitacoes
+            SET Ativo = 0
+            WHERE Id = ?
+        """, (id_registro,))
+    
+        conn.commit()
+        conn.close()
