@@ -269,6 +269,38 @@ CREATE TABLE IF NOT EXISTS Pacientes (
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- =========================
+-- ENTRADAS
+-- =========================
+
+CREATE TABLE IF NOT EXISTS Entradas (
+
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    NumeroNF TEXT,
+
+    SerieNF TEXT,
+
+    DataEmissao TEXT,
+
+    DataEntrada TEXT NOT NULL,
+
+    TipoEntrada TEXT NOT NULL,
+
+    Fornecedor TEXT NOT NULL,
+
+    CodItem TEXT NOT NULL,
+
+    NomeMaterial TEXT NOT NULL,
+
+    Quantidade INTEGER NOT NULL,
+
+    Observacao TEXT,
+
+    Usuario TEXT,
+
+    DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
 -- =========================
 -- ÍNDICES
