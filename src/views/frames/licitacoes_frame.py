@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import messagebox
 
 from services.licitacao_service import LicitacaoService
+from views.components.grid_helper import criar_treeview
+
 
 class LicitacoesFrame(tk.Frame):
 
@@ -99,55 +101,16 @@ class LicitacoesFrame(tk.Frame):
             "pago"
         )
 
-        frame_grid = tk.Frame(self)
-
+        frame_grid, self.grid = criar_treeview(
+            self,
+            colunas
+        )
+        
         frame_grid.pack(
             fill="both",
             expand=True,
             padx=10,
             pady=10
-        )
-
-        scroll_y = ttk.Scrollbar(
-            frame_grid,
-            orient="vertical"
-        )
-
-        scroll_x = ttk.Scrollbar(
-            frame_grid,
-            orient="horizontal"
-        )
-
-        self.grid = ttk.Treeview(
-            frame_grid,
-            columns=colunas,
-            show="headings",
-            yscrollcommand=scroll_y.set,
-            xscrollcommand=scroll_x.set
-        )
-
-        scroll_y.config(
-            command=self.grid.yview
-        )
-
-        scroll_x.config(
-            command=self.grid.xview
-        )
-
-        scroll_y.pack(
-            side="right",
-            fill="y"
-        )
-
-        scroll_x.pack(
-            side="bottom",
-            fill="x"
-        )
-
-        self.grid.pack(
-            side="left",
-            fill="both",
-            expand=True
         )
 
         self.grid.heading("id", text="Id")
