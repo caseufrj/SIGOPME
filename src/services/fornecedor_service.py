@@ -170,3 +170,39 @@ class FornecedorService:
         conn.close()
     
         return dados
+
+    @staticmethod
+    def obter_ou_criar(nome):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT Id
+            FROM Fornecedores
+            WHERE UPPER(Nome) = UPPER(?)
+        """, (nome,))
+    
+        fornecedor = cursor.fetchone()
+    
+        if fornecedor:
+    
+            conn.close()
+    
+            return fornecedor[0]
+    
+        cursor.execute("""
+            INSERT INTO Fornecedores (
+                Nome
+            )
+            VALUES (?)
+        """, (nome,))
+    
+        conn.commit()
+    
+        novo_id = cursor.lastrowid
+    
+        conn.close()
+    
+        return novo_id
