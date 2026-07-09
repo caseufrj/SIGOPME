@@ -357,3 +357,25 @@ class EntradasFrame(tk.Frame):
         ).pack(
             pady=10
         )
+
+    def buscar_item(event=None):
+
+        codigo = txt_codigo.get().strip()
+    
+        if not codigo:
+            return
+    
+        dados = LicitacaoService.obter_por_codigo(
+            codigo
+        )
+    
+        if not dados:
+            return
+    
+        fornecedor, material = dados
+    
+        txt_fornecedor.delete(0, tk.END)
+        txt_fornecedor.insert(0, fornecedor)
+    
+        txt_material.delete(0, tk.END)
+        txt_material.insert(0, material)
