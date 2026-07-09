@@ -280,7 +280,8 @@ CREATE TABLE IF NOT EXISTS Fornecedores (
     Telefone TEXT,
     Email TEXT,
     Contato TEXT,
-    Ativo INTEGER DEFAULT 1
+    Ativo INTEGER DEFAULT 1,
+    DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- =========================
@@ -291,5 +292,7 @@ CREATE TABLE IF NOT EXISTS Pacientes (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Registro TEXT NOT NULL UNIQUE,
     Nome TEXT NOT NULL,
-    Ativo INTEGER DEFAULT 1
+    DataNascimento TEXT,
+    Ativo INTEGER DEFAULT 1,
+    DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
