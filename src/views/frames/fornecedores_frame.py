@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 
 from services.fornecedor_service import FornecedorService
-
+from views.components.grid_helper import criar_treeview
 
 class FornecedoresFrame(tk.Frame):
 
@@ -60,12 +60,17 @@ class FornecedoresFrame(tk.Frame):
             "email"
         )
 
-        self.grid = ttk.Treeview(
+        frame_grid, self.grid = criar_treeview(
             self,
-            columns=colunas,
-            show="headings"
+            colunas
         )
-
+        
+        frame_grid.pack(
+            fill="both",
+            expand=True,
+            padx=10,
+            pady=10
+        )
         self.grid.heading(
             "nome",
             text="Nome"
