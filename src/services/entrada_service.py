@@ -44,7 +44,9 @@ class EntradaService:
         quantidade,
         observacao
     ):
-
+        FornecedorService.obter_ou_criar(
+            txt_fornecedor.get()
+        )
         conn = DatabaseService.get_connection()
 
         cursor = conn.cursor()
