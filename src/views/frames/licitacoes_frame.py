@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 
+from services.licitacao_service import LicitacaoService
 
 class LicitacoesFrame(tk.Frame):
 
@@ -8,6 +10,7 @@ class LicitacoesFrame(tk.Frame):
         super().__init__(parent)
 
         self.criar_componentes()
+        self.carregar_dados()
 
     def criar_componentes(self):
 
@@ -31,12 +34,12 @@ class LicitacoesFrame(tk.Frame):
 
         tk.Button(
             barra_acoes,
-            text="Novo"
+            text="Novo",
+            command=self.novo
         ).pack(
             side="left",
             padx=5
         )
-
         tk.Button(
             barra_acoes,
             text="Editar"
@@ -71,6 +74,7 @@ class LicitacoesFrame(tk.Frame):
         )
 
         colunas = (
+            "id",
             "licitacao",
             "ata",
             "codigo",
@@ -140,4 +144,129 @@ class LicitacoesFrame(tk.Frame):
 
         self.lbl_total.pack(
             pady=5
+        )
+        self.grid.heading(
+            "id",
+            text="Id"
+        )
+        
+        self.grid.column(
+            "id",
+            width=0,
+            stretch=False
+        )
+
+    def novo(self):
+    
+        janela = tk.Toplevel(self)
+    
+        janela.title("Nova Licitação")
+    
+        janela.geometry("500x400")
+    
+        tk.Label(
+            janela,
+            text="Número Licitação"
+        ).pack()
+    
+        txt_licitacao = tk.Entry(janela)
+        txt_licitacao.pack(fill="x", padx=10)
+    
+        tk.Label(
+            janela,
+            text="Ata"
+        ).pack()
+    
+        txt_ata = tk.Entry(janela)
+        txt_ata.pack(fill="x", padx=10)
+    
+        tk.Label(
+            janela,
+            text="Código"
+        ).pack()
+    
+        txt_codigo = tk.Entry(janela)
+        txt_codigo.pack(fill="x", padx=10)
+    
+        tk.Label(
+            janela,
+            text="Descrição"
+        ).pack()
+    
+        txt_descricao = tk.Entry(janela)
+        txt_descricao.pack(fill="x", padx=10)
+    
+        tk.Label(
+            janela,
+            text="Fornecedor"
+        ).pack()
+    
+        txt_fornecedor = tk.Entry(janela)
+        txt_fornecedor.pack(fill="x", padx=10)
+    
+        tk.Label(
+            janela,
+            text="Quantidade"
+        ).pack()
+    
+        txt_quantidade = tk.Entry(janela)
+        txt_quantidade.pack(fill="x", padx=10)
+    
+        tk.Label(
+            janela,
+            text="Valor Unitário"
+        ).pack()
+    
+        txt_valor = tk.Entry(janela)
+        txt_valor.pack(fill="x", padx=10)
+    
+        def salvar():
+    
+            LicitacaoService.inserir(
+                txt_licitacao.get(),
+                txt_ata.get(),
+                txt_codigo.get(),
+                txt_descricao.get(),
+                txt_fornecedor.get(),
+                int(txt_quantidade.get()),
+                float(
+                    txt_valor.get().replace(",", ".")
+                )
+            )
+    
+            self.carregar_dados()
+    
+            janela.destroy()
+    
+            messagebox.showinfo(
+                "SIGOPME",
+                "Licitação cadastrada."
+            )
+    
+        tk.Button(
+            janela,
+            text="Salvar",
+            command=salvar
+        ).pack(
+            pady=10
+        )
+    
+    
+    def carregar_dados(self):
+    
+        for item in self.grid.get_children():
+            self.grid.delete(item)
+    
+        registros = LicitacaoService.listar_todos()
+    
+        for registro in registros:
+    
+            self.grid.insert(
+                "",
+                "end",
+                values=registro
+            )
+    
+        self.lbl_total.config(
+            text=f"{len(registros)} registros"
         )
