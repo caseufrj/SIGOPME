@@ -115,13 +115,13 @@ class LicitacoesFrame(tk.Frame):
         )
 
         self.grid.heading(
-            "codigo",
-            text="Código"
+            "codigo_item",
+            text="Código Item"
         )
 
         self.grid.heading(
-            "descricao",
-            text="Descrição"
+            "material",
+            text="Nome Material"
         )
 
         self.grid.heading(
@@ -140,7 +140,7 @@ class LicitacoesFrame(tk.Frame):
         )
 
         self.grid.column(
-            "descricao",
+            "material",
             width=350
         )
 
@@ -196,7 +196,7 @@ class LicitacoesFrame(tk.Frame):
     
         tk.Label(
             janela,
-            text="Código"
+            text="Código Item"
         ).pack()
     
         txt_codigo = tk.Entry(janela)
@@ -204,7 +204,7 @@ class LicitacoesFrame(tk.Frame):
     
         tk.Label(
             janela,
-            text="Descrição"
+            text="Nome Material"
         ).pack()
     
         txt_descricao = tk.Entry(janela)
@@ -260,7 +260,7 @@ class LicitacoesFrame(tk.Frame):
                 txt_ata.get(),
                 txt_fornecedor.get(),
                 txt_tipo.get(),
-                txt_codigo.get(),
+                txt_codigo_item.get(),
                 txt_material.get(),
                 quantidade,
                 valor
