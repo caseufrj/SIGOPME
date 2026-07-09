@@ -1,4 +1,5 @@
 import tkinter as tk
+from views.components.grid_helper import criar_treeview
 
 
 class MovimentacoesFrame(tk.Frame):
