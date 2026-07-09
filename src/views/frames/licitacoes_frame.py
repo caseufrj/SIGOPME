@@ -257,9 +257,10 @@ class LicitacoesFrame(tk.Frame):
             LicitacaoService.inserir(
                 txt_licitacao.get(),
                 txt_ata.get(),
-                txt_codigo.get(),
-                txt_descricao.get(),
                 txt_fornecedor.get(),
+                txt_tipo.get(),
+                txt_codigo.get(),
+                txt_material.get(),
                 quantidade,
                 valor
             )
