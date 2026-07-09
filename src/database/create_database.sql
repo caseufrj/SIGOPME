@@ -279,8 +279,8 @@ CREATE TABLE IF NOT EXISTS Fornecedores (
     Cnpj TEXT,
     Telefone TEXT,
     Email TEXT,
-    Ativo INTEGER DEFAULT 1,
-    DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
+    Contato TEXT,
+    Ativo INTEGER DEFAULT 1
 );
 
 -- =========================
