@@ -1,8 +1,8 @@
 from database.database_service import DatabaseService
+from services.fornecedor_service import FornecedorService
 
 
 class EntradaService:
-
     @staticmethod
     def listar_todos():
 
@@ -45,7 +45,7 @@ class EntradaService:
         observacao
     ):
         FornecedorService.obter_ou_criar(
-            txt_fornecedor.get()
+            fornecedor
         )
         conn = DatabaseService.get_connection()
 
