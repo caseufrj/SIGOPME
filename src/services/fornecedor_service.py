@@ -77,3 +77,63 @@ class FornecedorService:
 
         conn.commit()
         conn.close()
+
+    @staticmethod
+    def obter_por_id(id_registro):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+                Id,
+                Nome,
+                Cnpj,
+                Telefone,
+                Contato,
+                Email
+            FROM Fornecedores
+            WHERE Id = ?
+        """, (id_registro,))
+    
+        resultado = cursor.fetchone()
+    
+        conn.close()
+    
+        return resultado
+
+    @staticmethod
+    def atualizar(
+        id_registro,
+        nome,
+        cnpj,
+        telefone,
+        contato,
+        email
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE Fornecedores
+            SET
+                Nome = ?,
+                Cnpj = ?,
+                Telefone = ?,
+                Contato = ?,
+                Email = ?
+            WHERE Id = ?
+        """, (
+            nome,
+            cnpj,
+            telefone,
+            contato,
+            email,
+            id_registro
+        ))
+    
+        conn.commit()
+        conn.close()
