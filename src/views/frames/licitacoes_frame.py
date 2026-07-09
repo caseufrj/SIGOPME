@@ -77,21 +77,21 @@ class LicitacoesFrame(tk.Frame):
 
         colunas = (
             "id",
-        
+
             "licitacao",
             "ata",
             "fornecedor",
             "tipo",
-        
+
             "codigo_item",
             "material",
-        
+
             "qtd_licitada",
             "valor",
-        
+
             "saldo_pedido",
             "saldo_financeiro",
-        
+
             "consignacao",
             "retirado",
             "utilizado",
@@ -99,155 +99,153 @@ class LicitacoesFrame(tk.Frame):
             "pago"
         )
 
+        frame_grid = tk.Frame(self)
+
+        frame_grid.pack(
+            fill="both",
+            expand=True,
+            padx=10,
+            pady=10
+        )
+
+        scroll_y = ttk.Scrollbar(
+            frame_grid,
+            orient="vertical"
+        )
+
+        scroll_x = ttk.Scrollbar(
+            frame_grid,
+            orient="horizontal"
+        )
+
         self.grid = ttk.Treeview(
-            self,
+            frame_grid,
             columns=colunas,
-            show="headings"
+            show="headings",
+            yscrollcommand=scroll_y.set,
+            xscrollcommand=scroll_x.set
         )
 
-        self.grid.heading(
+        scroll_y.config(
+            command=self.grid.yview
+        )
+
+        scroll_x.config(
+            command=self.grid.xview
+        )
+
+        scroll_y.pack(
+            side="right",
+            fill="y"
+        )
+
+        scroll_x.pack(
+            side="bottom",
+            fill="x"
+        )
+
+        self.grid.pack(
+            side="left",
+            fill="both",
+            expand=True
+        )
+
+        self.grid.heading("id", text="Id")
+        self.grid.heading("licitacao", text="Licitação")
+        self.grid.heading("ata", text="Ata")
+        self.grid.heading("fornecedor", text="Fornecedor")
+        self.grid.heading("tipo", text="Tipo Licitação")
+        self.grid.heading("codigo_item", text="Código Item")
+        self.grid.heading("material", text="Nome Material")
+        self.grid.heading("qtd_licitada", text="Qtd Licitada")
+        self.grid.heading("valor", text="Valor Unit.")
+        self.grid.heading("saldo_pedido", text="Saldo Pedido")
+        self.grid.heading("saldo_financeiro", text="Saldo Financeiro")
+        self.grid.heading("consignacao", text="Consignação")
+        self.grid.heading("retirado", text="Retirado")
+        self.grid.heading("utilizado", text="Utilizado")
+        self.grid.heading("em_pagamento", text="Em Pagamento")
+        self.grid.heading("pago", text="Pago")
+
+        self.grid.column(
+            "id",
+            width=0,
+            stretch=False
+        )
+
+        self.grid.column(
             "licitacao",
-            text="Licitação"
+            width=120
         )
 
-        self.grid.heading(
+        self.grid.column(
             "ata",
-            text="Ata"
+            width=100
         )
 
-        self.grid.heading(
-            "codigo_item",
-            text="Código Item"
-        )
-
-        self.grid.heading(
-            "material",
-            text="Nome Material"
-        )
-
-        self.grid.heading(
+        self.grid.column(
             "fornecedor",
-            text="Fornecedor"
+            width=250
         )
 
-        self.grid.heading(
-            "qtd_licitada",
-            text="Quantidade Licitada"
-        )
-
-        self.grid.heading(
-            "valor",
-            text="Valor Unit."
-        )
-        self.grid.heading(
+        self.grid.column(
             "tipo",
-            text="Tipo Licitação"
+            width=130
         )
-        
-        self.grid.heading(
-            "saldo_pedido",
-            text="Saldo Pedido"
-        )
-        
-        self.grid.heading(
-            "saldo_financeiro",
-            text="Saldo Financeiro"
-        )
-        
-        self.grid.heading(
-            "consignacao",
-            text="Consignação"
-        )
-        
-        self.grid.heading(
-            "retirado",
-            text="Retirado"
-        )
-        
-        self.grid.heading(
-            "utilizado",
-            text="Utilizado"
-        )
-        
-        self.grid.heading(
-            "em_pagamento",
-            text="Em Pagamento"
-        )
-        
-        self.grid.heading(
-            "pago",
-            text="Pago"
+
+        self.grid.column(
+            "codigo_item",
+            width=100
         )
 
         self.grid.column(
             "material",
             width=350
         )
-        self.grid.heading(
-            "saldo_pedido",
-            text="Saldo Pedido"
-        )
-        
-        self.grid.heading(
-            "saldo_financeiro",
-            text="Saldo Financeiro"
-        )
-        
-        self.grid.heading(
-            "consignacao",
-            text="Consignação"
-        )
-        
-        self.grid.heading(
-            "retirado",
-            text="Retirado"
-        )
-        
-        self.grid.heading(
-            "utilizado",
-            text="Utilizado"
-        )
-        
-        self.grid.heading(
-            "em_pagamento",
-            text="Em Pagamento"
-        )
-        
-        self.grid.heading(
-            "pago",
-            text="Pago"
+
+        self.grid.column(
+            "qtd_licitada",
+            width=110
         )
 
         self.grid.column(
-            "fornecedor",
-            width=220
-        )
-        
-        self.grid.column(
-            "tipo",
-            width=120
-        )
-        
-        self.grid.column(
-            "codigo_item",
+            "valor",
             width=100
         )
-        
+
         self.grid.column(
-            "material",
-            width=280
-        )
-        
-        self.grid.column(
-            "saldo_financeiro",
-            width=130
+            "saldo_pedido",
+            width=120
         )
 
-        self.grid.pack(
-            fill="both",
-            expand=True,
-            padx=10,
-            pady=10
+        self.grid.column(
+            "saldo_financeiro",
+            width=140
+        )
+
+        self.grid.column(
+            "consignacao",
+            width=100
+        )
+
+        self.grid.column(
+            "retirado",
+            width=100
+        )
+
+        self.grid.column(
+            "utilizado",
+            width=100
+        )
+
+        self.grid.column(
+            "em_pagamento",
+            width=120
+        )
+
+        self.grid.column(
+            "pago",
+            width=100
         )
 
         self.lbl_total = tk.Label(
@@ -257,16 +255,6 @@ class LicitacoesFrame(tk.Frame):
 
         self.lbl_total.pack(
             pady=5
-        )
-        self.grid.heading(
-            "id",
-            text="Id"
-        )
-        
-        self.grid.column(
-            "id",
-            width=0,
-            stretch=False
         )
 
     def novo(self):
