@@ -34,6 +34,11 @@ class FornecedoresFrame(tk.Frame):
             pady=5
         )
 
+        frame_pesquisa, self.txt_pesquisa = criar_barra_pesquisa(
+            barra,
+            self.pesquisar
+        )
+
         tk.Button(
             barra,
             text="Novo",
@@ -273,3 +278,22 @@ class FornecedoresFrame(tk.Frame):
         )
 
         self.carregar_dados()
+
+    def pesquisar(self, event=None):
+
+        texto = self.txt_pesquisa.get()
+    
+        for item in self.grid.get_children():
+            self.grid.delete(item)
+    
+        dados = FornecedorService.pesquisar(
+            texto
+        )
+    
+        for fornecedor in dados:
+    
+            self.grid.insert(
+                "",
+                "end",
+                values=fornecedor
+            )
