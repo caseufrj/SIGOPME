@@ -49,6 +49,15 @@ class MainView(tk.Tk):
             padx=5
         )
 
+         tk.Button(
+            barra_menu,
+            text="Cadastros",
+            command=self.mostrar_cadastros
+        ).pack(
+            side="left",
+            padx=5
+        )
+
         tk.Button(
             barra_menu,
             text="Licitações",
@@ -60,16 +69,7 @@ class MainView(tk.Tk):
 
         tk.Button(
             barra_menu,
-            text="Cadastros",
-            command=self.mostrar_cadastros
-        ).pack(
-            side="left",
-            padx=5
-        )
-
-        tk.Button(
-            barra_menu,
-            text="Movimentações",
+            text="Entradas",
             command=self.mostrar_movimentacoes
         ).pack(
             side="left",
