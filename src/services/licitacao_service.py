@@ -149,75 +149,7 @@ class LicitacaoService:
     
         return resultado
 
-    INSERT INTO Licitacoes (
-        NumeroLicitacao,
-        Ata,
-        Fornecedor,
-        TipoLicitacao,
-        CodItem,
-        NomeMaterial,
-        QtdLicitada,
-        ValorUnd
-    ):
     
-        conn = DatabaseService.get_connection()
-    
-        cursor = conn.cursor()
-    
-        cursor.execute("""
-            INSERT INTO Licitacoes (
-                NumeroLicitacao,
-                Ata,
-                Fornecedor,
-                TipoLicitacao,
-                CodItem,
-                NomeMaterial,
-                QtdLicitada,
-                ValorUnd
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        """, (
-            licitacao,
-            ata,
-            fornecedor,
-            tipo_licitacao,
-            codigo_item,
-            nome_material,
-            quantidade,
-            valor
-        ))
-    
-        conn.commit()
-        conn.close()
-
-    @staticmethod
-    def listar_todos():
-    
-        conn = DatabaseService.get_connection()
-    
-        cursor = conn.cursor()
-    
-        cursor.execute("""
-            SELECT
-                Id,
-                NumeroLicitacao,
-                Ata,
-                CodItem,
-                NomeMaterial,
-                Fornecedor,
-                QtdLicitada,
-                ValorUnd
-            FROM Licitacoes
-            WHERE Ativo = 1
-            ORDER BY NomeMaterial
-        """)
-    
-        dados = cursor.fetchall()
-    
-        conn.close()
-    
-        return dados
-
     @staticmethod
     def obter_por_id(id_registro):
     
@@ -302,6 +234,48 @@ class LicitacaoService:
             SET Ativo = 0
             WHERE Id = ?
         """, (id_registro,))
+    
+        conn.commit()
+        conn.close()
+
+    @staticmethod
+    def inserir(
+        licitacao,
+        ata,
+        fornecedor,
+        tipo_licitacao,
+        codigo_item,
+        nome_material,
+        quantidade,
+        valor
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            INSERT INTO Licitacoes (
+                NumeroLicitacao,
+                Ata,
+                Fornecedor,
+                TipoLicitacao,
+                CodItem,
+                NomeMaterial,
+                QtdLicitada,
+                ValorUnd
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            licitacao,
+            ata,
+            fornecedor,
+            tipo_licitacao,
+            codigo_item,
+            nome_material,
+            quantidade,
+            valor
+        ))
     
         conn.commit()
         conn.close()
