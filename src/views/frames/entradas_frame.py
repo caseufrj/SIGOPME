@@ -6,6 +6,7 @@ from services.entrada_service import EntradaService
 
 from views.components.grid_helper import criar_treeview
 from views.components.search_helper import criar_barra_pesquisa
+from services.licitacao_service import LicitacaoService
 
 
 class EntradasFrame(tk.Frame):
@@ -266,6 +267,10 @@ class EntradasFrame(tk.Frame):
         txt_codigo.pack(
             fill="x",
             padx=10
+        )
+        txt_codigo.bind(
+            "<FocusOut>",
+            buscar_item
         )
 
         tk.Label(
