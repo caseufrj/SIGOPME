@@ -221,17 +221,43 @@ class LicitacoesFrame(tk.Frame):
         txt_valor.pack(fill="x", padx=10)
     
         def salvar():
-    
+
+            try:
+        
+                quantidade = int(
+                    txt_quantidade.get()
+                )
+        
+                valor = float(
+                    txt_valor.get().replace(",", ".")
+                )
+        
+            except ValueError:
+        
+                messagebox.showerror(
+                    "Erro",
+                    "Quantidade e Valor devem ser numéricos."
+                )
+        
+                return
+        
             LicitacaoService.inserir(
                 txt_licitacao.get(),
                 txt_ata.get(),
                 txt_codigo.get(),
                 txt_descricao.get(),
                 txt_fornecedor.get(),
-                int(txt_quantidade.get()),
-                float(
-                    txt_valor.get().replace(",", ".")
-                )
+                quantidade,
+                valor
+            )
+        
+            self.carregar_dados()
+        
+            janela.destroy()
+        
+            messagebox.showinfo(
+                "SIGOPME",
+                "Licitação cadastrada."
             )
     
             self.carregar_dados()
