@@ -130,8 +130,8 @@ class LicitacoesFrame(tk.Frame):
         )
 
         self.grid.heading(
-            "quantidade",
-            text="Qtd."
+            "qtd_licitada",
+            text="Quantidade Licitada"
         )
 
         self.grid.heading(
@@ -223,8 +223,8 @@ class LicitacoesFrame(tk.Frame):
             text="Quantidade"
         ).pack()
     
-        txt_quantidade = tk.Entry(janela)
-        txt_quantidade.pack(fill="x", padx=10)
+        txt_qtd_licitada = tk.Entry(janela)
+        txt_qtd_licitada.pack(fill="x", padx=10)
     
         tk.Label(
             janela,
@@ -238,8 +238,8 @@ class LicitacoesFrame(tk.Frame):
 
             try:
         
-                quantidade = int(
-                    txt_quantidade.get()
+                qtd_licitada = int(
+                    txt_qtd_licitada.get()
                 )
         
                 valor = float(
@@ -262,7 +262,7 @@ class LicitacoesFrame(tk.Frame):
                 txt_tipo.get(),
                 txt_codigo_item.get(),
                 txt_material.get(),
-                quantidade,
+                qtd_licitada,
                 valor
             )
         
