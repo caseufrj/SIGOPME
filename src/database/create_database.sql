@@ -242,6 +242,15 @@ ON Movimentacoes (CodItem);
 CREATE INDEX IF NOT EXISTS IDX_MOVIMENTACOES_LICITACAO
 ON Movimentacoes (NumeroLicitacao);
 
+CREATE INDEX IF NOT EXISTS IDX_FORNECEDORES_NOME
+ON Fornecedores (Nome);
+
+CREATE INDEX IF NOT EXISTS IDX_PACIENTES_REGISTRO
+ON Pacientes (Registro);
+
+CREATE INDEX IF NOT EXISTS IDX_PACIENTES_NOME
+ON Pacientes (Nome);
+
 -- =========================
 -- AUDITORIA
 -- =========================
@@ -258,4 +267,28 @@ CREATE TABLE IF NOT EXISTS Auditoria (
     RegistroId INTEGER,
 
     DataHora DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =========================
+-- FORNECEDORES
+-- =========================
+
+CREATE TABLE IF NOT EXISTS Fornecedores (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Nome TEXT NOT NULL,
+    Cnpj TEXT,
+    Telefone TEXT,
+    Email TEXT,
+    Ativo INTEGER DEFAULT 1
+);
+
+-- =========================
+-- PACIENTES
+-- =========================
+
+CREATE TABLE IF NOT EXISTS Pacientes (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Registro TEXT NOT NULL UNIQUE,
+    Nome TEXT NOT NULL,
+    Ativo INTEGER DEFAULT 1
 );
