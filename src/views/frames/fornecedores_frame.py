@@ -4,6 +4,7 @@ from tkinter import messagebox
 
 from services.fornecedor_service import FornecedorService
 from views.components.grid_helper import criar_treeview
+from views.components.search_helper import criar_barra_pesquisa
 
 class FornecedoresFrame(tk.Frame):
 
@@ -49,6 +50,13 @@ class FornecedoresFrame(tk.Frame):
         ).pack(
             side="left",
             padx=5
+        )
+        frame_pesquisa, self.txt_pesquisa = criar_barra_pesquisa(
+            barra
+        )
+        
+        frame_pesquisa.pack(
+            side="right"
         )
 
         colunas = (
