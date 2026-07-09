@@ -288,6 +288,164 @@ class FornecedoresFrame(tk.Frame):
 
         self.carregar_dados()
 
+    def editar(self):
+    
+        selecionado = self.grid.selection()
+    
+        if not selecionado:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Selecione um fornecedor."
+            )
+    
+            return
+    
+        item = self.grid.item(
+            selecionado[0]
+        )
+    
+        id_registro = item["values"][0]
+    
+        dados = FornecedorService.obter_por_id(
+            id_registro
+        )
+    
+        if not dados:
+            return
+    
+        (
+            _id,
+            nome,
+            cnpj,
+            telefone,
+            contato,
+            email
+        ) = dados
+    
+        janela = tk.Toplevel(self)
+    
+        janela.title(
+            "Editar Fornecedor"
+        )
+    
+        janela.geometry(
+            "500x350"
+        )
+    
+        tk.Label(
+            janela,
+            text="Nome"
+        ).pack()
+    
+        txt_nome = tk.Entry(janela)
+    
+        txt_nome.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_nome.insert(
+            0,
+            nome or ""
+        )
+    
+        tk.Label(
+            janela,
+            text="CNPJ"
+        ).pack()
+    
+        txt_cnpj = tk.Entry(janela)
+    
+        txt_cnpj.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_cnpj.insert(
+            0,
+            cnpj or ""
+        )
+    
+        tk.Label(
+            janela,
+            text="Telefone"
+        ).pack()
+    
+        txt_telefone = tk.Entry(janela)
+    
+        txt_telefone.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_telefone.insert(
+            0,
+            telefone or ""
+        )
+    
+        tk.Label(
+            janela,
+            text="Contato"
+        ).pack()
+    
+        txt_contato = tk.Entry(janela)
+    
+        txt_contato.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_contato.insert(
+            0,
+            contato or ""
+        )
+    
+        tk.Label(
+            janela,
+            text="Email"
+        ).pack()
+    
+        txt_email = tk.Entry(janela)
+    
+        txt_email.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_email.insert(
+            0,
+            email or ""
+        )
+    
+        def salvar():
+    
+            FornecedorService.atualizar(
+                id_registro,
+                txt_nome.get(),
+                txt_cnpj.get(),
+                txt_telefone.get(),
+                txt_contato.get(),
+                txt_email.get()
+            )
+    
+            self.carregar_dados()
+    
+            janela.destroy()
+    
+            messagebox.showinfo(
+                "SIGOPME",
+                "Fornecedor atualizado."
+            )
+    
+        tk.Button(
+            janela,
+            text="Salvar Alterações",
+            command=salvar
+        ).pack(
+            pady=10
+        )
+
     def pesquisar(self, event=None):
 
         texto = self.txt_pesquisa.get()
