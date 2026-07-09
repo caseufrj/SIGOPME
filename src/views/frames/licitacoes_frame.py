@@ -311,3 +311,78 @@ class LicitacoesFrame(tk.Frame):
         self.lbl_total.config(
             text=f"{len(registros)} registros"
         )
+
+    def editar(self):
+    
+        selecionado = self.grid.selection()
+        
+        if not selecionado:
+        
+            messagebox.showwarning(
+                "SIGOPME",
+                "Selecione um registro para editar."
+            )
+        
+            return
+        
+        item = self.grid.item(
+            selecionado[0]
+        )
+        
+        id_registro = item["values"][0]
+        
+        dados = LicitacaoService.obter_por_id(
+            id_registro
+        )
+        
+        if not dados:
+        
+            messagebox.showerror(
+                "SIGOPME",
+                "Registro não encontrado."
+            )
+        
+            return
+        
+        messagebox.showinfo(
+            "SIGOPME",
+            f"Editar registro ID {id_registro}"
+        )
+        
+    def excluir(self):
+
+        selecionado = self.grid.selection()
+    
+        if not selecionado:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Selecione um registro para excluir."
+            )
+    
+            return
+    
+        item = self.grid.item(
+            selecionado[0]
+        )
+    
+        id_registro = item["values"][0]
+    
+        confirmar = messagebox.askyesno(
+            "SIGOPME",
+            "Deseja realmente excluir este registro?"
+        )
+    
+        if not confirmar:
+            return
+    
+        LicitacaoService.excluir(
+            id_registro
+        )
+    
+        self.carregar_dados()
+    
+        messagebox.showinfo(
+            "SIGOPME",
+            "Registro excluído com sucesso."
+        )
