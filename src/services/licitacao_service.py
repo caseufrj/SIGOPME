@@ -280,4 +280,25 @@ class LicitacaoService:
         conn.commit()
         conn.close()
 
+    @staticmethod
+    def obter_por_codigo(codigo):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+                Fornecedor,
+                NomeMaterial
+            FROM Licitacoes
+            WHERE CodItem = ?
+            LIMIT 1
+        """, (codigo,))
+    
+        resultado = cursor.fetchone()
+    
+        conn.close()
+    
+        return resultado
  
