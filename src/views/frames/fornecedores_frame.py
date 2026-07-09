@@ -47,7 +47,16 @@ class FornecedoresFrame(tk.Frame):
             side="left",
             padx=5
         )
-
+        
+        tk.Button(
+            barra,
+            text="Editar",
+            command=self.editar
+        ).pack(
+            side="left",
+            padx=5
+        )
+        
         tk.Button(
             barra,
             text="Excluir",
