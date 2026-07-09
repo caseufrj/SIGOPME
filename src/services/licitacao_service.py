@@ -5,11 +5,11 @@ class LicitacaoService:
 
     @staticmethod
     def listar_todos():
-
+    
         conn = DatabaseService.get_connection()
-
+    
         cursor = conn.cursor()
-
+    
         cursor.execute("""
             SELECT
                 Id,
@@ -21,27 +21,26 @@ class LicitacaoService:
                 NomeMaterial,
                 QtdLicitada,
                 ValorUnd,
-            
+    
                 QtdLicitada AS SaldoPedido,
-            
+    
                 (QtdLicitada * ValorUnd) AS SaldoFinanceiro,
-            
+    
                 0 AS Consignacao,
                 0 AS Retirado,
                 0 AS Utilizado,
                 0 AS EmPagamento,
                 0 AS Pago
-            
+    
             FROM Licitacoes
             WHERE Ativo = 1
             ORDER BY NumeroLicitacao
-
         """)
-
+    
         resultado = cursor.fetchall()
-
+    
         conn.close()
-
+    
         return resultado
 
     @staticmethod
@@ -170,19 +169,21 @@ class LicitacaoService:
             INSERT INTO Licitacoes (
                 NumeroLicitacao,
                 Ata,
+                Fornecedor,
+                TipoLicitacao,
                 CodItem,
                 NomeMaterial,
-                Fornecedor,
                 QtdLicitada,
                 ValorUnd
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """, (
-            numero_licitacao,
+            licitacao,
             ata,
-            codigo,
-            descricao,
             fornecedor,
+            tipo_licitacao,
+            codigo_item,
+            nome_material,
             quantidade,
             valor
         ))
