@@ -42,15 +42,22 @@ class EntradaService:
         codigo_item,
         nome_material,
         quantidade,
+        valor_nf,
+        valor_unitario,
+        lote,
+        serie_produto,
+        data_validade,
         observacao
     ):
+    
         FornecedorService.obter_ou_criar(
             fornecedor
         )
+    
         conn = DatabaseService.get_connection()
-
+    
         cursor = conn.cursor()
-
+    
         cursor.execute("""
             INSERT INTO Entradas (
                 NumeroNF,
@@ -62,9 +69,14 @@ class EntradaService:
                 CodItem,
                 NomeMaterial,
                 Quantidade,
+                ValorTotalNF,
+                ValorUnitario,
+                Lote,
+                SerieProduto,
+                DataValidade,
                 Observacao
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             numero_nf,
             serie_nf,
@@ -75,9 +87,14 @@ class EntradaService:
             codigo_item,
             nome_material,
             quantidade,
+            valor_nf,
+            valor_unitario,
+            lote,
+            serie_produto,
+            data_validade,
             observacao
         ))
-
+    
         conn.commit()
         conn.close()
 
