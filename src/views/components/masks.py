@@ -3,38 +3,72 @@ import tkinter as tk
 
 def aplicar_mascara_data(entry):
 
-    def ao_digitar(event):
-
-        valor = "".join(
-            filter(str.isdigit, entry.get())
-        )
-
-        valor = valor[:8]
-
-        texto = ""
-
-        if len(valor) >= 1:
-            texto += valor[:2]
-
-        if len(valor) >= 3:
-            texto = valor[:2] + "/" + valor[2:4]
-
-        if len(valor) >= 5:
-            texto = (
-                valor[:2]
-                + "/"
-                + valor[2:4]
-                + "/"
-                + valor[4:8]
+    from datetime import datetime
+    import tkinter as tk
+    
+    
+    def aplicar_mascara_data(entry):
+    
+        def ao_digitar(event):
+    
+            valor = "".join(
+                filter(str.isdigit, entry.get())
             )
-
-        entry.delete(0, tk.END)
-        entry.insert(0, texto)
-
-    entry.bind(
-        "<KeyRelease>",
-        ao_digitar
-    )
+    
+            valor = valor[:8]
+    
+            if len(valor) <= 2:
+                texto = valor
+    
+            elif len(valor) <= 4:
+                texto = (
+                    valor[:2]
+                    + "/"
+                    + valor[2:]
+                )
+    
+            else:
+                texto = (
+                    valor[:2]
+                    + "/"
+                    + valor[2:4]
+                    + "/"
+                    + valor[4:]
+                )
+    
+            entry.delete(0, tk.END)
+            entry.insert(0, texto)
+    
+        def validar(event):
+    
+            valor = entry.get().strip()
+    
+            if not valor:
+                return
+    
+            try:
+    
+                datetime.strptime(
+                    valor,
+                    "%d/%m/%Y"
+                )
+    
+            except ValueError:
+    
+                entry.delete(
+                    0,
+                    tk.END
+                )
+    
+        entry.bind(
+            "<KeyRelease>",
+            ao_digitar
+        )
+    
+        entry.bind(
+            "<FocusOut>",
+            validar
+        )
 
 
 def aplicar_mascara_moeda(entry):
