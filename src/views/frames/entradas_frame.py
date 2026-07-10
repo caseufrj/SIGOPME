@@ -54,6 +54,24 @@ class EntradasFrame(tk.Frame):
             side="right"
         )
 
+        tk.Button(
+            barra,
+            text="Editar",
+            command=self.editar
+        ).pack(
+            side="left",
+            padx=5
+        )
+        
+        tk.Button(
+            barra,
+            text="Excluir",
+            command=self.excluir
+        ).pack(
+            side="left",
+            padx=5
+        )
+
         colunas = (
             "id",
             "nf",
@@ -171,7 +189,7 @@ class EntradasFrame(tk.Frame):
         )
 
         janela.geometry(
-            "700x550"
+            "800X900"
         )
 
         tk.Label(
@@ -282,10 +300,7 @@ class EntradasFrame(tk.Frame):
             fill="x",
             padx=10
         )
-        txt_codigo.bind(
-            "<FocusOut>",
-            buscar_item
-        )
+        
         tk.Label(
             janela,
             text="Nome Material"
@@ -353,6 +368,7 @@ class EntradasFrame(tk.Frame):
             fill="x",
             padx=10
         )
+
         def buscar_item(event=None):
 
             codigo = txt_codigo.get().strip()
@@ -399,80 +415,85 @@ class EntradasFrame(tk.Frame):
                 str(valor_unitario)
             )
 
-        tk.Label(
-            janela,
-            text="Quantidade"
-        ).pack()
+            tk.Label(
+                janela,
+                text="Quantidade"
+            ).pack()
+    
+            txt_quantidade = tk.Entry(janela)
+    
+            txt_quantidade.pack(
+                fill="x",
+                padx=10
+            )
+    
+            tk.Label(
+                janela,
+                text="Observação"
+            ).pack()
+    
+            txt_observacao = tk.Text(
+                janela,
+                height=4
+            )
+    
+            txt_observacao.pack(
+                fill="x",
+                padx=10
+            )
 
-        txt_quantidade = tk.Entry(janela)
-
-        txt_quantidade.pack(
-            fill="x",
-            padx=10
-        )
-
-        tk.Label(
-            janela,
-            text="Observação"
-        ).pack()
-
-        txt_observacao = tk.Text(
-            janela,
-            height=4
-        )
-
-        txt_observacao.pack(
-            fill="x",
-            padx=10
-        )
-
-        def salvar():
-
-            try:
-
-                quantidade = int(
-                    txt_quantidade.get()
+            txt_codigo.bind(
+                "<FocusOut>",
+                buscar_item
+            )
+    
+            def salvar():
+    
+                try:
+    
+                    quantidade = int(
+                        txt_quantidade.get()
+                    )
+    
+                except ValueError:
+    
+                    messagebox.showerror(
+                        "SIGOPME",
+                        "Quantidade inválida."
+                    )
+    
+                    return
+    
+                EntradaService.inserir(
+                    txt_nf.get(),
+                    txt_serie.get(),
+                    txt_data_emissao.get(),
+                    txt_data_entrada.get(),
+                    cmb_tipo.get(),
+                    txt_fornecedor.get(),
+                    txt_codigo.get(),
+                    txt_material.get(),
+                    quantidade,
+                    txt_observacao.get(
+                        "1.0",
+                        "end"
+                    ).strip()
                 )
-
-            except ValueError:
-
-                messagebox.showerror(
+    
+                self.carregar_dados()
+    
+                janela.destroy()
+    
+                messagebox.showinfo(
                     "SIGOPME",
-                    "Quantidade inválida."
+                    "Entrada cadastrada."
                 )
-
-                return
-
-            EntradaService.inserir(
-                txt_nf.get(),
-                txt_serie.get(),
-                txt_data_emissao.get(),
-                txt_data_entrada.get(),
-                cmb_tipo.get(),
-                txt_fornecedor.get(),
-                txt_codigo.get(),
-                txt_material.get(),
-                quantidade,
-                txt_observacao.get(
-                    "1.0",
-                    "end"
-                ).strip()
+    
+            tk.Button(
+                janela,
+                text="Salvar"
+                ,
+                command=salvar
+            ).pack(
+                pady=10
             )
-
-            self.carregar_dados()
-
-            janela.destroy()
-
-            messagebox.showinfo(
-                "SIGOPME",
-                "Entrada cadastrada."
-            )
-
-        tk.Button(
-            janela,
-            text="Salvar"
-            ,
-            command=salvar
-        ).pack(
-            pady=10
-        )
