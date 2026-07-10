@@ -492,22 +492,36 @@ class EntradasFrame(tk.Frame):
         def salvar():
 
             try:
-
+        
                 quantidade = int(
                     txt_quantidade.get()
                 )
-
+        
+                valor_nf = float(
+                    txt_valor_nf.get()
+                    .replace("R$", "")
+                    .replace(".", "")
+                    .replace(",", ".")
+                    .strip()
+                )
+        
+                valor_unitario = float(
+                    txt_valor_unitario.get()
+                    .replace("R$", "")
+                    .replace(".", "")
+                    .replace(",", ".")
+                    .strip()
+                )
+        
             except ValueError:
-
+        
                 messagebox.showerror(
                     "SIGOPME",
-                    "Quantidade inválida."
+                    "Valores inválidos."
                 )
-
+        
                 return
-
-            valor = txt_valor_nf.get()
-
+        
             EntradaService.inserir(
                 txt_nf.get(),
                 txt_serie.get(),
@@ -518,29 +532,25 @@ class EntradasFrame(tk.Frame):
                 txt_codigo.get(),
                 txt_material.get(),
                 quantidade,
+                valor_nf,
+                valor_unitario,
+                txt_lote.get(),
+                txt_serie_produto.get(),
+                txt_validade.get(),
                 txt_observacao.get(
                     "1.0",
                     "end"
                 ).strip()
             )
-
+        
             self.carregar_dados()
-
+        
             janela.destroy()
-
+        
             messagebox.showinfo(
                 "SIGOPME",
                 "Entrada cadastrada."
             )
-
-        tk.Button(
-            janela,
-            text="Salvar"
-            ,
-            command=salvar
-        ).pack(
-            pady=10
-        )
 
     def editar(self):
 
