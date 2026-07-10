@@ -8,6 +8,7 @@ from views.frames.movimentacoes_frame import MovimentacoesFrame
 from views.frames.relatorios_frame import RelatoriosFrame
 from views.frames.cadastros_frame import CadastrosFrame
 from views.frames.entradas_frame import EntradasFrame
+from views.frames.pacientes_frame import PacientesFrame
 
 
 class MainView(tk.Tk):
