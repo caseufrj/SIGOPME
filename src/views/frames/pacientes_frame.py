@@ -159,11 +159,100 @@ class PacientesFrame(tk.Frame):
 
     def novo(self):
 
-        messagebox.showinfo(
-            "SIGOPME",
-            "Novo paciente."
+        janela = tk.Toplevel(self)
+    
+        janela.title(
+            "Novo Paciente"
         )
     
+        janela.geometry(
+            "500x300"
+        )
+    
+        tk.Label(
+            janela,
+            text="Registro"
+        ).pack()
+    
+        txt_registro = tk.Entry(
+            janela
+        )
+    
+        txt_registro.pack(
+            fill="x",
+            padx=10
+        )
+    
+        tk.Label(
+            janela,
+            text="Nome"
+        ).pack()
+    
+        txt_nome = tk.Entry(
+            janela
+        )
+    
+        txt_nome.pack(
+            fill="x",
+            padx=10
+        )
+    
+        tk.Label(
+            janela,
+            text="Data Nascimento"
+        ).pack()
+    
+        txt_data = tk.Entry(
+            janela
+        )
+    
+        txt_data.pack(
+            fill="x",
+            padx=10
+        )
+    
+        def salvar():
+    
+            if not txt_registro.get().strip():
+    
+                messagebox.showerror(
+                    "SIGOPME",
+                    "Informe o registro."
+                )
+    
+                return
+    
+            if not txt_nome.get().strip():
+    
+                messagebox.showerror(
+                    "SIGOPME",
+                    "Informe o nome."
+                )
+    
+                return
+    
+            PacienteService.inserir(
+                txt_registro.get().strip(),
+                txt_nome.get().strip(),
+                txt_data.get().strip()
+            )
+    
+            self.carregar_dados()
+    
+            janela.destroy()
+    
+            messagebox.showinfo(
+                "SIGOPME",
+                "Paciente cadastrado."
+            )
+    
+        tk.Button(
+            janela,
+            text="Salvar",
+            command=salvar
+        ).pack(
+            pady=10
+        )
     
     def editar(self):
     
