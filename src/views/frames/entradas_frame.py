@@ -189,7 +189,7 @@ class EntradasFrame(tk.Frame):
         )
 
         janela.geometry(
-            "800x900"
+            "700x800"
         )
 
         tk.Label(
