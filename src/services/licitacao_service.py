@@ -294,7 +294,8 @@ class LicitacaoService:
         cursor.execute("""
             SELECT
                 Fornecedor,
-                NomeMaterial
+                NomeMaterial,
+                ValorUnd
             FROM Licitacoes
             WHERE CodItem = ?
             LIMIT 1
