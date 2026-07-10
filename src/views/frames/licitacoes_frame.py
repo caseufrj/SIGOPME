@@ -60,19 +60,19 @@ class LicitacoesFrame(tk.Frame):
             padx=5
         )
 
-        tk.Label(
-            barra_acoes,
-            text="Pesquisar:"
-        ).pack(
-            side="right",
-        )
-
         self.txt_pesquisa = tk.Entry(
             barra_acoes,
             width=40
         )
-
+        
         self.txt_pesquisa.pack(
+            side="right"
+        )
+        
+        tk.Label(
+            barra_acoes,
+            text="Pesquisar:"
+        ).pack(
             side="right"
         )
 
