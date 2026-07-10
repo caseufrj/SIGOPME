@@ -242,7 +242,7 @@ class EntradasFrame(tk.Frame):
         ).pack()
 
         txt_data_entrada = tk.Entry(janela)
-         aplicar_mascara_data(
+        aplicar_mascara_data(
             txt_data_entrada
         )
 
@@ -304,6 +304,9 @@ class EntradasFrame(tk.Frame):
         txt_valor_nf = tk.Entry(
             janela
         )
+        aplicar_mascara_moeda(
+            txt_valor_nf
+        )
         
         txt_valor_nf.pack(
             fill="x",
@@ -341,6 +344,9 @@ class EntradasFrame(tk.Frame):
         
         txt_valor_unitario = tk.Entry(
             janela
+        )
+        aplicar_mascara_moeda(
+            txt_valor_unitario
         )
         
         txt_valor_unitario.pack(
