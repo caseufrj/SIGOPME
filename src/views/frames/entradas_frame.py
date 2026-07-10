@@ -367,7 +367,7 @@ class EntradasFrame(tk.Frame):
             if not dados:
                 return
         
-            fornecedor, material = dados
+            fornecedor, material, valor_unitario = dados
         
             txt_fornecedor.delete(
                 0,
@@ -387,6 +387,16 @@ class EntradasFrame(tk.Frame):
             txt_material.insert(
                 0,
                 material
+            )
+
+            txt_valor_unitario.delete(
+                0,
+                tk.END
+            )
+            
+            txt_valor_unitario.insert(
+                0,
+                str(valor_unitario)
             )
 
         tk.Label(
