@@ -206,3 +206,28 @@ class FornecedorService:
         conn.close()
     
         return novo_id
+
+    @staticmethod
+    def pesquisar_nomes(texto):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT Nome
+            FROM Fornecedores
+            WHERE
+                Ativo = 1
+                AND UPPER(Nome) LIKE UPPER(?)
+            ORDER BY Nome
+        """, (f"{texto}%",))
+    
+        resultado = [
+            linha[0]
+            for linha in cursor.fetchall()
+        ]
+    
+        conn.close()
+    
+        return resultado
