@@ -369,12 +369,7 @@ class EntradasFrame(tk.Frame):
         txt_valor_nf = tk.Entry(
             janela
         )
-        
-        txt_valor_nf.insert(
-            0,
-            "R$ 0,00"
-        )
-        
+               
         aplicar_mascara_moeda(
             txt_valor_nf
         )
@@ -415,11 +410,6 @@ class EntradasFrame(tk.Frame):
         
         txt_valor_unitario = tk.Entry(
             janela
-        )
-        
-        txt_valor_unitario.insert(
-            0,
-            "R$ 0,00"
         )
         
         aplicar_mascara_moeda(
