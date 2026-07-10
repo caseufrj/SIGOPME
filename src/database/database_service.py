@@ -2,6 +2,7 @@ from pathlib import Path
 import sqlite3
 import os
 
+from database.schema import SCHEMA_SQL
 from database.views_def import VIEWS_SQL
 from database.seed import SEED_SQL
 
