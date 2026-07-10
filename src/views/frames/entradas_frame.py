@@ -561,8 +561,39 @@ class EntradasFrame(tk.Frame):
     
     
     def excluir(self):
+
+        selecionado = self.grid.selection()
+    
+        if not selecionado:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Selecione uma entrada."
+            )
+    
+            return
+    
+        confirmar = messagebox.askyesno(
+            "SIGOPME",
+            "Deseja excluir a entrada?"
+        )
+    
+        if not confirmar:
+            return
+    
+        item = self.grid.item(
+            selecionado[0]
+        )
+    
+        id_registro = item["values"][0]
+    
+        EntradaService.excluir(
+            id_registro
+        )
+    
+        self.carregar_dados()
     
         messagebox.showinfo(
             "SIGOPME",
-            "Excluir em desenvolvimento."
+            "Entrada excluída."
         )
