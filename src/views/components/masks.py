@@ -127,26 +127,56 @@ def aplicar_mascara_data(entry):
 
 def aplicar_mascara_moeda(entry):
 
+    def ao_entrar(event):
+
+        if not entry.get():
+
+            entry.insert(
+                0,
+                "R$ 0,00"
+            )
+
     def ao_digitar(event):
 
         valor = "".join(
-            filter(str.isdigit, entry.get())
+            c
+            for c in entry.get()
+            if c.isdigit()
         )
 
         if not valor:
+
             valor = "0"
 
-        numero = int(valor) / 100
+        numero = int(valor)
+
+        numero /= 100
 
         texto = (
-            f"{numero:,.2f}"
+            f"R$ {numero:,.2f}"
             .replace(",", "X")
             .replace(".", ",")
             .replace("X", ".")
         )
 
-        entry.delete(0, tk.END)
-        entry.insert(0, texto)
+        entry.delete(
+            0,
+            tk.END
+        )
+
+        entry.insert(
+            0,
+            texto
+        )
+
+        entry.icursor(
+            tk.END
+        )
+
+    entry.bind(
+        "<FocusIn>",
+        ao_entrar
+    )
 
     entry.bind(
         "<KeyRelease>",
