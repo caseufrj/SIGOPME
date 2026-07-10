@@ -301,7 +301,7 @@ class EntradasFrame(tk.Frame):
             text="Valor Total NF"
         ).pack()
         
-       txt_valor_nf = tk.Entry(
+        txt_valor_nf = tk.Entry(
             janela
         )
         
@@ -550,6 +550,14 @@ class EntradasFrame(tk.Frame):
             messagebox.showinfo(
                 "SIGOPME",
                 "Entrada cadastrada."
+            )
+
+            tk.Button(
+                janela,
+                text="Salvar",
+                command=salvar
+            ).pack(
+                pady=10
             )
 
     def editar(self):
