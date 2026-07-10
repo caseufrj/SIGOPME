@@ -6,6 +6,10 @@ from services.paciente_service import PacienteService
 from views.components.grid_helper import criar_treeview
 from views.components.search_helper import criar_barra_pesquisa
 
+from views.components.masks import (
+    aplicar_mascara_data
+)
+
 class PacientesFrame(tk.Frame):
 
     def __init__(self, parent):
@@ -209,6 +213,9 @@ class PacientesFrame(tk.Frame):
     
         txt_data = tk.Entry(
             janela
+        )
+        aplicar_mascara_data(
+            txt_data
         )
     
         txt_data.pack(
