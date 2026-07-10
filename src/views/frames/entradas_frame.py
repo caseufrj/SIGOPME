@@ -8,6 +8,10 @@ from views.components.grid_helper import criar_treeview
 from views.components.search_helper import criar_barra_pesquisa
 from services.licitacao_service import LicitacaoService
 
+from views.components.masks import (
+    aplicar_mascara_data,
+    aplicar_mascara_moeda
+)
 
 class EntradasFrame(tk.Frame):
 
@@ -222,6 +226,10 @@ class EntradasFrame(tk.Frame):
         ).pack()
 
         txt_data_emissao = tk.Entry(janela)
+        aplicar_mascara_data(
+            txt_data_emissao
+        )
+
 
         txt_data_emissao.pack(
             fill="x",
@@ -234,6 +242,9 @@ class EntradasFrame(tk.Frame):
         ).pack()
 
         txt_data_entrada = tk.Entry(janela)
+         aplicar_mascara_data(
+            txt_data_entrada
+        )
 
         txt_data_entrada.pack(
             fill="x",
@@ -372,6 +383,9 @@ class EntradasFrame(tk.Frame):
         
         txt_validade = tk.Entry(
             janela
+        )
+        aplicar_mascara_data(
+            txt_validade
         )
         
         txt_validade.pack(
