@@ -415,85 +415,100 @@ class EntradasFrame(tk.Frame):
                 str(valor_unitario)
             )
 
-            tk.Label(
-                janela,
-                text="Quantidade"
-            ).pack()
-    
-            txt_quantidade = tk.Entry(janela)
-    
-            txt_quantidade.pack(
-                fill="x",
-                padx=10
-            )
-    
-            tk.Label(
-                janela,
-                text="Observação"
-            ).pack()
-    
-            txt_observacao = tk.Text(
-                janela,
-                height=4
-            )
-    
-            txt_observacao.pack(
-                fill="x",
-                padx=10
+        tk.Label(
+            janela,
+            text="Quantidade"
+        ).pack()
+
+        txt_quantidade = tk.Entry(janela)
+
+        txt_quantidade.pack(
+            fill="x",
+            padx=10
+        )
+
+        tk.Label(
+            janela,
+            text="Observação"
+        ).pack()
+
+        txt_observacao = tk.Text(
+            janela,
+            height=4
+        )
+
+        txt_observacao.pack(
+            fill="x",
+            padx=10
+        )
+
+        txt_codigo.bind(
+            "<FocusOut>",
+            buscar_item
+        )
+
+        def salvar():
+
+            try:
+
+                quantidade = int(
+                    txt_quantidade.get()
+                )
+
+            except ValueError:
+
+                messagebox.showerror(
+                    "SIGOPME",
+                    "Quantidade inválida."
+                )
+
+                return
+
+            EntradaService.inserir(
+                txt_nf.get(),
+                txt_serie.get(),
+                txt_data_emissao.get(),
+                txt_data_entrada.get(),
+                cmb_tipo.get(),
+                txt_fornecedor.get(),
+                txt_codigo.get(),
+                txt_material.get(),
+                quantidade,
+                txt_observacao.get(
+                    "1.0",
+                    "end"
+                ).strip()
             )
 
-            txt_codigo.bind(
-                "<FocusOut>",
-                buscar_item
+            self.carregar_dados()
+
+            janela.destroy()
+
+            messagebox.showinfo(
+                "SIGOPME",
+                "Entrada cadastrada."
             )
+
+        tk.Button(
+            janela,
+            text="Salvar"
+            ,
+            command=salvar
+        ).pack(
+            pady=10
+        )
+
+    def editar(self):
+
+        messagebox.showinfo(
+            "SIGOPME",
+            "Editar em desenvolvimento."
+        )
     
-            def salvar():
     
-                try:
+    def excluir(self):
     
-                    quantidade = int(
-                        txt_quantidade.get()
-                    )
-    
-                except ValueError:
-    
-                    messagebox.showerror(
-                        "SIGOPME",
-                        "Quantidade inválida."
-                    )
-    
-                    return
-    
-                EntradaService.inserir(
-                    txt_nf.get(),
-                    txt_serie.get(),
-                    txt_data_emissao.get(),
-                    txt_data_entrada.get(),
-                    cmb_tipo.get(),
-                    txt_fornecedor.get(),
-                    txt_codigo.get(),
-                    txt_material.get(),
-                    quantidade,
-                    txt_observacao.get(
-                        "1.0",
-                        "end"
-                    ).strip()
-                )
-    
-                self.carregar_dados()
-    
-                janela.destroy()
-    
-                messagebox.showinfo(
-                    "SIGOPME",
-                    "Entrada cadastrada."
-                )
-    
-            tk.Button(
-                janela,
-                text="Salvar"
-                ,
-                command=salvar
-            ).pack(
-                pady=10
-            )
+        messagebox.showinfo(
+            "SIGOPME",
+            "Excluir em desenvolvimento."
+        )
