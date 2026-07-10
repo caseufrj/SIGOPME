@@ -1,13 +1,4 @@
 import tkinter as tk
-
-
-def aplicar_mascara_data(entry):
-
-    from datetime import datetime
-    import tkinter as tk
-    
-    
-    import tkinter as tk
 from datetime import datetime
 from tkinter import messagebox
 
