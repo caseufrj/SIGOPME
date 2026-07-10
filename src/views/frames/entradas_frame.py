@@ -259,6 +259,20 @@ class EntradasFrame(tk.Frame):
 
         tk.Label(
             janela,
+            text="Valor Total NF"
+        ).pack()
+        
+        txt_valor_nf = tk.Entry(
+            janela
+        )
+        
+        txt_valor_nf.pack(
+            fill="x",
+            padx=10
+        )
+
+        tk.Label(
+            janela,
             text="Código Item"
         ).pack()
 
@@ -280,6 +294,62 @@ class EntradasFrame(tk.Frame):
         txt_material = tk.Entry(janela)
 
         txt_material.pack(
+            fill="x",
+            padx=10
+        )
+
+        tk.Label(
+            janela,
+            text="Valor Unitário"
+        ).pack()
+        
+        txt_valor_unitario = tk.Entry(
+            janela
+        )
+        
+        txt_valor_unitario.pack(
+            fill="x",
+            padx=10
+        )
+
+        tk.Label(
+            janela,
+            text="Lote"
+        ).pack()
+        
+        txt_lote = tk.Entry(
+            janela
+        )
+        
+        txt_lote.pack(
+            fill="x",
+            padx=10
+        )
+        
+        tk.Label(
+            janela,
+            text="Série Produto"
+        ).pack()
+        
+        txt_serie_produto = tk.Entry(
+            janela
+        )
+        
+        txt_serie_produto.pack(
+            fill="x",
+            padx=10
+        )
+        
+        tk.Label(
+            janela,
+            text="Data Validade"
+        ).pack()
+        
+        txt_validade = tk.Entry(
+            janela
+        )
+        
+        txt_validade.pack(
             fill="x",
             padx=10
         )
