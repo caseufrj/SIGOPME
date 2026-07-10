@@ -2,6 +2,8 @@ from pathlib import Path
 import sqlite3
 import os
 
+from database.views_def import VIEWS_SQL
+from database.seed import SEED_SQL
 
 class DatabaseService:
 
@@ -20,9 +22,7 @@ class DatabaseService:
         conn = cls.get_connection()
 
         arquivos = [
-            cls.BASE_DIR / "database" / "create_database.sql",
-            cls.BASE_DIR / "database" / "views.sql",
-            cls.BASE_DIR / "database" / "seed_data.sql"
+            cls.BASE_DIR / "database" / "create_database.sql"
         ]
 
         for arquivo in arquivos:
@@ -58,6 +58,16 @@ class DatabaseService:
                     print(e)
         
                     raise
+
+        
+        conn.executescript(
+            VIEWS_SQL
+        )
+        
+        conn.executescript(
+            SEED_SQL
+        )
+
 
         conn.commit()
         conn.close()
