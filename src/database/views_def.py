@@ -59,7 +59,6 @@ GROUP BY
     l.NomeMaterial,
     l.Fornecedor,
     l.Ata;
-    """
 
 -- ==========================================
 -- ITENS EM PAGAMENTO
