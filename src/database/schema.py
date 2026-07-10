@@ -296,6 +296,16 @@ CREATE TABLE IF NOT EXISTS Entradas (
 
     Quantidade INTEGER NOT NULL,
 
+    ValorTotalNF REAL,
+
+    ValorUnitario REAL,
+
+    Lote TEXT,
+
+    SerieProduto TEXT,
+
+    DataValidade TEXT,
+
     Observacao TEXT,
 
     Usuario TEXT,
