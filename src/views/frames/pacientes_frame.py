@@ -355,6 +355,10 @@ class PacientesFrame(tk.Frame):
         txt_data = tk.Entry(
             janela
         )
+
+        aplicar_mascara_data(
+            txt_data
+        )
     
         txt_data.pack(
             fill="x",
