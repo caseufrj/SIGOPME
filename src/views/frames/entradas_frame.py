@@ -274,6 +274,16 @@ class EntradasFrame(tk.Frame):
             fill="x",
             padx=10
         )
+        
+        lst_fornecedores = tk.Listbox(
+            janela,
+            height=5
+        )
+        
+        lst_fornecedores.pack(
+            fill="x",
+            padx=10
+        )
 
         tk.Label(
             janela,
