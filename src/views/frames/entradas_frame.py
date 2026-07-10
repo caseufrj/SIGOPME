@@ -295,6 +295,71 @@ class EntradasFrame(tk.Frame):
             fill="x",
             padx=10
         )
+        from services.fornecedor_service import
+        def pesquisar_fornecedor(event=None):
+
+            texto = txt_fornecedor.get().strip()
+        
+            lst_fornecedores.delete(
+                0,
+                tk.END
+            )
+        
+            if not texto:
+                return
+        
+            fornecedores = (
+                FornecedorService.pesquisar_nomes(
+                    texto
+                )
+            )
+        
+            for fornecedor in fornecedores:
+        
+                lst_fornecedores.insert(
+                    tk.END,
+                    fornecedor
+                )
+
+        def selecionar_fornecedor(event=None):
+
+            selecionado = (
+                lst_fornecedores.curselection()
+            )
+        
+            if not selecionado:
+                return
+        
+            fornecedor = (
+                lst_fornecedores.get(
+                    selecionado[0]
+                )
+            )
+        
+            txt_fornecedor.delete(
+                0,
+                tk.END
+            )
+        
+            txt_fornecedor.insert(
+                0,
+                fornecedor
+            )
+        
+            lst_fornecedores.delete(
+                0,
+                tk.END
+            )
+
+        txt_fornecedor.bind(
+            "<KeyRelease>",
+            pesquisar_fornecedor
+        )
+        
+        lst_fornecedores.bind(
+            "<Double-Button-1>",
+            selecionar_fornecedor
+        )
 
         tk.Label(
             janela,
