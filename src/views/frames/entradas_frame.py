@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 
 from services.entrada_service import EntradaService
-
+from services.fornecedor_service import FornecedorService
 from views.components.grid_helper import criar_treeview
 from views.components.search_helper import criar_barra_pesquisa
 from services.licitacao_service import LicitacaoService
@@ -295,7 +295,7 @@ class EntradasFrame(tk.Frame):
             fill="x",
             padx=10
         )
-        from services.fornecedor_service import
+       
         def pesquisar_fornecedor(event=None):
 
             texto = txt_fornecedor.get().strip()
@@ -607,13 +607,13 @@ class EntradasFrame(tk.Frame):
                 "Entrada cadastrada."
             )
 
-            tk.Button(
-                janela,
-                text="Salvar",
-                command=salvar
-            ).pack(
-                pady=10
-            )
+        tk.Button(
+            janela,
+            text="Salvar",
+            command=salvar
+        ).pack(
+            pady=10
+        )
 
     def editar(self):
 
