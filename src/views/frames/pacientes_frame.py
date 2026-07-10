@@ -255,16 +255,165 @@ class PacientesFrame(tk.Frame):
         )
     
     def editar(self):
+
+        selecionado = self.grid.selection()
     
-        messagebox.showinfo(
-            "SIGOPME",
-            "Editar paciente."
+        if not selecionado:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Selecione um paciente."
+            )
+    
+            return
+    
+        item = self.grid.item(
+            selecionado[0]
         )
     
+        id_registro = item["values"][0]
     
+        dados = PacienteService.obter_por_id(
+            id_registro
+        )
+    
+        if not dados:
+            return
+    
+        (
+            _id,
+            registro,
+            nome,
+            data_nascimento
+        ) = dados
+    
+        janela = tk.Toplevel(self)
+    
+        janela.title(
+            "Editar Paciente"
+        )
+    
+        janela.geometry(
+            "500x300"
+        )
+    
+        tk.Label(
+            janela,
+            text="Registro"
+        ).pack()
+    
+        txt_registro = tk.Entry(
+            janela
+        )
+    
+        txt_registro.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_registro.insert(
+            0,
+            registro
+        )
+    
+        tk.Label(
+            janela,
+            text="Nome"
+        ).pack()
+    
+        txt_nome = tk.Entry(
+            janela
+        )
+    
+        txt_nome.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_nome.insert(
+            0,
+            nome
+        )
+    
+        tk.Label(
+            janela,
+            text="Data Nascimento"
+        ).pack()
+    
+        txt_data = tk.Entry(
+            janela
+        )
+    
+        txt_data.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_data.insert(
+            0,
+            data_nascimento or ""
+        )
+    
+        def salvar():
+    
+            PacienteService.atualizar(
+                id_registro,
+                txt_registro.get(),
+                txt_nome.get(),
+                txt_data.get()
+            )
+    
+            self.carregar_dados()
+    
+            janela.destroy()
+    
+            messagebox.showinfo(
+                "SIGOPME",
+                "Paciente atualizado."
+            )
+    
+        tk.Button(
+            janela,
+            text="Salvar Alterações",
+            command=salvar
+        ).pack(
+            pady=10
+        )
+
     def excluir(self):
+
+        selecionado = self.grid.selection()
+    
+        if not selecionado:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Selecione um paciente."
+            )
+    
+            return
+    
+        confirmar = messagebox.askyesno(
+            "SIGOPME",
+            "Deseja excluir o paciente?"
+        )
+    
+        if not confirmar:
+            return
+    
+        item = self.grid.item(
+            selecionado[0]
+        )
+    
+        id_registro = item["values"][0]
+    
+        PacienteService.excluir(
+            id_registro
+        )
+    
+        self.carregar_dados()
     
         messagebox.showinfo(
             "SIGOPME",
-            "Excluir paciente."
+            "Paciente excluído."
         )
