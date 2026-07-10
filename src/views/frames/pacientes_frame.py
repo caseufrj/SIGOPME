@@ -138,6 +138,11 @@ class PacientesFrame(tk.Frame):
             pady=5
         )
 
+        self.txt_pesquisa.bind(
+            "<KeyRelease>",
+            self.pesquisar
+        )
+
     def carregar_dados(self):
 
         for item in self.grid.get_children():
@@ -416,4 +421,27 @@ class PacientesFrame(tk.Frame):
         messagebox.showinfo(
             "SIGOPME",
             "Paciente excluído."
+        )
+
+    def pesquisar(self, event=None):
+
+        texto = self.txt_pesquisa.get().strip()
+    
+        for item in self.grid.get_children():
+            self.grid.delete(item)
+    
+        dados = PacienteService.pesquisar(
+            texto
+        )
+    
+        for paciente in dados:
+    
+            self.grid.insert(
+                "",
+                "end",
+                values=paciente
+            )
+    
+        self.lbl_total.config(
+            text=f"{len(dados)} registros"
         )
