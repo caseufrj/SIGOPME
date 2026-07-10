@@ -73,7 +73,7 @@ class LicitacoesFrame(tk.Frame):
         )
 
         self.txt_pesquisa.pack(
-            side="left"
+            side="right"
         )
 
         colunas = (
