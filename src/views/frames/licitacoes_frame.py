@@ -64,8 +64,7 @@ class LicitacoesFrame(tk.Frame):
             barra_acoes,
             text="Pesquisar:"
         ).pack(
-            side="left",
-            padx=(20, 5)
+            side="right",
         )
 
         self.txt_pesquisa = tk.Entry(
