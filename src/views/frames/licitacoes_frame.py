@@ -496,6 +496,24 @@ class LicitacoesFrame(tk.Frame):
         txt_tipo = tk.Entry(janela)
         txt_tipo.pack(fill="x", padx=10)
         txt_tipo.insert(0, tipo)
+
+        tk.Label(
+            janela,
+            text="Consignado?"
+        ).pack()
+        
+        cbo_consignado = ttk.Combobox(
+            janela,
+            values=["SIM", "NÃO"],
+            state="readonly"
+        )
+        
+        cbo_consignado.pack(
+            fill="x",
+            padx=10
+        )
+        
+        cbo_consignado.set(consignado)
     
             
         def salvar_edicao():
