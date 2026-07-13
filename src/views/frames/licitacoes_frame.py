@@ -76,147 +76,247 @@ class LicitacoesFrame(tk.Frame):
             side="right"
         )
 
-        colunas = (
+        # ==========================
+        # GRID SUPERIOR - LICITAÇÕES
+        # ==========================
+        
+        lbl_superior = tk.Label(
+            self,
+            text="Licitações"
+        )
+        lbl_superior.pack()
+        
+        colunas_licitacoes = (
             "id",
-
             "licitacao",
             "ata",
             "fornecedor",
             "tipo",
+            "consignado",
+            "valor_total"
+        )
+        
+        frame_licitacoes, self.grid_licitacoes = criar_treeview(
+            self,
+            colunas_licitacoes
+        )
+        
+        frame_licitacoes.pack(
+            fill="x",
+            padx=10,
+            pady=5
+        )
+        
+        self.grid_licitacoes.heading("id", text="Id")
+        self.grid_licitacoes.heading("licitacao", text="Licitação")
+        self.grid_licitacoes.heading("ata", text="Ata")
+        self.grid_licitacoes.heading("fornecedor", text="Fornecedor")
+        self.grid_licitacoes.heading("tipo", text="Tipo Licitação")
+        self.grid_licitacoes.heading("consignado", text="Consignado?")
+        self.grid_licitacoes.heading("valor_total", text="Valor Total Pregão")
+        
+        self.grid_licitacoes.column(
+            "id",
+            width=0,
+            stretch=False
+        )
+        
+        self.grid_licitacoes.column(
+            "licitacao",
+            width=120
+        )
+        
+        self.grid_licitacoes.column(
+            "ata",
+            width=100
+        )
+        
+        self.grid_licitacoes.column(
+            "fornecedor",
+            width=250
+        )
+        
+        self.grid_licitacoes.column(
+            "tipo",
+            width=130
+        )
+        
+        self.grid_licitacoes.column(
+            "consignado",
+            width=90
+        )
+        
+        self.grid_licitacoes.column(
+            "valor_total",
+            width=150
+        )
+        
+        # Duplo clique em qualquer lugar da linha
+        self.grid_licitacoes.bind(
+            "<Double-1>",
+            self.abrir_licitacao
+        )
+        
+        # ==========================
+        # TÍTULO DOS ITENS
+        # ==========================
+        
+        self.lbl_detalhe = tk.Label(
+            self,
+            text="Itens da Licitação"
+        )
+        
+        self.lbl_detalhe.pack(
+            pady=(15, 5)
+        )
 
-            "codigo_item",
+        # ==========================
+        # BOTÕES ITENS
+        # ==========================
+
+        barra_itens = tk.Frame(self)
+
+        barra_itens.pack(
+            fill="x",
+            padx=10,
+            pady=5
+        )
+        
+        self.btn_novo_item = tk.Button(
+            barra_itens,
+            text="Novo Item",
+            command=self.novo_item
+        )
+        
+        self.btn_novo_item.pack(
+            side="left",
+            padx=5
+        )
+        
+        self.btn_editar_item = tk.Button(
+            barra_itens,
+            text="Editar Item",
+            command=self.editar_item,
+            state="disabled"
+        )
+        
+        self.btn_editar_item.pack(
+            side="left",
+            padx=5
+        )
+        
+        self.btn_excluir_item = tk.Button(
+            barra_itens,
+            text="Excluir Item",
+            command=self.excluir_item,
+            state="disabled"
+        )
+        
+        self.btn_excluir_item.pack(
+            side="left",
+            padx=5
+        )
+        
+        # ==========================
+        # GRID INFERIOR - ITENS
+        # ==========================
+        
+        colunas_itens = (
+            "item",
             "material",
-
             "qtd_licitada",
-            "valor",
-
+            "valor_unit",
             "saldo_pedido",
             "saldo_financeiro",
-
             "consignacao",
             "retirado",
             "utilizado",
             "em_pagamento",
             "pago"
         )
-
-        frame_grid, self.grid = criar_treeview(
+        
+        frame_itens, self.grid_itens = criar_treeview(
             self,
-            colunas
+            colunas_itens
         )
         
-        frame_grid.pack(
+        frame_itens.pack(
             fill="both",
             expand=True,
             padx=10,
-            pady=10
+            pady=5
         )
-
-        self.grid.heading("id", text="Id")
-        self.grid.heading("licitacao", text="Licitação")
-        self.grid.heading("ata", text="Ata")
-        self.grid.heading("fornecedor", text="Fornecedor")
-        self.grid.heading("tipo", text="Tipo Licitação")
-        self.grid.heading("codigo_item", text="Código Item")
-        self.grid.heading("material", text="Nome Material")
-        self.grid.heading("qtd_licitada", text="Qtd Licitada")
-        self.grid.heading("valor", text="Valor Unit.")
-        self.grid.heading("saldo_pedido", text="Saldo Pedido")
-        self.grid.heading("saldo_financeiro", text="Saldo Financeiro")
-        self.grid.heading("consignacao", text="Consignação")
-        self.grid.heading("retirado", text="Retirado")
-        self.grid.heading("utilizado", text="Utilizado")
-        self.grid.heading("em_pagamento", text="Em Pagamento")
-        self.grid.heading("pago", text="Pago")
-
-        self.grid.column(
-            "id",
-            width=0,
-            stretch=False
+        
+        self.grid_itens.heading("item", text="Item")
+        self.grid_itens.heading("material", text="Nome Material")
+        self.grid_itens.heading("qtd_licitada", text="Qtd Licitada")
+        self.grid_itens.heading("valor_unit", text="Valor Unit.")
+        self.grid_itens.heading("saldo_pedido", text="Saldo Pedido")
+        self.grid_itens.heading("saldo_financeiro", text="Saldo Financeiro")
+        self.grid_itens.heading("consignacao", text="Consignação")
+        self.grid_itens.heading("retirado", text="Retirado")
+        self.grid_itens.heading("utilizado", text="Utilizado")
+        self.grid_itens.heading("em_pagamento", text="Em Pagamento")
+        self.grid_itens.heading("pago", text="Pago")
+        
+        self.grid_itens.column(
+            "item",
+            width=80
         )
-
-        self.grid.column(
-            "licitacao",
-            width=120
-        )
-
-        self.grid.column(
-            "ata",
-            width=100
-        )
-
-        self.grid.column(
-            "fornecedor",
-            width=250
-        )
-
-        self.grid.column(
-            "tipo",
-            width=130
-        )
-
-        self.grid.column(
-            "codigo_item",
-            width=100
-        )
-
-        self.grid.column(
+        
+        self.grid_itens.column(
             "material",
             width=350
         )
-
-        self.grid.column(
+        
+        self.grid_itens.column(
             "qtd_licitada",
-            width=110
-        )
-
-        self.grid.column(
-            "valor",
             width=100
         )
-
-        self.grid.column(
+        
+        self.grid_itens.column(
+            "valor_unit",
+            width=100
+        )
+        
+        self.grid_itens.column(
             "saldo_pedido",
+            width=100
+        )
+        
+        self.grid_itens.column(
+            "saldo_financeiro",
             width=120
         )
-
-        self.grid.column(
-            "saldo_financeiro",
-            width=140
-        )
-
-        self.grid.column(
+        
+        self.grid_itens.column(
             "consignacao",
             width=100
         )
-
-        self.grid.column(
+        
+        self.grid_itens.column(
             "retirado",
             width=100
         )
-
-        self.grid.column(
+        
+        self.grid_itens.column(
             "utilizado",
             width=100
         )
-
-        self.grid.column(
+        
+        self.grid_itens.column(
             "em_pagamento",
             width=120
         )
-
-        self.grid.column(
+        
+        self.grid_itens.column(
             "pago",
             width=100
         )
 
-        self.lbl_total = tk.Label(
-            self,
-            text="0 registros"
-        )
-
-        self.lbl_total.pack(
-            pady=5
+        self.grid_itens.bind(
+            "<<TreeviewSelect>>",
+            self.item_selecionado
         )
 
     def novo(self):
@@ -225,7 +325,7 @@ class LicitacoesFrame(tk.Frame):
     
         janela.title("Nova Licitação")
     
-        janela.geometry("600x500")
+        janela.geometry("500x350")
     
         tk.Label(
             janela,
@@ -261,66 +361,28 @@ class LicitacoesFrame(tk.Frame):
     
         tk.Label(
             janela,
-            text="Código Item"
+            text="Consignado?"
         ).pack()
     
-        txt_codigo_item = tk.Entry(janela)
-        txt_codigo_item.pack(fill="x", padx=10)
-    
-        tk.Label(
+        cbo_consignado = ttk.Combobox(
             janela,
-            text="Nome Material"
-        ).pack()
+            values=["SIM", "NÃO"],
+            state="readonly"
+        )
     
-        txt_material = tk.Entry(janela)
-        txt_material.pack(fill="x", padx=10)
-    
-        tk.Label(
-            janela,
-            text="Quantidade Licitada"
-        ).pack()
-    
-        txt_qtd_licitada = tk.Entry(janela)
-        txt_qtd_licitada.pack(fill="x", padx=10)
-    
-        tk.Label(
-            janela,
-            text="Valor Unitário"
-        ).pack()
-    
-        txt_valor = tk.Entry(janela)
-        txt_valor.pack(fill="x", padx=10)
+        cbo_consignado.pack(
+            fill="x",
+            padx=10
+        )
     
         def salvar():
     
-            try:
-    
-                qtd_licitada = int(
-                    txt_qtd_licitada.get()
-                )
-    
-                valor = float(
-                    txt_valor.get().replace(",", ".")
-                )
-    
-            except ValueError:
-    
-                messagebox.showerror(
-                    "Erro",
-                    "Quantidade e Valor devem ser numéricos."
-                )
-    
-                return
-    
-            LicitacaoService.inserir(
+            LicitacaoService.inserir_licitacao(
                 txt_licitacao.get(),
                 txt_ata.get(),
                 txt_fornecedor.get(),
                 txt_tipo.get(),
-                txt_codigo_item.get(),
-                txt_material.get(),
-                qtd_licitada,
-                valor
+                cbo_consignado.get()
             )
     
             self.carregar_dados()
@@ -342,14 +404,14 @@ class LicitacoesFrame(tk.Frame):
     
     def carregar_dados(self):
     
-        for item in self.grid.get_children():
-            self.grid.delete(item)
+        for item in self.grid_licitacoes.get_children():
+            self.grid_licitacoes.delete(item)
     
-        registros = LicitacaoService.listar_todos()
+        registros = LicitacaoService.listar_resumo_licitacoes()
     
         for registro in registros:
     
-            self.grid.insert(
+            self.grid_licitacoes.insert(
                 "",
                 "end",
                 values=registro
@@ -361,7 +423,7 @@ class LicitacoesFrame(tk.Frame):
 
     def editar(self):
 
-        selecionado = self.grid.selection()
+        selecionado = self.grid_licitacoes.selection()
     
         if not selecionado:
     
@@ -372,7 +434,7 @@ class LicitacoesFrame(tk.Frame):
     
             return
     
-        item = self.grid.item(
+        item = self.grid_licitacoes.item(
             selecionado[0]
         )
     
@@ -397,10 +459,7 @@ class LicitacoesFrame(tk.Frame):
             ata,
             fornecedor,
             tipo,
-            codigo_item,
-            nome_material,
-            qtd_licitada,
-            valor
+            consignado
         ) = dados
     
         janela = tk.Toplevel(self)
@@ -450,45 +509,23 @@ class LicitacoesFrame(tk.Frame):
         txt_valor.insert(0, valor)
     
         def salvar_edicao():
-    
-            try:
-    
-                quantidade = int(
-                    txt_qtd.get()
-                )
-    
-                valor_unitario = float(
-                    txt_valor.get().replace(",", ".")
-                )
-    
-            except ValueError:
-    
-                messagebox.showerror(
-                    "Erro",
-                    "Quantidade e Valor inválidos."
-                )
-    
-                return
-    
-            LicitacaoService.atualizar(
+
+            LicitacaoService.atualizar_licitacao(
                 id_registro,
                 txt_licitacao.get(),
                 txt_ata.get(),
                 txt_fornecedor.get(),
                 txt_tipo.get(),
-                txt_codigo_item.get(),
-                txt_material.get(),
-                quantidade,
-                valor_unitario
+                cbo_consignado.get()
             )
-    
+        
             self.carregar_dados()
-    
+        
             janela.destroy()
-    
+        
             messagebox.showinfo(
                 "SIGOPME",
-                "Registro atualizado com sucesso."
+                "Licitação atualizada com sucesso."
             )
     
         tk.Button(
@@ -501,7 +538,7 @@ class LicitacoesFrame(tk.Frame):
         
     def excluir(self):
 
-        selecionado = self.grid.selection()
+        selecionado = self.grid_licitacoes.selection()
     
         if not selecionado:
     
@@ -512,7 +549,7 @@ class LicitacoesFrame(tk.Frame):
     
             return
     
-        item = self.grid.item(
+        item = self.grid_licitacoes.item(
             selecionado[0]
         )
     
@@ -532,7 +569,84 @@ class LicitacoesFrame(tk.Frame):
     
         self.carregar_dados()
     
-        messagebox.showinfo(
+        confirmar = messagebox.askyesno(
             "SIGOPME",
-            "Registro excluído com sucesso."
+            f"Deseja excluir a licitação {item['values'][1]}?"
         )
+
+    def item_selecionado(self, event):
+
+        selecionado = self.grid_itens.selection()
+    
+        if selecionado:
+    
+            self.btn_editar_item.config(
+                state="normal"
+            )
+    
+            self.btn_excluir_item.config(
+                state="normal"
+            )
+    
+        else:
+    
+            self.btn_editar_item.config(
+                state="disabled"
+            )
+    
+            self.btn_excluir_item.config(
+                state="disabled"
+            )
+
+    def novo_item(self):
+
+        selecionado = self.grid_licitacoes.selection()
+    
+        if not selecionado:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Selecione uma licitação primeiro."
+            )
+    
+            return
+
+   def editar_item(self):
+    
+        selecionado = self.grid_itens.selection()
+    
+        if not selecionado:
+    
+            return
+    
+        item = self.grid_itens.item(
+            selecionado[0]
+        )
+    
+        id_item = item["values"][0] 
+
+    def excluir_item(self):
+
+        selecionado = self.grid_itens.selection()
+    
+        if not selecionado:
+            return
+    
+        item = self.grid_itens.item(
+            selecionado[0]
+        )
+    
+        id_item = item["values"][0]
+    
+        confirmar = messagebox.askyesno(
+            "SIGOPME",
+            "Deseja excluir este item?"
+        )
+    
+        if not confirmar:
+            return
+    
+        LicitacaoService.excluir_item(
+            id_item
+        )
+
