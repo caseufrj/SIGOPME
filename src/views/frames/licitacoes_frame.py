@@ -420,8 +420,8 @@ class LicitacoesFrame(tk.Frame):
     
         registros = LicitacaoService.listar_resumo_licitacoes()
     
-       for registro in registros:
-
+        for registro in registros:
+        
             registro = list(registro)
         
             registro[5] = "✓" if registro[5] == 1 else ""
