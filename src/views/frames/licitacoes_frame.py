@@ -434,13 +434,13 @@ class LicitacoesFrame(tk.Frame):
                 "Licitação cadastrada."
             )
     
-        tk.Button(
-            janela,
-            text="Salvar",
-            command=salvar
-        ).pack(
-            pady=10
-        )
+            tk.Button(
+                janela,
+                text="Salvar",
+                command=salvar
+            ).pack(
+                pady=10
+            )
     
     def carregar_dados(self):
     
