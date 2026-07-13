@@ -341,27 +341,29 @@ class LicitacaoService:
     
         cursor.execute("""
             SELECT
-    
+
+                Id,
+            
                 CodItem,
-    
+            
                 NomeMaterial,
-    
+            
                 QtdLicitada,
-    
+            
                 ValorUnd,
-    
+            
                 QtdLicitada AS SaldoPedido,
-    
+            
                 QtdLicitada AS SaldoFinanceiro,
-    
+            
                 0 AS Consignacao,
-    
+            
                 0 AS Retirado,
-    
+            
                 0 AS Utilizado,
-    
+            
                 0 AS EmPagamento,
-    
+            
                 0 AS Pago
     
             FROM Licitacoes
@@ -398,11 +400,128 @@ class LicitacaoService:
     
         conn.close()
 
-    def novo_item(self):
-        pass
+    @staticmethod
+    def inserir_item(
+        numero_licitacao,
+        codigo_item,
+        nome_material,
+        qtd_licitada,
+        valor_unitario
+    ):
     
-    def editar_item(self):
-        pass
+        conn = DatabaseService.get_connection()
     
-    def excluir_item(self):
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            INSERT INTO Licitacoes (
+    
+                NumeroLicitacao,
+                CodItem,
+                NomeMaterial,
+                QtdLicitada,
+                ValorUnd,
+                Ativo
+    
+            )
+            VALUES (?, ?, ?, ?, ?, 1)
+        """, (
+            numero_licitacao,
+            codigo_item,
+            nome_material,
+            qtd_licitada,
+            valor_unitario
+        ))
+    
+        conn.commit()
+    
+        conn.close()
+
+    @staticmethod
+    def obter_item(id_item):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+    
+                Id,
+                CodItem,
+                NomeMaterial,
+                QtdLicitada,
+                ValorUnd
+    
+            FROM Licitacoes
+    
+            WHERE Id = ?
+        """, (id_item,))
+    
+        resultado = cursor.fetchone()
+    
+        conn.close()
+    
+        return resultado
+
+    @staticmethod
+    def atualizar_item(
+        id_item,
+        codigo_item,
+        nome_material,
+        qtd_licitada,
+        valor_unitario
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE Licitacoes
+            SET
+    
+                CodItem = ?,
+                NomeMaterial = ?,
+                QtdLicitada = ?,
+                ValorUnd = ?
+    
+            WHERE Id = ?
+        """, (
+            codigo_item,
+            nome_material,
+            qtd_licitada,
+            valor_unitario,
+            id_item
+        ))
+    
+        conn.commit()
+    
+        conn.close()
+
+    @staticmethod
+    def excluir_item(id_item):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE Licitacoes
+            SET Ativo = 0
+            WHERE Id = ?
+        """, (id_item,))
+    
+        conn.commit()
+    
+        conn.close()
+
+    def novo_item(self)
         pass
+
+    def (editar_item(self)
+         pass
+
+    def excluir_item(self)
+        pass
+
