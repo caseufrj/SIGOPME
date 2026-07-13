@@ -519,7 +519,7 @@ class LicitacaoService:
     def novo_item(self)
         pass
 
-    def (editar_item(self)
+    def editar_item(self)
          pass
 
     def excluir_item(self)
