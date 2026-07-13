@@ -180,7 +180,8 @@ class LicitacaoService:
         ata,
         fornecedor,
         tipo,
-        consignado
+        consignado,
+        valor_total
     ):
     
         conn = DatabaseService.get_connection()
@@ -194,7 +195,8 @@ class LicitacaoService:
                 Ata = ?,
                 Fornecedor = ?,
                 TipoLicitacao = ?,
-                Consignado = ?
+                Consignado = ?,
+                ValorTotalPregao = ?
             WHERE Id = ?
         """, (
             licitacao,
@@ -202,6 +204,7 @@ class LicitacaoService:
             fornecedor,
             tipo,
             consignado,
+            valor_total,
             id_registro
         ))
     
@@ -230,7 +233,8 @@ class LicitacaoService:
         ata,
         fornecedor,
         tipo_licitacao,
-        consignado
+        consignado,
+        valor_total
     ):
     
         FornecedorService.obter_ou_criar(
@@ -259,7 +263,8 @@ class LicitacaoService:
             ata,
             fornecedor,
             tipo_licitacao,
-            consignado
+            consignado,
+            valor_total
         ))
     
         conn.commit()
