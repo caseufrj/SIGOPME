@@ -420,8 +420,12 @@ class LicitacoesFrame(tk.Frame):
     
         registros = LicitacaoService.listar_resumo_licitacoes()
     
-        for registro in registros:
-    
+       for registro in registros:
+
+            registro = list(registro)
+        
+            registro[5] = "✓" if registro[5] == 1 else ""
+        
             self.grid_licitacoes.insert(
                 "",
                 "end",
@@ -505,7 +509,7 @@ class LicitacoesFrame(tk.Frame):
         ).pack()
         
         var_consignado = tk.BooleanVar(
-            value=bool(consignado)
+            value=(consignado == 1)
         )
         
         chk_consignado = tk.Checkbutton(
@@ -517,7 +521,7 @@ class LicitacoesFrame(tk.Frame):
         chk_consignado.pack(
             anchor="w",
             padx=10
-        )   
+        )
             
         def salvar_edicao():
 
@@ -529,7 +533,6 @@ class LicitacoesFrame(tk.Frame):
                 txt_tipo.get(),
                 1 if var_consignado.get() else 0
             )
-        
             self.carregar_dados()
         
             janela.destroy()
