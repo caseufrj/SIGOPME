@@ -704,3 +704,134 @@ class LicitacoesFrame(tk.Frame):
                 values=registro
             )
 
+    def novo_item(self):
+
+        selecionado = self.grid_licitacoes.selection()
+    
+        if not selecionado:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Selecione uma licitação primeiro."
+            )
+    
+            return
+    
+        item_licitacao = self.grid_licitacoes.item(
+            selecionado[0]
+        )
+    
+        numero_licitacao = item_licitacao["values"][1]
+    
+        janela = tk.Toplevel(self)
+    
+        janela.title("Novo Item")
+    
+        janela.geometry("600x350")
+    
+        tk.Label(
+            janela,
+            text=f"Licitação: {numero_licitacao}",
+            font=("Arial", 10, "bold")
+        ).pack(
+            pady=10
+        )
+    
+        tk.Label(
+            janela,
+            text="Código Item"
+        ).pack()
+    
+        txt_codigo = tk.Entry(janela)
+    
+        txt_codigo.pack(
+            fill="x",
+            padx=10
+        )
+    
+        tk.Label(
+            janela,
+            text="Nome Material"
+        ).pack()
+    
+        txt_material = tk.Entry(janela)
+    
+        txt_material.pack(
+            fill="x",
+            padx=10
+        )
+    
+        tk.Label(
+            janela,
+            text="Quantidade Licitada"
+        ).pack()
+    
+        txt_qtd = tk.Entry(janela)
+    
+        txt_qtd.pack(
+            fill="x",
+            padx=10
+        )
+    
+        tk.Label(
+            janela,
+            text="Valor Unitário"
+        ).pack()
+    
+        txt_valor = tk.Entry(janela)
+    
+        txt_valor.pack(
+            fill="x",
+            padx=10
+        )
+    
+        def salvar():
+    
+            try:
+    
+                qtd = int(
+                    txt_qtd.get()
+                )
+    
+                valor = float(
+                    txt_valor.get().replace(",", ".")
+                )
+    
+            except ValueError:
+    
+                messagebox.showerror(
+                    "SIGOPME",
+                    "Quantidade e Valor devem ser numéricos."
+                )
+    
+                return
+    
+            LicitacaoService.inserir_item(
+                numero_licitacao,
+                txt_codigo.get(),
+                txt_material.get(),
+                qtd,
+                valor
+            )
+    
+            janela.destroy()
+    
+            self.carregar_itens_licitacao(
+                numero_licitacao
+            )
+    
+            self.carregar_dados()
+    
+            messagebox.showinfo(
+                "SIGOPME",
+                "Item cadastrado com sucesso."
+            )
+    
+        tk.Button(
+            janela,
+            text="Salvar",
+            command=salvar
+        ).pack(
+            pady=15
+        )
+
