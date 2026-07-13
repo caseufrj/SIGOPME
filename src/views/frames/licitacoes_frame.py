@@ -650,3 +650,40 @@ class LicitacoesFrame(tk.Frame):
             id_item
         )
 
+    def abrir_licitacao(self, event):
+
+        selecionado = self.grid_licitacoes.selection()
+    
+        if not selecionado:
+            return
+    
+        item = self.grid_licitacoes.item(
+            selecionado[0]
+        )
+    
+        numero_licitacao = item["values"][1]
+    
+        self.carregar_itens_licitacao(
+            numero_licitacao
+        )
+
+    def carregar_itens_licitacao(
+        self,
+        numero_licitacao
+    ):
+    
+        for item in self.grid_itens.get_children():
+            self.grid_itens.delete(item)
+    
+        registros = LicitacaoService.listar_itens_licitacao(
+            numero_licitacao
+        )
+    
+        for registro in registros:
+    
+            self.grid_itens.insert(
+                "",
+                "end",
+                values=registro
+            )
+
