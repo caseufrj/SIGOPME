@@ -13,14 +13,11 @@ class LicitacaoService:
         cursor.execute("""
             SELECT
                 Id,
-                NumeroLicitacao,
+                Licitacao,
                 Ata,
                 Fornecedor,
-                TipoLicitacao,
-                CodItem,
-                NomeMaterial,
-                QtdLicitada,
-                ValorUnd,
+                Tipo,
+                consignado,
     
                 QtdLicitada AS SaldoPedido,
     
