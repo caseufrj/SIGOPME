@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS Licitacoes (
 
     Ata TEXT,
 
-    Consignado INTEGER DEFAULT 0
+    Consignado INTEGER DEFAULT 0,
     Contrato TEXT,
     NumeroContrato TEXT,
 
