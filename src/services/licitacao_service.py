@@ -157,15 +157,15 @@ class LicitacaoService:
         cursor.execute("""
             SELECT
                 Id,
-                Licitacao,
+                NumeroLicitacao,
                 Ata,
                 Fornecedor,
-                Tipo,
-                consignadonao existe
+                TipoLicitacao,
+                Consignado
             FROM Licitacoes
             WHERE Id = ?
         """, (id_registro,))
-    
+        
         resultado = cursor.fetchone()
     
         conn.close()
@@ -179,7 +179,7 @@ class LicitacaoService:
         ata,
         fornecedor,
         tipo,
-        consignado       
+        consignado
     ):
     
         conn = DatabaseService.get_connection()
@@ -193,20 +193,14 @@ class LicitacaoService:
                 Ata = ?,
                 Fornecedor = ?,
                 TipoLicitacao = ?,
-                CodItem = ?,
-                NomeMaterial = ?,
-                QtdLicitada = ?,
-                ValorUnd = ?
+                Consignado = ?
             WHERE Id = ?
         """, (
             licitacao,
             ata,
             fornecedor,
-            tipo_licitacao,
-            codigo_item,
-            nome_material,
-            quantidade,
-            valor,
+            tipo,
+            consignado,
             id_registro
         ))
     
@@ -252,24 +246,23 @@ class LicitacaoService:
                 Ata,
                 Fornecedor,
                 TipoLicitacao,
+                Consignado,
                 CodItem,
                 NomeMaterial,
                 QtdLicitada,
                 ValorUnd
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, '', '', 0, 0)
         """, (
             licitacao,
             ata,
             fornecedor,
             tipo_licitacao,
-            codigo_item,
-            nome_material,
-            quantidade,
-            valor
+            consignado
         ))
     
         conn.commit()
+    
         conn.close()
 
     @staticmethod
@@ -315,7 +308,7 @@ class LicitacaoService:
     
                 TipoLicitacao,
     
-                'SIM' AS Consignado,
+                MAX(Consignado) AS Consignado,
     
                 SUM(QtdLicitada * ValorUnd) AS ValorTotal
     
