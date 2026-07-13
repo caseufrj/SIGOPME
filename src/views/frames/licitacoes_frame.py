@@ -552,7 +552,7 @@ class LicitacoesFrame(tk.Frame):
     
             messagebox.showwarning(
                 "SIGOPME",
-                "Selecione um registro para excluir."
+                "Selecione uma licitação para excluir."
             )
     
             return
@@ -563,9 +563,11 @@ class LicitacoesFrame(tk.Frame):
     
         id_registro = item["values"][0]
     
+        numero_licitacao = item["values"][1]
+    
         confirmar = messagebox.askyesno(
             "SIGOPME",
-            "Deseja realmente excluir este registro?"
+            f"Deseja excluir a licitação {numero_licitacao}?"
         )
     
         if not confirmar:
@@ -577,9 +579,9 @@ class LicitacoesFrame(tk.Frame):
     
         self.carregar_dados()
     
-        confirmar = messagebox.askyesno(
+        messagebox.showinfo(
             "SIGOPME",
-            f"Deseja excluir a licitação {item['values'][1]}?"
+            "Licitação excluída com sucesso."
         )
 
     def item_selecionado(self, event):
