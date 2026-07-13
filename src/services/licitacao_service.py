@@ -161,11 +161,12 @@ class LicitacaoService:
                 Ata,
                 Fornecedor,
                 TipoLicitacao,
-                Consignado
+                Consignado,
+                ValorTotalPregao
             FROM Licitacoes
             WHERE Id = ?
         """, (id_registro,))
-        
+    
         resultado = cursor.fetchone()
     
         conn.close()
