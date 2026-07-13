@@ -241,10 +241,7 @@ class LicitacaoService:
         ata,
         fornecedor,
         tipo_licitacao,
-        codigo_item,
-        nome_material,
-        quantidade,
-        valor
+        consignado
     ):
     
         FornecedorService.obter_ou_criar(
