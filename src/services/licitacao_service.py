@@ -257,7 +257,7 @@ class LicitacaoService:
                 QtdLicitada,
                 ValorUnd
             )
-            VALUES (?, ?, ?, ?, ?, '', '', 0, 0)
+            VALUES (?, ?, ?, ?, ?, ?, '', '', 0, 0)
         """, (
             licitacao,
             ata,
