@@ -179,7 +179,7 @@ class LicitacaoService:
         return resultado
 
     @staticmethod
-    def atualizar(
+    def atualizar_licitacao(
         id_registro,
         licitacao,
         ata,
@@ -223,7 +223,7 @@ class LicitacaoService:
         conn.close()
 
     @staticmethod
-    def excluir(id_registro):
+    def excluir_licitacao(id_registro):
     
         conn = DatabaseService.get_connection()
     
@@ -239,7 +239,7 @@ class LicitacaoService:
         conn.close()
 
     @staticmethod
-    def inserir(
+    def inserir_licitacao(
         licitacao,
         ata,
         fornecedor,
