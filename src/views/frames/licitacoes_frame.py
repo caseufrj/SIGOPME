@@ -385,21 +385,50 @@ class LicitacoesFrame(tk.Frame):
             anchor="w",
             padx=10
         )
+
+        tk.Label(
+            janela,
+            text="Valor Total Pregão"
+        ).pack()
+        
+        txt_valor_total = tk.Entry(janela)
+        
+        txt_valor_total.pack(
+            fill="x",
+            padx=10
+        )
+
     
         def salvar():
-    
+        
+            try:
+        
+                valor_total = float(
+                    txt_valor_total.get().replace(",", ".")
+                )
+        
+            except ValueError:
+        
+                messagebox.showerror(
+                    "SIGOPME",
+                    "Valor Total do Pregão inválido."
+                )
+        
+                return
+        
             LicitacaoService.inserir_licitacao(
                 txt_licitacao.get(),
                 txt_ata.get(),
                 txt_fornecedor.get(),
                 txt_tipo.get(),
-                1 if var_consignado.get() else 0
+                1 if var_consignado.get() else 0,
+                valor_total
             )
-    
+        
             self.carregar_dados()
-    
+        
             janela.destroy()
-    
+        
             messagebox.showinfo(
                 "SIGOPME",
                 "Licitação cadastrada."
@@ -474,7 +503,8 @@ class LicitacoesFrame(tk.Frame):
             ata,
             fornecedor,
             tipo,
-            consignado
+            consignado,
+            valor_total
         ) = dados
     
         janela = tk.Toplevel(self)
@@ -522,16 +552,37 @@ class LicitacoesFrame(tk.Frame):
             anchor="w",
             padx=10
         )
+
+        tk.Label(
+            janela,
+            text="Valor Total Pregão"
+        ).pack()
+        
+        txt_valor_total = tk.Entry(janela)
+        
+        txt_valor_total.pack(
+            fill="x",
+            padx=10)
+        
+        txt_valor_total.insert(
+            0,
+            valor_total
+        )
             
         def salvar_edicao():
 
+            valor_total = float(
+                txt_valor_total.get().replace(",", ".")
+            )
+            
             LicitacaoService.atualizar_licitacao(
                 id_registro,
                 txt_licitacao.get(),
                 txt_ata.get(),
                 txt_fornecedor.get(),
                 txt_tipo.get(),
-                1 if var_consignado.get() else 0
+                1 if var_consignado.get() else 0,
+                valor_total
             )
             self.carregar_dados()
         
@@ -540,6 +591,23 @@ class LicitacoesFrame(tk.Frame):
             messagebox.showinfo(
                 "SIGOPME",
                 "Licitação atualizada com sucesso."
+            )
+
+            tk.Label(
+                janela,
+                text="Valor Total Pregão"
+            ).pack()
+            
+            txt_valor_total = tk.Entry(janela)
+            
+            txt_valor_total.pack(
+                fill="x",
+                padx=10
+            )
+            
+            txt_valor_total.insert(
+                0,
+                valor_total
             )
     
         tk.Button(
