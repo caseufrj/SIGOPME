@@ -397,3 +397,22 @@ class LicitacaoService:
         conn.close()
     
         return resultado
+
+    @staticmethod
+    def excluir_licitacao(numero_licitacao):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE Licitacoes
+            SET Ativo = 0
+            WHERE NumeroLicitacao = ?
+        """, (
+            numero_licitacao,
+        ))
+    
+        conn.commit()
+    
+        conn.close()
