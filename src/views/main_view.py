@@ -44,6 +44,12 @@ class MainView(tk.Tk):
 
         titulo.pack(pady=10)
 
+        estilo_menu = {
+            "width": 20,
+            "height": 4,
+            "font": ("Arial", 10, "bold")
+        }
+
         barra_menu = tk.Frame(self)
 
         barra_menu.pack(
@@ -54,47 +60,37 @@ class MainView(tk.Tk):
         tk.Button(
             barra_menu,
             text="Dashboard",
-            command=self.mostrar_dashboard
-        ).pack(
-            side="left",
-            padx=5
-        )
-
+            command=self.mostrar_dashboard,
+            **estilo_menu
+        ).pack(side="left", padx=5)
+        
         tk.Button(
             barra_menu,
             text="Cadastros",
-            command=self.mostrar_cadastros
-        ).pack(
-            side="left",
-            padx=5
-        )
-
+            command=self.mostrar_cadastros,
+            **estilo_menu
+        ).pack(side="left", padx=5)
+        
         tk.Button(
             barra_menu,
             text="Licitações",
-            command=self.mostrar_licitacoes
-        ).pack(
-            side="left",
-            padx=5
-        )
-
+            command=self.mostrar_licitacoes,
+            **estilo_menu
+        ).pack(side="left", padx=5)
+        
         tk.Button(
             barra_menu,
             text="Entradas",
-            command=self.mostrar_entradas
-        ).pack(
-            side="left",
-            padx=5
-        )
-
+            command=self.mostrar_entradas,
+            **estilo_menu
+        ).pack(side="left", padx=5)
+        
         tk.Button(
             barra_menu,
             text="Relatórios",
-            command=self.mostrar_relatorios
-        ).pack(
-            side="left",
-            padx=5
-        )
+            command=self.mostrar_relatorios,
+            **estilo_menu
+        ).pack(side="left", padx=5)
 
         self.area_conteudo = tk.Frame(
             self
