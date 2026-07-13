@@ -45,7 +45,7 @@ class MainView(tk.Tk):
         titulo.pack(pady=10)
 
         estilo_menu = {
-            "width": 20,
+            "width": 30,
             "height": 4,
             "font": ("Arial", 10, "bold")
         }
@@ -54,7 +54,7 @@ class MainView(tk.Tk):
 
         barra_menu.pack(
             fill="x",
-            padx=10
+            padx=20
         )
 
         tk.Button(
