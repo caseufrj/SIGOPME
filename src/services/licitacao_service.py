@@ -252,6 +252,7 @@ class LicitacaoService:
                 Fornecedor,
                 TipoLicitacao,
                 Consignado,
+                ValorTotalPregao,
                 CodItem,
                 NomeMaterial,
                 QtdLicitada,
