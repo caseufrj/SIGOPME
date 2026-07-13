@@ -31,7 +31,7 @@ class LicitacoesFrame(tk.Frame):
         barra_acoes.pack(
             fill="x",
             padx=10,
-            pady=5
+            pady=15
         )
 
         tk.Button(
