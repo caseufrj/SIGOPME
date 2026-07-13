@@ -3,7 +3,16 @@ import tkinter as tk
 from database.database_service import DatabaseService
 
 from views.frames.dashboard_frame import DashboardFrame
-from views.frames.licitacoes_frame import LicitacoesFrame
+try:
+    from views.frames.licitacoes_frame import LicitacoesFrame
+except Exception as e:
+    import traceback
+
+    print("\nERRO REAL:\n")
+    traceback.print_exc()
+
+    input("\nPressione ENTER...")
+    raise
 from views.frames.movimentacoes_frame import MovimentacoesFrame
 from views.frames.relatorios_frame import RelatoriosFrame
 from views.frames.cadastros_frame import CadastrosFrame
