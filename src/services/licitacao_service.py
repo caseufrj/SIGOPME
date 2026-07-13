@@ -306,4 +306,96 @@ class LicitacaoService:
         conn.close()
     
         return resultado
+
+    @staticmethod
+    def listar_resumo_licitacoes():
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+    
+                MIN(Id),
+    
+                NumeroLicitacao,
+    
+                Ata,
+    
+                Fornecedor,
+    
+                TipoLicitacao,
+    
+                'SIM',
+    
+                SUM(QtdLicitada * ValorUnd)
+    
+            FROM Licitacoes
+    
+            WHERE Ativo = 1
+    
+            GROUP BY
+                NumeroLicitacao,
+                Ata,
+                Fornecedor,
+                TipoLicitacao
+    
+            ORDER BY NumeroLicitacao
+        """)
+    
+        resultado = cursor.fetchall()
+    
+        conn.close()
+    
+        return resultado
+
+    @staticmethod
+    def listar_itens_licitacao(
+        licitacao
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+    
+                CodItem,
+    
+                NomeMaterial,
+    
+                QtdLicitada,
+    
+                ValorUnd,
+    
+                QtdLicitada,
+    
+                QtdLicitada,
+    
+                0,
+    
+                0,
+    
+                0,
+    
+                0,
+    
+                0
+    
+            FROM Licitacoes
+    
+            WHERE
+                NumeroLicitacao = ?
+                AND Ativo = 1
+    
+            ORDER BY CodItem
+        """, (licitacao,))
+    
+        dados = cursor.fetchall()
+    
+        conn.close()
+    
+        return dados
  
