@@ -371,6 +371,7 @@ class LicitacaoService:
             WHERE
                 NumeroLicitacao = ?
                 AND Ativo = 1
+                AND CodItem <> ''
     
             ORDER BY CodItem
         """, (numero_licitacao,))
