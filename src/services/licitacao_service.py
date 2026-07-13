@@ -311,7 +311,13 @@ class LicitacaoService:
     
                 MAX(Consignado) AS Consignado,
     
-                SUM(QtdLicitada * ValorUnd) AS ValorTotal
+                SUM(
+                    CASE
+                        WHEN CodItem <> ''
+                        THEN QtdLicitada * ValorUnd
+                        ELSE 0
+                    END
+                )
     
             FROM Licitacoes
     
