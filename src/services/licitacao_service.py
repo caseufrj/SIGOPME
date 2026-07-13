@@ -317,7 +317,7 @@ class LicitacaoService:
         cursor.execute("""
             SELECT
     
-                MIN(Id),
+                MIN(Id) AS Id,
     
                 NumeroLicitacao,
     
@@ -327,15 +327,16 @@ class LicitacaoService:
     
                 TipoLicitacao,
     
-                'SIM',
+                'SIM' AS Consignado,
     
-                SUM(QtdLicitada * ValorUnd)
+                SUM(QtdLicitada * ValorUnd) AS ValorTotal
     
             FROM Licitacoes
     
             WHERE Ativo = 1
     
             GROUP BY
+    
                 NumeroLicitacao,
                 Ata,
                 Fornecedor,
@@ -351,9 +352,7 @@ class LicitacaoService:
         return resultado
 
     @staticmethod
-    def listar_itens_licitacao(
-        licitacao
-    ):
+    def listar_itens_licitacao(numero_licitacao):
     
         conn = DatabaseService.get_connection()
     
@@ -370,19 +369,19 @@ class LicitacaoService:
     
                 ValorUnd,
     
-                QtdLicitada,
+                QtdLicitada AS SaldoPedido,
     
-                QtdLicitada,
+                QtdLicitada AS SaldoFinanceiro,
     
-                0,
+                0 AS Consignacao,
     
-                0,
+                0 AS Retirado,
     
-                0,
+                0 AS Utilizado,
     
-                0,
+                0 AS EmPagamento,
     
-                0
+                0 AS Pago
     
             FROM Licitacoes
     
@@ -391,11 +390,10 @@ class LicitacaoService:
                 AND Ativo = 1
     
             ORDER BY CodItem
-        """, (licitacao,))
+        """, (numero_licitacao,))
     
-        dados = cursor.fetchall()
+        resultado = cursor.fetchall()
     
         conn.close()
     
-        return dados
- 
+        return resultado
