@@ -370,17 +370,19 @@ class LicitacoesFrame(tk.Frame):
     
         tk.Label(
             janela,
-            text="Consignado?"
+            text="Consignado"
         ).pack()
-    
-        cbo_consignado = ttk.Combobox(
+        
+        var_consignado = tk.BooleanVar()
+        
+        chk_consignado = tk.Checkbutton(
             janela,
-            values=["SIM", "NÃO"],
-            state="readonly"
+            text="Licitação Consignada",
+            variable=var_consignado
         )
-    
-        cbo_consignado.pack(
-            fill="x",
+        
+        chk_consignado.pack(
+            anchor="w",
             padx=10
         )
     
@@ -391,7 +393,7 @@ class LicitacoesFrame(tk.Frame):
                 txt_ata.get(),
                 txt_fornecedor.get(),
                 txt_tipo.get(),
-                cbo_consignado.get()
+                1 if var_consignado.get() else 0
             )
     
             self.carregar_dados()
@@ -499,22 +501,23 @@ class LicitacoesFrame(tk.Frame):
 
         tk.Label(
             janela,
-            text="Consignado?"
+            text="Consignado"
         ).pack()
         
-        cbo_consignado = ttk.Combobox(
+        var_consignado = tk.BooleanVar(
+            value=bool(consignado)
+        )
+        
+        chk_consignado = tk.Checkbutton(
             janela,
-            values=["SIM", "NÃO"],
-            state="readonly"
+            text="Licitação Consignada",
+            variable=var_consignado
         )
         
-        cbo_consignado.pack(
-            fill="x",
+        chk_consignado.pack(
+            anchor="w",
             padx=10
-        )
-        
-        cbo_consignado.set(consignado)
-    
+        )   
             
         def salvar_edicao():
 
@@ -524,7 +527,7 @@ class LicitacoesFrame(tk.Frame):
                 txt_ata.get(),
                 txt_fornecedor.get(),
                 txt_tipo.get(),
-                cbo_consignado.get()
+                1 if var_consignado.get() else 0
             )
         
             self.carregar_dados()
