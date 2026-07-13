@@ -157,14 +157,11 @@ class LicitacaoService:
         cursor.execute("""
             SELECT
                 Id,
-                NumeroLicitacao,
+                Licitacao,
                 Ata,
                 Fornecedor,
-                TipoLicitacao,
-                CodItem,
-                NomeMaterial,
-                QtdLicitada,
-                ValorUnd
+                Tipo,
+                consignadonao existe
             FROM Licitacoes
             WHERE Id = ?
         """, (id_registro,))
@@ -181,11 +178,8 @@ class LicitacaoService:
         licitacao,
         ata,
         fornecedor,
-        tipo_licitacao,
-        codigo_item,
-        nome_material,
-        quantidade,
-        valor
+        tipo,
+        consignado       
     ):
     
         conn = DatabaseService.get_connection()
@@ -410,3 +404,12 @@ class LicitacaoService:
         conn.commit()
     
         conn.close()
+
+    def novo_item(self):
+        pass
+    
+    def editar_item(self):
+        pass
+    
+    def excluir_item(self):
+        pass
