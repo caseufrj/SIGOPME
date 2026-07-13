@@ -72,6 +72,8 @@ CREATE TABLE IF NOT EXISTS Licitacoes (
 
     Ativo INTEGER DEFAULT 1,
 
+    ValorTotalPregao REAL DEFAULT 0,
+
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
