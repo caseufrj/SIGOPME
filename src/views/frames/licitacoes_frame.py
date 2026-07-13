@@ -561,23 +561,24 @@ class LicitacoesFrame(tk.Frame):
             selecionado[0]
         )
     
-        id_registro = item["values"][0]
-    
         numero_licitacao = item["values"][1]
     
         confirmar = messagebox.askyesno(
             "SIGOPME",
-            f"Deseja excluir a licitação {numero_licitacao}?"
+            f"Deseja excluir a licitação {numero_licitacao}?\n\nTodos os itens vinculados serão removidos."
         )
     
         if not confirmar:
             return
     
-        LicitacaoService.excluir(
-            id_registro
+        LicitacaoService.excluir_licitacao(
+            numero_licitacao
         )
     
         self.carregar_dados()
+    
+        for item_grid in self.grid_itens.get_children():
+            self.grid_itens.delete(item_grid)
     
         messagebox.showinfo(
             "SIGOPME",
