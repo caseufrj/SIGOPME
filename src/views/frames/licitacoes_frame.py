@@ -622,7 +622,7 @@ class LicitacoesFrame(tk.Frame):
     
             return
 
-   def editar_item(self):
+    def editar_item(self):
     
         selecionado = self.grid_itens.selection()
     
