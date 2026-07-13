@@ -516,12 +516,4 @@ class LicitacaoService:
     
         conn.close()
 
-    def novo_item(self)
-        pass
-
-    def editar_item(self)
-         pass
-
-    def excluir_item(self)
-        pass
-
+   
