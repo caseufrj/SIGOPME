@@ -319,6 +319,15 @@ class LicitacoesFrame(tk.Frame):
             self.item_selecionado
         )
 
+        self.lbl_total = tk.Label(
+            self,
+            text="0 registros"
+        )
+        
+        self.lbl_total.pack(
+            pady=5
+        )
+
     def novo(self):
 
         janela = tk.Toplevel(self)
@@ -488,26 +497,7 @@ class LicitacoesFrame(tk.Frame):
         txt_tipo.pack(fill="x", padx=10)
         txt_tipo.insert(0, tipo)
     
-        tk.Label(janela, text="Código Item").pack()
-        txt_codigo_item = tk.Entry(janela)
-        txt_codigo_item.pack(fill="x", padx=10)
-        txt_codigo_item.insert(0, codigo_item)
-    
-        tk.Label(janela, text="Nome Material").pack()
-        txt_material = tk.Entry(janela)
-        txt_material.pack(fill="x", padx=10)
-        txt_material.insert(0, nome_material)
-    
-        tk.Label(janela, text="Qtd Licitada").pack()
-        txt_qtd = tk.Entry(janela)
-        txt_qtd.pack(fill="x", padx=10)
-        txt_qtd.insert(0, qtd_licitada)
-    
-        tk.Label(janela, text="Valor Unitário").pack()
-        txt_valor = tk.Entry(janela)
-        txt_valor.pack(fill="x", padx=10)
-        txt_valor.insert(0, valor)
-    
+            
         def salvar_edicao():
 
             LicitacaoService.atualizar_licitacao(
