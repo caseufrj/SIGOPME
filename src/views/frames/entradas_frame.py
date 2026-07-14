@@ -528,6 +528,63 @@ class EntradasFrame(tk.Frame):
             ]
         
             item_selecionado["dados"] = itens
+
+         cmb_licitacao.bind(
+            "<<ComboboxSelected>>",
+            carregar_itens_licitacao
+        )
+
+        def selecionar_item(event=None):
+
+            texto = cmb_item.get()
+        
+            if not texto:
+                return
+        
+            codigo = texto.split(" - ")[0]
+        
+            for registro in item_selecionado["dados"]:
+        
+                if registro[1] == codigo:
+        
+                    txt_codigo.delete(
+                        0,
+                        tk.END
+                    )
+        
+                    txt_codigo.insert(
+                        0,
+                        registro[1]
+                    )
+        
+                    txt_material.delete(
+                        0,
+                        tk.END
+                    )
+        
+                    txt_material.insert(
+                        0,
+                        registro[2]
+                    )
+        
+                    txt_valor_unitario.delete(
+                        0,
+                        tk.END
+                    )
+        
+                    txt_valor_unitario.insert(
+                        0,
+                        str(registro[3])
+                    )
+        
+                    item_selecionado["id"] = registro[0]
+        
+                    break
+
+        cmb_item.bind(
+            "<<ComboboxSelected>>",
+            selecionar_item
+        )
         
         def buscar_item(event=None):
 
@@ -724,13 +781,4 @@ class EntradasFrame(tk.Frame):
             "Entrada excluída."
         )
 
-    def fornecedor_selecionado(event):
-
-        licitacoes = LicitacaoService.listar_licitacoes_fornecedor(
-            txt_fornecedor.get()
-        )
-    
-        cmb_licitacao["values"] = [
-            x[0] for x in licitacoes
-        ]
 
