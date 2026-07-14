@@ -316,6 +316,43 @@ CREATE TABLE IF NOT EXISTS Entradas (
 );
 
 -- =========================
+-- CONTROLES
+-- =========================
+
+CREATE TABLE IF NOT EXISTS EstoqueRastreado (
+
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    NumeroLicitacao TEXT NOT NULL,
+
+    CodItem TEXT NOT NULL,
+
+    NomeMaterial TEXT NOT NULL,
+
+    Lote TEXT NOT NULL,
+
+    CodigoUnico TEXT NOT NULL,
+
+    CodigoBarras TEXT NOT NULL,
+
+    Quantidade INTEGER NOT NULL DEFAULT 1,
+
+    Status TEXT NOT NULL DEFAULT 'DISPONIVEL',
+
+    PacienteId INTEGER,
+
+    Sala TEXT,
+
+    DataRetirada TEXT,
+    DataUtilizacao TEXT,
+    DataDevolucao TEXT,
+    DataExtravio TEXT,
+    DataPagamento TEXT,
+
+    Observacao TEXT
+);
+
+-- =========================
 -- ÍNDICES
 -- =========================
 
