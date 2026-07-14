@@ -323,6 +323,8 @@ CREATE TABLE IF NOT EXISTS EstoqueRastreado (
 
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
+    LicitacaoItemId INTEGER,
+
     NumeroLicitacao TEXT NOT NULL,
 
     CodItem TEXT NOT NULL,
@@ -333,25 +335,48 @@ CREATE TABLE IF NOT EXISTS EstoqueRastreado (
 
     CodigoUnico TEXT NOT NULL,
 
-    CodigoBarras TEXT NOT NULL,
+    CodigoBarras TEXT NOT NULL UNIQUE,
 
     Quantidade INTEGER NOT NULL DEFAULT 1,
 
-    Status TEXT NOT NULL DEFAULT 'DISPONIVEL',
+    Status TEXT NOT NULL DEFAULT 'DISPONIVEL'
+    CHECK (
+        Status IN (
+            'DISPONIVEL',
+            'RETIRADO',
+            'UTILIZADO',
+            'DEVOLVIDO',
+            'EXTRAVIADO',
+            'PAGO'
+        )
+    ),
 
     PacienteId INTEGER,
 
+    PacienteRegistro TEXT,
+
+    PacienteNome TEXT,
+
     Sala TEXT,
 
+    DataEntrada DATETIME DEFAULT CURRENT_TIMESTAMP,
+
     DataRetirada TEXT,
+
     DataUtilizacao TEXT,
+
     DataDevolucao TEXT,
+
     DataExtravio TEXT,
+
     DataPagamento TEXT,
 
-    Observacao TEXT
-);
+    Observacao TEXT,
 
+    FOREIGN KEY (LicitacaoItemId)
+    REFERENCES Licitacoes(Id)
+
+);
 -- =========================
 -- ÍNDICES
 -- =========================
@@ -385,4 +410,19 @@ ON Entradas (CodItem);
 
 CREATE INDEX IF NOT EXISTS IDX_ENTRADAS_FORNECEDOR
 ON Entradas (Fornecedor);
+
+CREATE INDEX IF NOT EXISTS IDX_RASTREIO_CODIGO
+ON EstoqueRastreado (CodigoBarras);
+
+CREATE INDEX IF NOT EXISTS IDX_RASTREIO_LOTE
+ON EstoqueRastreado (Lote);
+
+CREATE INDEX IF NOT EXISTS IDX_RASTREIO_UNICO
+ON EstoqueRastreado (CodigoUnico);
+
+CREATE INDEX IF NOT EXISTS IDX_RASTREIO_STATUS
+ON EstoqueRastreado (Status);
+
+CREATE INDEX IF NOT EXISTS IDX_RASTREIO_PACIENTE
+ON EstoqueRastreado (PacienteRegistro);
 """
