@@ -548,4 +548,58 @@ class LicitacaoService:
     
         conn.close()
 
+    @staticmethod
+    def listar_licitacoes_fornecedor(
+        fornecedor
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT DISTINCT
+                NumeroLicitacao
+            FROM Licitacoes
+            WHERE
+                Fornecedor = ?
+                AND Ativo = 1
+            ORDER BY NumeroLicitacao
+        """, (fornecedor,))
+    
+        resultado = cursor.fetchall()
+    
+        conn.close()
+    
+        return resultado
+
+    @staticmethod
+    def listar_itens_entrada(
+        numero_licitacao
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+                Id,
+                CodItem,
+                NomeMaterial,
+                ValorUnd
+            FROM Licitacoes
+            WHERE
+                NumeroLicitacao = ?
+                AND Ativo = 1
+                AND CodItem <> ''
+            ORDER BY NomeMaterial
+        """, (numero_licitacao,))
+    
+        resultado = cursor.fetchall()
+    
+        conn.close()
+    
+        return resultado
+
    
