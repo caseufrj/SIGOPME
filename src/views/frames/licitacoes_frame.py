@@ -579,19 +579,8 @@ class LicitacoesFrame(tk.Frame):
             text="Valor Total Pregão"
         ).pack()
         
-         
-        self.grid_licitacoes.column(
-            "consignado",
-            width=90
-        )
-        
-        self.grid_licitacoes.column(
-            "valor_total",
-            width=150
-        )
-
         txt_valor_total = tk.Entry(janela)
-
+        
         txt_valor_total.pack(
             fill="x",
             padx=10
@@ -601,7 +590,7 @@ class LicitacoesFrame(tk.Frame):
             0,
             valor_total
         )
-
+        
         aplicar_mascara_moeda(
             txt_valor_total
         )
@@ -611,7 +600,7 @@ class LicitacoesFrame(tk.Frame):
             valor_total = float(
                 txt_valor_total.get().replace(",", ".")
             )
-            
+        
             LicitacaoService.atualizar_licitacao(
                 id_registro,
                 txt_licitacao.get(),
@@ -621,6 +610,7 @@ class LicitacoesFrame(tk.Frame):
                 1 if var_consignado.get() else 0,
                 valor_total
             )
+        
             self.carregar_dados()
         
             janela.destroy()
@@ -629,31 +619,6 @@ class LicitacoesFrame(tk.Frame):
                 "SIGOPME",
                 "Licitação atualizada com sucesso."
             )
-
-            tk.Label(
-                janela,
-                text="Valor Total Pregão"
-            ).pack()
-            
-            txt_valor_total = tk.Entry(janela)
-            
-            txt_valor_total.pack(
-                fill="x",
-                padx=10
-            )
-            
-            txt_valor_total.insert(
-                0,
-                valor_total
-            )
-    
-        tk.Button(
-            janela,
-            text="Salvar Alterações",
-            command=salvar_edicao
-        ).pack(
-            pady=10
-        )
         
     def excluir(self):
 
