@@ -529,7 +529,7 @@ class EntradasFrame(tk.Frame):
         
             item_selecionado["dados"] = itens
 
-         cmb_licitacao.bind(
+        cmb_licitacao.bind(
             "<<ComboboxSelected>>",
             carregar_itens_licitacao
         )
@@ -717,6 +717,33 @@ class EntradasFrame(tk.Frame):
                     "end"
                 ).strip()
             )
+
+            try:
+
+                EstoqueRastreadoService.inserir(
+            
+                    item_selecionado["id"],
+            
+                    cmb_licitacao.get(),
+            
+                    txt_codigo.get(),
+            
+                    txt_material.get(),
+            
+                    txt_lote.get(),
+            
+                    txt_serie_produto.get()
+            
+                )
+            
+            except Exception as erro:
+            
+                messagebox.showerror(
+                    "SIGOPME",
+                    str(erro)
+                )
+            
+                return
         
             self.carregar_dados()
         
