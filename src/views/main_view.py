@@ -18,7 +18,7 @@ from views.frames.relatorios_frame import RelatoriosFrame
 from views.frames.cadastros_frame import CadastrosFrame
 from views.frames.entradas_frame import EntradasFrame
 from views.frames.pacientes_frame import PacientesFrame
-from views.frames.solicitacoes_frame import SolicitacoesFrame
+#from views.frames.solicitacoes_frame import SolicitacoesFrame
 
 
 class MainView(tk.Tk):
@@ -86,14 +86,14 @@ class MainView(tk.Tk):
             **estilo_menu
         ).pack(side="left", padx=5)
 
-        tk.Button(
+        """tk.Button(
             barra_menu,
             text="Solicitações",
             command=self.mostrar_solicitacoes
         ).pack(
             side="left",
             padx=5
-        )
+        )"""
         
         tk.Button(
             barra_menu,
@@ -197,7 +197,7 @@ class MainView(tk.Tk):
             expand=True
         )
 
-    def mostrar_solicitacoes(self):
+    """def mostrar_solicitacoes(self):
 
         self.limpar_area()
     
@@ -208,4 +208,4 @@ class MainView(tk.Tk):
         frame.pack(
             fill="both",
             expand=True
-        )
+        )"""
