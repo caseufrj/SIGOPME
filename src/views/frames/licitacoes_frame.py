@@ -4,7 +4,10 @@ from tkinter import messagebox
 
 from services.licitacao_service import LicitacaoService
 from views.components.grid_helper import criar_treeview
-from views.components.mascaras import aplicar_mascara_moeda
+from views.components.masks import (
+    aplicar_mascara_data,
+    aplicar_mascara_moeda
+)
 
 class LicitacoesFrame(tk.Frame):
 
