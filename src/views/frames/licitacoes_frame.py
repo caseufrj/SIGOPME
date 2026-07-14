@@ -469,10 +469,17 @@ class LicitacoesFrame(tk.Frame):
         registros = LicitacaoService.listar_resumo_licitacoes()
     
         for registro in registros:
-        
+
             registro = list(registro)
         
             registro[5] = "✓" if registro[5] == 1 else ""
+        
+            registro[6] = (
+                f"R$ {registro,.2f}"
+                .replace(",", "X")
+                .replace(".", ",")
+                .replace("X", ".")
+            )
         
             self.grid_licitacoes.insert(
                 "",
@@ -931,7 +938,16 @@ class LicitacoesFrame(tk.Frame):
         )
     
         for registro in registros:
-    
+        
+            registro = list(registro)
+        
+            registro[4] = (
+                f"R$ {registro,.2f}"
+                .replace(",", "X")
+                .replace(".", ",")
+                .replace("X", ".")
+            )
+        
             self.grid_itens.insert(
                 "",
                 "end",
