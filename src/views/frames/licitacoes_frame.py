@@ -475,7 +475,7 @@ class LicitacoesFrame(tk.Frame):
             registro[5] = "✓" if registro[5] == 1 else ""
         
             registro[6] = (
-                f"R$ {registro,.2f}"
+                f"R$ {registro[6]:,.2f}"
                 .replace(",", "X")
                 .replace(".", ",")
                 .replace("X", ".")
