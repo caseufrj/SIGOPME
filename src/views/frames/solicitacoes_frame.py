@@ -246,6 +246,137 @@ class SolicitacoesFrame(tk.Frame):
             side="left",
             padx=5
         )
+
+        # ====================
+        # ABA SALA
+        # ====================
+        
+        tk.Label(
+            self.frame_sala,
+            text="Sala"
+        ).grid(
+            row=0,
+            column=0,
+            sticky="w",
+            padx=5,
+            pady=5
+        )
+        
+        self.txt_sala = tk.Entry(
+            self.frame_sala,
+            width=50
+        )
+        
+        self.txt_sala.grid(
+            row=0,
+            column=1,
+            padx=5,
+            pady=5
+        )
+
+        tk.Label(
+            self.frame_sala,
+            text="Data Retirada"
+        ).grid(
+            row=1,
+            column=0,
+            sticky="w"
+        )
+        
+        self.txt_data_retirada_sala = tk.Entry(
+            self.frame_sala,
+            width=15
+        )
+        
+        self.txt_data_retirada_sala.grid(
+            row=1,
+            column=1,
+            sticky="w"
+        )
+
+        tk.Label(
+            self.frame_sala,
+            text="Data Utilização"
+        ).grid(
+            row=2,
+            column=0,
+            sticky="w"
+        )
+        
+        self.txt_data_utilizacao_sala = tk.Entry(
+            self.frame_sala,
+            width=15
+        )
+        
+        self.txt_data_utilizacao_sala.grid(
+            row=2,
+            column=1,
+            sticky="w"
+        )
+
+        tk.Label(
+            self.frame_sala,
+            text="Data Devolução"
+        ).grid(
+            row=3,
+            column=0,
+            sticky="w"
+        )
+        
+        self.txt_data_devolucao_sala = tk.Entry(
+            self.frame_sala,
+            width=15
+        )
+        
+        self.txt_data_devolucao_sala.grid(
+            row=3,
+            column=1,
+            sticky="w"
+        )
+
+        frame_botoes_sala = tk.Frame(
+            self.frame_sala
+        )
+        
+        frame_botoes_sala.grid(
+            row=4,
+            column=0,
+            columnspan=4,
+            pady=10
+        )
+
+        self.btn_registrar_sala = tk.Button(
+            frame_botoes_sala,
+            text="Registrar",
+            state="disabled"
+        )
+        
+        self.btn_registrar_sala.pack(
+            side="left",
+            padx=5
+        )
+        
+        self.btn_utilizado_sala = tk.Button(
+            frame_botoes_sala,
+            text="Utilizado",
+            state="disabled"
+        )
+        
+        self.btn_utilizado_sala.pack(
+            side="left",
+            padx=5
+        )
+        
+        self.btn_devolver_sala = tk.Button(
+            frame_botoes_sala,
+            text="Devolver",
+            state="disabled"
+        )
+        
+        self.btn_devolver_sala.pack(
+            side="left",
+            padx=5
+        )
         
         # Linha 1
         
