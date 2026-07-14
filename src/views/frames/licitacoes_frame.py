@@ -334,7 +334,7 @@ class LicitacoesFrame(tk.Frame):
             pady=5
         )
 
-    def moeda_para_float(texto):
+    def moeda_para_float(self, texto):
 
         texto = texto.replace("R$", "")
         texto = texto.replace(" ", "")
