@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 from services.licitacao_service import LicitacaoService
 from views.components.grid_helper import criar_treeview
-
+from views.components.mascaras import aplicar_mascara_moeda
 
 class LicitacoesFrame(tk.Frame):
 
@@ -150,6 +150,7 @@ class LicitacoesFrame(tk.Frame):
             "valor_total",
             width=150
         )
+        
         
         # Duplo clique em qualquer lugar da linha
         self.grid_licitacoes.bind(
@@ -393,11 +394,26 @@ class LicitacoesFrame(tk.Frame):
             text="Valor Total Pregão"
         ).pack()
         
-        txt_valor_total = tk.Entry(janela)
         
+        self.grid_licitacoes.column(
+            "consignado",
+            width=90
+        )
+        
+        self.grid_licitacoes.column(
+            "valor_total",
+            width=150
+        )
+
+        txt_valor_total = tk.Entry(janela)
+
         txt_valor_total.pack(
             fill="x",
             padx=10
+        )
+        
+        aplicar_mascara_moeda(
+            txt_valor_total
         )
 
     
@@ -560,15 +576,31 @@ class LicitacoesFrame(tk.Frame):
             text="Valor Total Pregão"
         ).pack()
         
-        txt_valor_total = tk.Entry(janela)
+         
+        self.grid_licitacoes.column(
+            "consignado",
+            width=90
+        )
         
+        self.grid_licitacoes.column(
+            "valor_total",
+            width=150
+        )
+
+        txt_valor_total = tk.Entry(janela)
+
         txt_valor_total.pack(
             fill="x",
-            padx=10)
+            padx=10
+        )
         
         txt_valor_total.insert(
             0,
             valor_total
+        )
+
+        aplicar_mascara_moeda(
+            txt_valor_total
         )
             
         def salvar_edicao():
@@ -685,32 +717,164 @@ class LicitacoesFrame(tk.Frame):
                 state="disabled"
             )
 
-    def novo_item(self):
-
-        selecionado = self.grid_licitacoes.selection()
-    
-        if not selecionado:
-    
-            messagebox.showwarning(
-                "SIGOPME",
-                "Selecione uma licitação primeiro."
-            )
-    
-            return
-
     def editar_item(self):
-    
+
         selecionado = self.grid_itens.selection()
     
         if not selecionado:
-    
             return
     
         item = self.grid_itens.item(
             selecionado[0]
         )
     
-        id_item = item["values"][0] 
+        id_item = item["values"][0]
+    
+        dados = LicitacaoService.obter_item(
+            id_item
+        )
+    
+        if not dados:
+            return
+    
+        (
+            _id,
+            codigo_item,
+            nome_material,
+            qtd_licitada,
+            valor_unitario
+        ) = dados
+    
+        janela = tk.Toplevel(self)
+    
+        janela.title("Editar Item")
+    
+        janela.geometry("600x350")
+    
+        tk.Label(
+            janela,
+            text="Código Item"
+        ).pack()
+    
+        txt_codigo = tk.Entry(janela)
+    
+        txt_codigo.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_codigo.insert(
+            0,
+            codigo_item
+        )
+    
+        tk.Label(
+            janela,
+            text="Nome Material"
+        ).pack()
+    
+        txt_material = tk.Entry(janela)
+    
+        txt_material.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_material.insert(
+            0,
+            nome_material
+        )
+    
+        tk.Label(
+            janela,
+            text="Quantidade Licitada"
+        ).pack()
+    
+        txt_qtd = tk.Entry(janela)
+    
+        txt_qtd.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_qtd.insert(
+            0,
+            qtd_licitada
+        )
+    
+        tk.Label(
+            janela,
+            text="Valor Unitário"
+        ).pack()
+    
+        txt_valor = tk.Entry(janela)
+    
+        txt_valor.pack(
+            fill="x",
+            padx=10
+        )
+    
+        txt_valor.insert(
+            0,
+            valor_unitario
+        )
+
+        aplicar_mascara_moeda(
+            txt_valor
+        )
+    
+        def salvar():
+    
+            try:
+    
+                qtd = int(
+                    txt_qtd.get()
+                )
+    
+                valor = float(
+                    txt_valor.get().replace(",", ".")
+                )
+    
+            except ValueError:
+    
+                messagebox.showerror(
+                    "SIGOPME",
+                    "Quantidade ou valor inválido."
+                )
+    
+                return
+    
+            LicitacaoService.atualizar_item(
+                id_item,
+                txt_codigo.get(),
+                txt_material.get(),
+                qtd,
+                valor
+            )
+    
+            janela.destroy()
+    
+            licitacao = self.grid_licitacoes.item(
+                self.grid_licitacoes.selection()[0]
+            )["values"][1]
+    
+            self.carregar_itens_licitacao(
+                licitacao
+            )
+    
+            messagebox.showinfo(
+                "SIGOPME",
+                "Item atualizado."
+            )
+    
+        tk.Button(
+            janela,
+            text="Salvar Alterações",
+            command=salvar
+        ).pack(
+            pady=15
+        )
+
 
     def excluir_item(self):
 
@@ -727,7 +891,7 @@ class LicitacoesFrame(tk.Frame):
     
         confirmar = messagebox.askyesno(
             "SIGOPME",
-            "Deseja excluir este item?"
+            "Deseja realmente excluir este item?"
         )
     
         if not confirmar:
@@ -736,7 +900,21 @@ class LicitacoesFrame(tk.Frame):
         LicitacaoService.excluir_item(
             id_item
         )
-
+    
+        licitacao = self.grid_licitacoes.item(
+            self.grid_licitacoes.selection()[0]
+        )["values"][1]
+    
+        self.carregar_itens_licitacao(
+            licitacao
+        )
+    
+        self.carregar_dados()
+    
+        messagebox.showinfo(
+            "SIGOPME",
+            "Item excluído com sucesso."
+        )
     def abrir_licitacao(self, event):
 
         selecionado = self.grid_licitacoes.selection()
@@ -853,6 +1031,10 @@ class LicitacoesFrame(tk.Frame):
         txt_valor.pack(
             fill="x",
             padx=10
+        )
+
+        aplicar_mascara_moeda(
+            txt_valor
         )
     
         def salvar():
