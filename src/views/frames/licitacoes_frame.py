@@ -252,6 +252,17 @@ class LicitacoesFrame(tk.Frame):
             pady=5
         )
         
+        self.grid_itens.heading(
+            "item",
+            text=""
+        )
+        
+        self.grid_itens.column(
+            "item",
+            width=0,
+            stretch=False
+        )
+
         self.grid_itens.heading("item", text="Item")
         self.grid_itens.heading("cod_item", text="Código")
         self.grid_itens.heading("material", text="Nome Material")
