@@ -66,6 +66,186 @@ class SolicitacoesFrame(tk.Frame):
             padx=10,
             pady=10
         )
+
+        notebook = ttk.Notebook(self)
+
+        notebook.pack(
+            fill="x",
+            padx=10,
+            pady=10
+        )
+        
+        self.frame_paciente = tk.Frame(notebook)
+        self.frame_sala = tk.Frame(notebook)
+        
+        notebook.add(
+            self.frame_paciente,
+            text="Paciente"
+        )
+        
+        notebook.add(
+            self.frame_sala,
+            text="Sala"
+        )
+
+        #====================
+        # ABA PACIENTE
+        #====================
+        tk.Label(
+            self.frame_paciente,
+            text="Paciente"
+        ).grid(
+            row=0,
+            column=0,
+            sticky="w",
+            padx=5,
+            pady=5
+        )
+        
+        self.txt_paciente = tk.Entry(
+            self.frame_paciente,
+            width=50
+        )
+        
+        self.txt_paciente.grid(
+            row=0,
+            column=1,
+            padx=5,
+            pady=5
+        )
+
+        tk.Label(
+            self.frame_paciente,
+            text="Registro"
+        ).grid(
+            row=0,
+            column=2,
+            sticky="w",
+            padx=5,
+            pady=5
+        )
+        
+        self.txt_registro = tk.Entry(
+            self.frame_paciente,
+            width=20
+        )
+        
+        self.txt_registro.grid(
+            row=0,
+            column=3,
+            padx=5,
+            pady=5
+        )
+
+        tk.Label(
+            self.frame_paciente,
+            text="Data Retirada"
+        ).grid(
+            row=1,
+            column=0,
+            sticky="w",
+            padx=5,
+            pady=5
+        )
+        
+        self.txt_data_retirada = tk.Entry(
+            self.frame_paciente,
+            width=15
+        )
+        
+        self.txt_data_retirada.grid(
+            row=1,
+            column=1,
+            sticky="w"
+        )
+
+        tk.Label(
+            self.frame_paciente,
+            text="Data Utilização"
+        ).grid(
+            row=2,
+            column=0,
+            sticky="w",
+            padx=5,
+            pady=5
+        )
+        
+        self.txt_data_utilizacao = tk.Entry(
+            self.frame_paciente,
+            width=15
+        )
+        
+        self.txt_data_utilizacao.grid(
+            row=2,
+            column=1,
+            sticky="w"
+        )
+
+        tk.Label(
+            self.frame_paciente,
+            text="Data Devolução"
+        ).grid(
+            row=3,
+            column=0,
+            sticky="w",
+            padx=5,
+            pady=5
+        )
+        
+        self.txt_data_devolucao = tk.Entry(
+            self.frame_paciente,
+            width=15
+        )
+        
+        self.txt_data_devolucao.grid(
+            row=3,
+            column=1,
+            sticky="w"
+        )
+
+        frame_botoes = tk.Frame(
+            self.frame_paciente
+        )
+        
+        frame_botoes.grid(
+            row=4,
+            column=0,
+            columnspan=4,
+            pady=10
+        )
+
+        self.btn_registrar = tk.Button(
+            frame_botoes,
+            text="Registrar",
+            state="disabled"
+        )
+        
+        self.btn_registrar.pack(
+            side="left",
+            padx=5
+        )
+
+        self.btn_utilizado = tk.Button(
+            frame_botoes,
+            text="Utilizado",
+            state="disabled"
+        )
+        
+        self.btn_utilizado.pack(
+            side="left",
+            padx=5
+        )
+
+        self.btn_devolver = tk.Button(
+            frame_botoes,
+            text="Devolver",
+            state="disabled"
+        )
+        
+        self.btn_devolver.pack(
+            side="left",
+            padx=5
+        )
         
         # Linha 1
         
@@ -237,27 +417,56 @@ class SolicitacoesFrame(tk.Frame):
         self.lbl_licitacao.config(
             text=f"Licitação: {numero_licitacao}"
         )
-    
+        
         self.lbl_status.config(
             text=f"Status: {status}"
         )
-    
+        
         self.lbl_cod_item.config(
             text=f"Cód Item: {cod_item}"
         )
-    
+        
         self.lbl_material.config(
             text=f"Nome Material: {nome_material}"
         )
-    
+        
         self.lbl_lote.config(
             text=f"Lote: {lote}"
         )
-    
+        
         self.lbl_serie.config(
             text=f"Série: {codigo_unico}"
         )
-    
+        
         self.lbl_codigo_barras.config(
             text=f"Código Barras: {codigo_barras}"
         )
+        
+        # =====================
+        # PACIENTE / SALA
+        # =====================
+        
+        self.txt_paciente.delete(0, tk.END)
+        self.txt_registro.delete(0, tk.END)
+        self.txt_sala.delete(0, tk.END)
+        
+        if paciente_nome:
+        
+            self.txt_paciente.insert(
+                0,
+                paciente_nome
+            )
+        
+        if paciente_registro:
+        
+            self.txt_registro.insert(
+                0,
+                paciente_registro
+            )
+        
+        if sala:
+        
+            self.txt_sala.insert(
+                0,
+                sala
+            )
