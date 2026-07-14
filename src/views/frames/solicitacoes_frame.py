@@ -84,7 +84,7 @@ class SolicitacoesFrame(tk.Frame):
         """resultado = SolicitacaoService.buscar_item(
             texto
         )"""
-        RESULTADO = nONE
+        RESULTADO = None
 
         if not resultado:
 
@@ -109,7 +109,7 @@ class SolicitacoesFrame(tk.Frame):
             paciente_registro,
             paciente_nome,
             sala,
-            *
+            *resto
         ) = resultado
 
         self.lbl_resultado.config(
