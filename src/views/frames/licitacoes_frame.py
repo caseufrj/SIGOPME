@@ -422,7 +422,7 @@ class LicitacoesFrame(tk.Frame):
         
             try:
         
-                valor_total = moeda_para_float(
+                valor_total = self.moeda_para_float(
                     txt_valor_total.get()
                 )
         
@@ -597,7 +597,7 @@ class LicitacoesFrame(tk.Frame):
 
             try:
         
-                valor_total = moeda_para_float(
+                valor_total = self.moeda_para_float(
                     txt_valor_total.get()
                 )
         
@@ -817,7 +817,7 @@ class LicitacoesFrame(tk.Frame):
                     txt_qtd.get()
                 )
                 
-                valor = moeda_para_float(
+                valor = self.moeda_para_float(
                     txt_valor.get()
                 )
         
@@ -1031,8 +1031,8 @@ class LicitacoesFrame(tk.Frame):
                     txt_qtd.get()
                 )
     
-                valor = float(
-                    txt_valor.get().replace(",", ".")
+                valor = self.moeda_para_float(
+                    txt_valor.get()
                 )
         
             except ValueError:
