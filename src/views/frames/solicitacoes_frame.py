@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
-# from services.solicitacao_service import SolicitacaoService
+from services.solicitacao_service import SolicitacaoService
 
 class SolicitacoesFrame(tk.Frame):
 
@@ -81,11 +81,10 @@ class SolicitacoesFrame(tk.Frame):
 
             return
 
-        """resultado = SolicitacaoService.buscar_item(
+        resultado = SolicitacaoService.buscar_item(
             texto
-        )"""
-        RESULTADO = None
-
+        )
+        
         if not resultado:
 
             self.lbl_resultado.config(
