@@ -1,4 +1,4 @@
-from services.database_service import DatabaseService
+from database.database_service import DatabaseService
 
 
 class EstoqueRastreadoService:
