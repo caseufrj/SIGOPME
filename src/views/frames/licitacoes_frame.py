@@ -596,7 +596,7 @@ class LicitacoesFrame(tk.Frame):
         )
             
         def salvar_edicao():
-
+        
             valor_total = float(
                 txt_valor_total.get().replace(",", ".")
             )
@@ -619,6 +619,15 @@ class LicitacoesFrame(tk.Frame):
                 "SIGOPME",
                 "Licitação atualizada com sucesso."
             )
+        
+        
+        tk.Button(
+            janela,
+            text="Salvar Alterações",
+            command=salvar_edicao
+        ).pack(
+            pady=10
+        )
         
     def excluir(self):
 
