@@ -334,6 +334,15 @@ class LicitacoesFrame(tk.Frame):
             pady=5
         )
 
+    def moeda_para_float(texto):
+
+        texto = texto.replace("R$", "")
+        texto = texto.replace(" ", "")
+        texto = texto.replace(".", "")
+        texto = texto.replace(",", ".")
+    
+        return float(texto)
+
     def novo(self):
 
         janela = tk.Toplevel(self)
@@ -397,17 +406,6 @@ class LicitacoesFrame(tk.Frame):
             text="Valor Total Pregão"
         ).pack()
         
-        
-        self.grid_licitacoes.column(
-            "consignado",
-            width=90
-        )
-        
-        self.grid_licitacoes.column(
-            "valor_total",
-            width=150
-        )
-
         txt_valor_total = tk.Entry(janela)
 
         txt_valor_total.pack(
@@ -424,8 +422,8 @@ class LicitacoesFrame(tk.Frame):
         
             try:
         
-                valor_total = float(
-                    txt_valor_total.get().replace(",", ".")
+                valor_total = moeda_para_float(
+                    txt_valor_total.get()
                 )
         
             except ValueError:
@@ -596,10 +594,21 @@ class LicitacoesFrame(tk.Frame):
         )
             
         def salvar_edicao():
+
+            try:
         
-            valor_total = float(
-                txt_valor_total.get().replace(",", ".")
-            )
+                valor_total = moeda_para_float(
+                    txt_valor_total.get()
+                )
+        
+            except ValueError:
+        
+                messagebox.showerror(
+                    "SIGOPME",
+                    "Valor Total do Pregão inválido."
+                )
+        
+                return
         
             LicitacaoService.atualizar_licitacao(
                 id_registro,
@@ -801,26 +810,26 @@ class LicitacoesFrame(tk.Frame):
         )
     
         def salvar():
-    
+
             try:
-    
+
                 qtd = int(
                     txt_qtd.get()
                 )
-    
-                valor = float(
-                    txt_valor.get().replace(",", ".")
+                
+                valor = moeda_para_float(
+                    txt_valor.get()
                 )
-    
+        
             except ValueError:
-    
+        
                 messagebox.showerror(
                     "SIGOPME",
-                    "Quantidade ou valor inválido."
+                    "Valor Total do Pregão inválido."
                 )
-    
+        
                 return
-    
+        
             LicitacaoService.atualizar_item(
                 id_item,
                 txt_codigo.get(),
@@ -828,17 +837,17 @@ class LicitacoesFrame(tk.Frame):
                 qtd,
                 valor
             )
-    
+        
             janela.destroy()
-    
+        
             licitacao = self.grid_licitacoes.item(
                 self.grid_licitacoes.selection()[0]
             )["values"][1]
-    
+        
             self.carregar_itens_licitacao(
                 licitacao
             )
-    
+        
             messagebox.showinfo(
                 "SIGOPME",
                 "Item atualizado."
@@ -1017,7 +1026,7 @@ class LicitacoesFrame(tk.Frame):
         def salvar():
     
             try:
-    
+        
                 qtd = int(
                     txt_qtd.get()
                 )
@@ -1025,14 +1034,14 @@ class LicitacoesFrame(tk.Frame):
                 valor = float(
                     txt_valor.get().replace(",", ".")
                 )
-    
+        
             except ValueError:
-    
+        
                 messagebox.showerror(
                     "SIGOPME",
-                    "Quantidade e Valor devem ser numéricos."
+                    "Valor Total do Pregão inválido."
                 )
-    
+        
                 return
     
             LicitacaoService.inserir_item(
