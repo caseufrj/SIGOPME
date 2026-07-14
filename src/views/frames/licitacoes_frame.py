@@ -223,6 +223,7 @@ class LicitacoesFrame(tk.Frame):
         
         colunas_itens = (
             "item",
+            "cod_item",
             "material",
             "qtd_licitada",
             "valor_unit",
@@ -248,6 +249,7 @@ class LicitacoesFrame(tk.Frame):
         )
         
         self.grid_itens.heading("item", text="Item")
+        self.grid_itens.heading("cod_item", text="Código")
         self.grid_itens.heading("material", text="Nome Material")
         self.grid_itens.heading("qtd_licitada", text="Qtd Licitada")
         self.grid_itens.heading("valor_unit", text="Valor Unit.")
