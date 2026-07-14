@@ -295,6 +295,36 @@ class EntradasFrame(tk.Frame):
             fill="x",
             padx=10
         )
+
+        tk.Label(
+            janela,
+            text="Licitação"
+        ).pack()
+        
+        cmb_licitacao = ttk.Combobox(
+            janela,
+            state="readonly"
+        )
+        
+        cmb_licitacao.pack(
+            fill="x",
+            padx=10
+        )
+
+        tk.Label(
+            janela,
+            text="Item da Licitação"
+        ).pack()
+        
+        cmb_item = ttk.Combobox(
+            janela,
+            state="readonly"
+        )
+        
+        cmb_item.pack(
+            fill="x",
+            padx=10
+        )
        
         def pesquisar_fornecedor(event=None):
 
@@ -660,3 +690,14 @@ class EntradasFrame(tk.Frame):
             "SIGOPME",
             "Entrada excluída."
         )
+
+    def fornecedor_selecionado(event):
+
+        licitacoes = LicitacaoService.listar_licitacoes_fornecedor(
+            txt_fornecedor.get()
+        )
+    
+        cmb_licitacao["values"] = [
+            x[0] for x in licitacoes
+        ]
+
