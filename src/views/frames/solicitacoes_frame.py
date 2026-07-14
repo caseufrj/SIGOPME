@@ -56,43 +56,166 @@ class SolicitacoesFrame(tk.Frame):
             padx=5
         )
 
-        self.lbl_resultado = tk.Label(
+        frame_item = tk.LabelFrame(
             self,
-            text="Nenhum item localizado.",
-            justify="left"
+            text="Dados do Item"
         )
-
-        self.lbl_resultado.pack(
-            anchor="w",
+        
+        frame_item.pack(
+            fill="x",
             padx=10,
-            pady=20
+            pady=10
+        )
+        
+        # Linha 1
+        
+        self.lbl_licitacao = tk.Label(
+            frame_item,
+            text="Licitação:"
+        )
+        
+        self.lbl_licitacao.grid(
+            row=0,
+            column=0,
+            padx=10,
+            pady=5,
+            sticky="w"
+        )
+        
+        self.lbl_status = tk.Label(
+            frame_item,
+            text="Status:"
+        )
+        
+        self.lbl_status.grid(
+            row=0,
+            column=1,
+            padx=20,
+            pady=5,
+            sticky="w"
+        )
+        
+        # Linha 2
+        
+        self.lbl_cod_item = tk.Label(
+            frame_item,
+            text="Cod Item:"
+        )
+        
+        self.lbl_cod_item.grid(
+            row=1,
+            column=0,
+            padx=10,
+            pady=5,
+            sticky="w"
+        )
+        
+        self.lbl_material = tk.Label(
+            frame_item,
+            text="Nome Material:"
+        )
+        
+        self.lbl_material.grid(
+            row=1,
+            column=1,
+            padx=20,
+            pady=5,
+            sticky="w"
+        )
+        
+        # Linha 3
+        
+        self.lbl_lote = tk.Label(
+            frame_item,
+            text="Lote:"
+        )
+        
+        self.lbl_lote.grid(
+            row=2,
+            column=0,
+            padx=10,
+            pady=5,
+            sticky="w"
+        )
+        
+        self.lbl_serie = tk.Label(
+            frame_item,
+            text="Série:"
+        )
+        
+        self.lbl_serie.grid(
+            row=2,
+            column=1,
+            padx=20,
+            pady=5,
+            sticky="w"
+        )
+        
+        # Linha 4
+        
+        self.lbl_codigo_barras = tk.Label(
+            frame_item,
+            text="Código Barras:"
+        )
+        
+        self.lbl_codigo_barras.grid(
+            row=3,
+            column=0,
+            columnspan=2,
+            padx=10,
+            pady=5,
+            sticky="w"
         )
 
     def pesquisar(self):
 
         texto = self.txt_busca.get().strip()
-
+    
         if not texto:
-
+    
             messagebox.showwarning(
                 "SIGOPME",
                 "Informe um valor para pesquisa."
             )
-
+    
             return
-
+    
         resultado = SolicitacaoService.buscar_item(
             texto
         )
-        
+    
         if not resultado:
-
-            self.lbl_resultado.config(
-                text="Item não encontrado."
+    
+            self.lbl_licitacao.config(
+                text="Licitação:"
             )
-
+    
+            self.lbl_status.config(
+                text="Status:"
+            )
+    
+            self.lbl_cod_item.config(
+                text="Cód Item:"
+            )
+    
+            self.lbl_material.config(
+                text="Nome Material:"
+            )
+    
+            self.lbl_lote.config(
+                text="Lote:"
+            )
+    
+            self.lbl_serie.config(
+                text="Série:"
+            )
+    
+            self.lbl_codigo_barras.config(
+                text="Código Barras:"
+            )
+    
             return
-
+    
         (
             _id,
             licitacao_item_id,
@@ -110,16 +233,31 @@ class SolicitacoesFrame(tk.Frame):
             sala,
             *resto
         ) = resultado
-
-        self.lbl_resultado.config(
-            text=
-            f"Licitação: {numero_licitacao}\n"
-            f"Código: {cod_item}\n"
-            f"Material: {nome_material}\n"
-            f"Lote: {lote}\n"
-            f"Código Único: {codigo_unico}\n"
-            f"Status: {status}\n"
-            f"Paciente: {paciente_nome or '-'}\n"
-            f"Registro: {paciente_registro or '-'}\n"
-            f"Sala: {sala or '-'}"
+    
+        self.lbl_licitacao.config(
+            text=f"Licitação: {numero_licitacao}"
+        )
+    
+        self.lbl_status.config(
+            text=f"Status: {status}"
+        )
+    
+        self.lbl_cod_item.config(
+            text=f"Cód Item: {cod_item}"
+        )
+    
+        self.lbl_material.config(
+            text=f"Nome Material: {nome_material}"
+        )
+    
+        self.lbl_lote.config(
+            text=f"Lote: {lote}"
+        )
+    
+        self.lbl_serie.config(
+            text=f"Série: {codigo_unico}"
+        )
+    
+        self.lbl_codigo_barras.config(
+            text=f"Código Barras: {codigo_barras}"
         )
