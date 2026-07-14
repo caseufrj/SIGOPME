@@ -1,8 +1,12 @@
 import tkinter as tk
 from tkinter import messagebox
 
-from services.solicitacao_service import SolicitacaoService
-
+try:
+    from services.solicitacao_service import SolicitacaoService
+except Exception as e:
+    import traceback
+    traceback.print_exc()
+    raise
 
 class SolicitacoesFrame(tk.Frame):
 
