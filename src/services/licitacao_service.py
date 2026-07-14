@@ -309,32 +309,21 @@ class LicitacaoService:
     
                 NumeroLicitacao,
     
-                Ata,
+                MAX(Ata) AS Ata,
     
-                Fornecedor,
+                MAX(Fornecedor) AS Fornecedor,
     
-                TipoLicitacao,
+                MAX(TipoLicitacao) AS TipoLicitacao,
     
                 MAX(Consignado) AS Consignado,
     
-                SUM(
-                    CASE
-                        WHEN CodItem <> ''
-                        THEN QtdLicitada * ValorUnd
-                        ELSE 0
-                    END
-                )
+                MAX(ValorTotalPregao) AS ValorTotal
     
             FROM Licitacoes
     
             WHERE Ativo = 1
     
-            GROUP BY
-    
-                NumeroLicitacao,
-                Ata,
-                Fornecedor,
-                TipoLicitacao
+            GROUP BY NumeroLicitacao
     
             ORDER BY NumeroLicitacao
         """)
@@ -428,19 +417,48 @@ class LicitacaoService:
         cursor = conn.cursor()
     
         cursor.execute("""
+            SELECT
+                Ata,
+                Fornecedor,
+                TipoLicitacao,
+                Consignado,
+                ValorTotalPregao
+            FROM Licitacoes
+            WHERE NumeroLicitacao = ?
+            LIMIT 1
+        """, (numero_licitacao,))
+    
+        dados = cursor.fetchone()
+    
+        ata, fornecedor, tipo, consignado, valor_total = dados
+    
+        cursor.execute("""
             INSERT INTO Licitacoes (
     
                 NumeroLicitacao,
+                Ata,
+                Fornecedor,
+                TipoLicitacao,
+                Consignado,
+                ValorTotalPregao,
+    
                 CodItem,
                 NomeMaterial,
                 QtdLicitada,
                 ValorUnd,
+    
                 Ativo
     
             )
-            VALUES (?, ?, ?, ?, ?, 1)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
         """, (
             numero_licitacao,
+            ata,
+            fornecedor,
+            tipo,
+            consignado,
+            valor_total,
+    
             codigo_item,
             nome_material,
             qtd_licitada,
