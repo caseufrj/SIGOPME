@@ -12,6 +12,9 @@ from views.components.masks import (
     aplicar_mascara_data,
     aplicar_mascara_moeda
 )
+from services.estoque_rastreado_service import (
+    EstoqueRastreadoService
+)
 
 class EntradasFrame(tk.Frame):
 
@@ -371,6 +374,18 @@ class EntradasFrame(tk.Frame):
                 tk.END
             )
         
+            # NOVO
+        
+            licitacoes = (
+                LicitacaoService.listar_licitacoes_fornecedor(
+                    fornecedor
+                )
+            )
+        
+            cmb_licitacao["values"] = [
+                x[0] for x in licitacoes
+            ]
+        
             txt_fornecedor.insert(
                 0,
                 fornecedor
@@ -496,6 +511,24 @@ class EntradasFrame(tk.Frame):
             padx=10
         )
 
+        item_selecionado = {}
+        def carregar_itens_licitacao(event=None):
+
+            numero_licitacao = cmb_licitacao.get()
+        
+            itens = (
+                LicitacaoService.listar_itens_entrada(
+                    numero_licitacao
+                )
+            )
+        
+            cmb_item["values"] = [
+                f"{x[1]} - {x[2]}"
+                for x in itens
+            ]
+        
+            item_selecionado["dados"] = itens
+        
         def buscar_item(event=None):
 
             codigo = txt_codigo.get().strip()
