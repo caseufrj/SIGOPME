@@ -942,7 +942,7 @@ class LicitacoesFrame(tk.Frame):
             registro = list(registro)
         
             registro[4] = (
-                f"R$ {registro,.2f}"
+                f"R$ {registro[4]:,.2f}"
                 .replace(",", "X")
                 .replace(".", ",")
                 .replace("X", ".")
