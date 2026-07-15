@@ -761,24 +761,9 @@ class EntradasFrame(tk.Frame):
             padx=10,
             pady=5
         )
+
+        frame_botoes_itens.tkraise()
         
-        tk.Button(
-            frame_botoes_itens,
-            text="Incluir Item",
-            command=incluir_item
-        ).pack(
-            side="left",
-            padx=5
-        )
-        
-        tk.Button(
-            frame_botoes_itens,
-            text="Remover Item"
-        ).pack(
-            side="left",
-            padx=5
-        )
-       
         def pesquisar_fornecedor(event=None):
 
             texto = txt_fornecedor.get().strip()
@@ -854,264 +839,6 @@ class EntradasFrame(tk.Frame):
         lst_fornecedores.bind(
             "<Double-Button-1>",
             selecionar_fornecedor
-        )
-
-        tk.Label(
-            janela,
-            text="Valor Total NF"
-        ).pack()
-        
-        txt_valor_nf = tk.Entry(
-            janela
-        )
-               
-        aplicar_mascara_moeda(
-            txt_valor_nf
-        )
-        
-        txt_valor_nf.pack(
-            fill="x",
-            padx=10
-        )
-
-        tk.Label(
-            janela,
-            text="Código Item"
-        ).pack()
-
-        txt_codigo = tk.Entry(janela)
-
-        txt_codigo.pack(
-            fill="x",
-            padx=10
-        )
-        
-        tk.Label(
-            janela,
-            text="Nome Material"
-        ).pack()
-
-        txt_material = tk.Entry(janela)
-
-        txt_material.pack(
-            fill="x",
-            padx=10
-        )
-
-        tk.Label(
-            janela,
-            text="Valor Unitário"
-        ).pack()
-        
-        txt_valor_unitario = tk.Entry(
-            janela
-        )
-        
-        aplicar_mascara_moeda(
-            txt_valor_unitario
-        )
-        
-        txt_valor_unitario.pack(
-            fill="x",
-            padx=10
-        )
-
-        tk.Label(
-            janela,
-            text="Lote"
-        ).pack()
-        
-        txt_lote = tk.Entry(
-            janela
-        )
-        
-        txt_lote.pack(
-            fill="x",
-            padx=10
-        )
-        
-        tk.Label(
-            janela,
-            text="Série Produto"
-        ).pack()
-        
-        txt_serie_produto = tk.Entry(
-            janela
-        )
-        
-        txt_serie_produto.pack(
-            fill="x",
-            padx=10
-        )
-        
-        tk.Label(
-            janela,
-            text="Data Validade"
-        ).pack()
-        
-        txt_validade = tk.Entry(
-            janela
-        )
-        aplicar_mascara_data(
-            txt_validade
-        )
-        
-        txt_validade.pack(
-            fill="x",
-            padx=10
-        )
-
-        item_selecionado = {}
-        def carregar_itens_licitacao(event=None):
-
-            numero_licitacao = cmb_licitacao.get()
-        
-            itens = (
-                LicitacaoService.listar_itens_entrada(
-                    numero_licitacao
-                )
-            )
-        
-            cmb_item["values"] = [
-                f"{x[1]} - {x[2]}"
-                for x in itens
-            ]
-        
-            item_selecionado["dados"] = itens
-
-        cmb_licitacao.bind(
-            "<<ComboboxSelected>>",
-            carregar_itens_licitacao
-        )
-
-        def selecionar_item(event=None):
-
-            texto = cmb_item.get()
-        
-            if not texto:
-                return
-        
-            codigo = texto.split(" - ")[0]
-        
-            for registro in item_selecionado["dados"]:
-        
-                if registro[1] == codigo:
-        
-                    txt_codigo.delete(
-                        0,
-                        tk.END
-                    )
-        
-                    txt_codigo.insert(
-                        0,
-                        registro[1]
-                    )
-        
-                    txt_material.delete(
-                        0,
-                        tk.END
-                    )
-        
-                    txt_material.insert(
-                        0,
-                        registro[2]
-                    )
-        
-                    txt_valor_unitario.delete(
-                        0,
-                        tk.END
-                    )
-        
-                    txt_valor_unitario.insert(
-                        0,
-                        str(registro[3])
-                    )
-        
-                    item_selecionado["id"] = registro[0]
-        
-                    break
-
-        cmb_item.bind(
-            "<<ComboboxSelected>>",
-            selecionar_item
-        )
-        
-        def buscar_item(event=None):
-
-            codigo = txt_codigo.get().strip()
-        
-            if not codigo:
-                return
-        
-            dados = LicitacaoService.obter_por_codigo(
-                codigo
-            )
-        
-            if not dados:
-                return
-        
-            fornecedor, material, valor_unitario = dados
-        
-            txt_fornecedor.delete(
-                0,
-                tk.END
-            )
-        
-            txt_fornecedor.insert(
-                0,
-                fornecedor
-            )
-        
-            txt_material.delete(
-                0,
-                tk.END
-            )
-        
-            txt_material.insert(
-                0,
-                material
-            )
-
-            txt_valor_unitario.delete(
-                0,
-                tk.END
-            )
-            
-            txt_valor_unitario.insert(
-                0,
-                str(valor_unitario)
-            )
-
-        tk.Label(
-            janela,
-            text="Quantidade"
-        ).pack()
-
-        txt_quantidade = tk.Entry(janela)
-
-        txt_quantidade.pack(
-            fill="x",
-            padx=10
-        )
-
-        tk.Label(
-            janela,
-            text="Observação"
-        ).pack()
-
-        txt_observacao = tk.Text(
-            janela,
-            height=4
-        )
-
-        txt_observacao.pack(
-            fill="x",
-            padx=10
-        )
-
-        txt_codigo.bind(
-            "<FocusOut>",
-            buscar_item
         )
 
         def salvar():
@@ -1383,14 +1110,6 @@ class EntradasFrame(tk.Frame):
                 text=f"Total dos Itens: R$ {total:,.2f}"
             )
 
-        tk.Button(
-            janela,
-            text="Incluir Item",
-            command=incluir_item
-        ).pack(
-            pady=5
-        )
-
         grid_temp.heading(
             "codigo",
             text="Código"
@@ -1420,6 +1139,34 @@ class EntradasFrame(tk.Frame):
             "quantidade",
             text="Qtd"
         )
+
+        grid_temp.heading(
+            "valor_unitario",
+            text="Valor Unit."
+        )
+        
+        grid_temp.heading(
+            "valor_total",
+            text="Valor Total"
+        )
+
+        tk.Button(
+            frame_botoes_itens,
+            text="Incluir Item",
+            command=incluir_item
+        ).pack(
+            side="left",
+            padx=5
+        )
+        
+        tk.Button(
+            frame_botoes_itens,
+            text="Remover Item"
+        ).pack(
+            side="left",
+            padx=5
+        )
+       
 
         tk.Button(
             janela,
