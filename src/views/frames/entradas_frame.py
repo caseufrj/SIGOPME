@@ -662,7 +662,7 @@ class EntradasFrame(tk.Frame):
             pady=5
         )
 
-         def carregar_itens_licitacao(event=None):
+        def carregar_itens_licitacao(event=None):
 
         numero_licitacao = cmb_licitacao.get()
     
