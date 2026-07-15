@@ -18,7 +18,7 @@ from services.estoque_rastreado_service import (
 )
 
 from services.nota_itens_service import (
-    NotaItensService
+    NotaItensServicelicitacao.bin
 )
 
 class EntradasFrame(tk.Frame):
@@ -679,43 +679,43 @@ class EntradasFrame(tk.Frame):
     
         item_selecionado["dados"] = itens
 
-    cmb_licitacao.bind(
-        "<<ComboboxSelected>>",
-        carregar_itens_licitacao
-    )
-
-    def selecionar_item(event=None):
-
-        texto = cmb_item.get()
+        cmb_licitacao.bind(
+            "<<ComboboxSelected>>",
+            carregar_itens_licitacao
+        )
     
-        if not texto:
-            return
+        def selecionar_item(event=None):
     
-        codigo = texto.split(" - ")[0]
-    
-        for registro in item_selecionado["dados"]:
-    
-            if registro[1] == codigo:
-    
-                item_selecionado["id"] = registro[0]
-    
-                item_selecionado["codigo"] = registro[1]
-    
-                item_selecionado["material"] = registro[2]
-    
-                item_selecionado["valor_unitario"] = registro[3]
-    
-                txt_valor_unitario.delete(
-                    0,
-                    tk.END
-                )
-    
-                txt_valor_unitario.insert(
-                    0,
-                    str(registro[3])
-                )
-    
-                break
+            texto = cmb_item.get()
+        
+            if not texto:
+                return
+        
+            codigo = texto.split(" - ")[0]
+        
+            for registro in item_selecionado["dados"]:
+        
+                if registro[1] == codigo:
+        
+                    item_selecionado["id"] = registro[0]
+        
+                    item_selecionado["codigo"] = registro[1]
+        
+                    item_selecionado["material"] = registro[2]
+        
+                    item_selecionado["valor_unitario"] = registro[3]
+        
+                    txt_valor_unitario.delete(
+                        0,
+                        tk.END
+                    )
+        
+                    txt_valor_unitario.insert(
+                        0,
+                        str(registro[3])
+                    )
+        
+                    break
             
         
         tk.Label(
