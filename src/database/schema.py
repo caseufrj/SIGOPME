@@ -327,7 +327,7 @@ CREATE TABLE IF NOT EXISTS EstoqueRastreado (
 
     NumeroLicitacao TEXT NOT NULL,
 
-    NumeroNF TEXT;
+    NumeroNF TEXT,
 
     CodItem TEXT NOT NULL,
 
