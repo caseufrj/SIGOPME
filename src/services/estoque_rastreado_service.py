@@ -10,7 +10,8 @@ class EstoqueRastreadoService:
         cod_item,
         nome_material,
         lote,
-        codigo_unico
+        codigo_unico,
+        NumeroNF
     ):
 
         codigo_barras = (
@@ -37,47 +38,49 @@ class EstoqueRastreadoService:
 
         cursor.execute("""
             INSERT INTO EstoqueRastreado (
-
+            
                 LicitacaoItemId,
-
+            
                 NumeroLicitacao,
-
+            
                 CodItem,
-
+            
                 NomeMaterial,
-
+            
                 Lote,
-
+            
                 CodigoUnico,
-
+            
                 CodigoBarras,
-
+            
+                NumeroNF,
+            
                 Status
-
+            
             )
             VALUES (
 
-                ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?,?,?,
 
                 'DISPONIVEL'
             )
 
         """, (
-
             licitacao_item_id,
-
+        
             numero_licitacao,
-
+        
             cod_item,
-
+        
             nome_material,
-
+        
             lote,
-
+        
             codigo_unico,
-
-            codigo_barras
-
+        
+            codigo_barras,
+        
+            numero_nf
         ))
 
         conn.commit()
