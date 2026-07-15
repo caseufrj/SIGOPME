@@ -82,14 +82,14 @@ class EntradasFrame(tk.Frame):
 
         colunas = (
             "id",
+            "licitacao",
             "nf",
             "serie",
-            "data",
+            "data_nf",
+            "data_entrada",
             "tipo",
             "fornecedor",
-            "codigo",
-            "material",
-            "quantidade"
+            "valor_total"
         )
 
         frame_grid, self.grid = criar_treeview(
@@ -104,60 +104,89 @@ class EntradasFrame(tk.Frame):
             pady=10
         )
 
-        self.grid.heading("id", text="Id")
-        self.grid.heading("nf", text="NF")
-        self.grid.heading("serie", text="Série")
-        self.grid.heading("data", text="Data Entrada")
-        self.grid.heading("tipo", text="Tipo Entrada")
-        self.grid.heading("fornecedor", text="Fornecedor")
-        self.grid.heading("codigo", text="Código Item")
-        self.grid.heading("material", text="Nome Material")
-        self.grid.heading("quantidade", text="Quantidade")
-
-        self.grid.column(
+        self.grid.heading(
             "id",
-            width=0,
-            stretch=False
+            text="Id"
+        )
+        
+        self.grid.heading(
+            "licitacao",
+            text="Licitação"
+        )
+        
+        self.grid.heading(
+            "nf",
+            text="NF"
+        )
+        
+        self.grid.heading(
+            "serie",
+            text="Série"
+        )
+        
+        self.grid.heading(
+            "data_nf",
+            text="Data NF"
+        )
+        
+        self.grid.heading(
+            "data_entrada",
+            text="Data Entrada"
+        )
+        
+        self.grid.heading(
+            "tipo",
+            text="Tipo"
+        )
+        
+        self.grid.heading(
+            "fornecedor",
+            text="Fornecedor"
+        )
+        
+        self.grid.heading(
+            "valor_total",
+            text="Valor Total NF"
         )
 
+        self.grid.column(
+            "licitacao",
+            width=140
+        )
+        
         self.grid.column(
             "nf",
             width=100
         )
-
+        
         self.grid.column(
             "serie",
             width=80
         )
-
+        
         self.grid.column(
-            "data",
-            width=120
+            "data_nf",
+            width=110
         )
-
+        
+        self.grid.column(
+            "data_entrada",
+            width=110
+        )
+        
         self.grid.column(
             "tipo",
-            width=130
+            width=120
         )
-
+        
         self.grid.column(
             "fornecedor",
             width=250
         )
-
+        
         self.grid.column(
-            "codigo",
-            width=100
-        )
-
-        self.grid.column(
-            "material",
-            width=300
-        )
-
-        self.grid.column(
-            "quantidade",
-            width=100
+            "valor_total",
+            width=120
         )
 
         self.lbl_total = tk.Label(
@@ -187,11 +216,11 @@ class EntradasFrame(tk.Frame):
         )
 
         colunas_itens = (
-            "licitacao",
             "codigo",
             "material",
             "lote",
             "serie",
+            "validade",
             "quantidade",
             "status"
         )
@@ -206,11 +235,6 @@ class EntradasFrame(tk.Frame):
             expand=True
         )
 
-        self.grid_itens.heading(
-            "licitacao",
-            text="Licitação"
-        )
-        
         self.grid_itens.heading(
             "codigo",
             text="Código"
@@ -295,6 +319,7 @@ class EntradasFrame(tk.Frame):
                 "end",
                 values=registro
             )
+            
 
     def novo(self):
 
@@ -306,6 +331,16 @@ class EntradasFrame(tk.Frame):
 
         janela.geometry(
             "700x800"
+        )
+        itens_nf = []
+
+        lbl_total_itens = tk.Label(
+            janela,
+            text="Total dos Itens: R$ 0,00"
+        )
+        
+        lbl_total_itens.pack(
+            pady=5
         )
 
         tk.Label(
@@ -805,78 +840,101 @@ class EntradasFrame(tk.Frame):
                 )
         
                 return
+
+            if not itens_nf:
+
+                messagebox.showwarning(
+                    "SIGOPME",
+                    "Adicione pelo menos um item na nota."
+                )
+            
+                return
+
+            total_itens = 0
+
+            for item in itens_nf:
+            
+                total_itens += item["valor_total"]
+
+            if round(total_itens, 2) != round(valor_nf, 2):
+
+                diferenca = (
+                    valor_nf - total_itens
+                )
+            
+                messagebox.showerror(
+            
+                    "SIGOPME",
+            
+                    f"""Valor da NF não confere.
+            
+            Valor NF: R$ {valor_nf:,.2f}
+            
+            Valor dos Itens: R$ {total_itens:,.2f}
+            
+            Diferença: R$ {diferenca:,.2f}
+            """
+            
+                )
+            
+                return
         
-            EntradaService.inserir(
+            nota_id = EntradaService.inserir(
                 txt_nf.get(),
                 txt_serie.get(),
                 txt_data_emissao.get(),
                 txt_data_entrada.get(),
                 cmb_tipo.get(),
                 txt_fornecedor.get(),
-                txt_codigo.get(),
-                txt_material.get(),
-                quantidade,
                 valor_nf,
-                valor_unitario,
-                txt_lote.get(),
-                txt_serie_produto.get(),
-                txt_validade.get(),
                 txt_observacao.get(
                     "1.0",
                     "end"
-                ).strip()
+                ).strip(),
+                cmb_licitacao.get()
             )
 
-            HistoricoService.registrar(
-            
-                tipo="ENTRADA",
-            
-                acao="NF_CADASTRADA",
-            
-                numero_licitacao=cmb_licitacao.get(),
-            
-                fornecedor=txt_fornecedor.get(),
-            
-                documento=txt_nf.get(),
-            
-                cod_item=txt_codigo.get(),
-            
-                nome_material=txt_material.get(),
-            
-                lote=txt_lote.get(),
-            
-                codigo_unico=txt_serie_produto.get()
-            
-            )
+            for item in itens_nf:
 
-            try:
-
+                HistoricoService.registrar(
+            
+                    tipo="ENTRADA",
+            
+                    acao="ITEM_RECEBIDO",
+            
+                    numero_licitacao=cmb_licitacao.get(),
+            
+                    fornecedor=txt_fornecedor.get(),
+            
+                    documento=txt_nf.get(),
+            
+                    cod_item=item["codigo"],
+            
+                    nome_material=item["material"],
+            
+                    lote=item["lote"],
+            
+                    codigo_unico=item["serie"]
+            
+                )
+            
                 EstoqueRastreadoService.inserir(
-                
-                    item_selecionado["id"],
-                
+            
+                    item["licitacao_item_id"],
+            
                     cmb_licitacao.get(),
-                
-                    txt_codigo.get(),
-                
-                    txt_material.get(),
-                
-                    txt_lote.get(),
-                
-                    txt_serie_produto.get(),
-                
+            
+                    item["codigo"],
+            
+                    item["material"],
+            
+                    item["lote"],
+            
+                    item["serie"],
+            
                     txt_nf.get()
-                
+            
                 )
-            
-            except Exception as erro:
-            
-                messagebox.showerror(
-                    "SIGOPME",
-                    str(erro)
-                )
-            
-                return
         
             self.carregar_dados()
         
@@ -886,6 +944,160 @@ class EntradasFrame(tk.Frame):
                 "SIGOPME",
                 "Entrada cadastrada."
             )
+
+        colunas_temp = (
+            "codigo",
+            "material",
+            "lote",
+            "serie",
+            "validade",
+            "quantidade",
+            "valor_unitario",
+            "valor_total"
+        )
+        
+        frame_temp, grid_temp = criar_treeview(
+            janela,
+            colunas_temp
+        )
+        
+        frame_temp.pack(
+            fill="both",
+            expand=True,
+            padx=10,
+            pady=10
+        )
+
+        def incluir_item():
+
+            if not txt_codigo.get():
+        
+                messagebox.showwarning(
+                    "SIGOPME",
+                    "Selecione um item."
+                )
+        
+                return
+        
+            valor_unitario = float(
+                txt_valor_unitario.get()
+                .replace("R$", "")
+                .replace(".", "")
+                .replace(",", ".")
+                .strip()
+            )
+        
+            quantidade = int(
+                txt_quantidade.get()
+            )
+        
+            registro = {
+
+                "licitacao_item_id":
+                    item_selecionado["id"],
+            
+                "codigo":
+                    txt_codigo.get(),
+            
+                "material":
+                    txt_material.get(),
+            
+                "lote":
+                    txt_lote.get(),
+            
+                "serie":
+                    txt_serie_produto.get(),
+            
+                "validade":
+                    txt_validade.get(),
+            
+                "quantidade":
+                    quantidade,
+            
+                "valor_unitario":
+                    valor_unitario,
+            
+                "valor_total":
+                    quantidade * valor_unitario
+            
+            }
+        
+            itens_nf.append(
+                registro
+            )
+        
+            grid_temp.insert(
+                "",
+                "end",
+                values=(
+            
+                    registro["codigo"],
+                    registro["material"],
+                    registro["lote"],
+                    registro["serie"],
+                    registro["validade"],
+                    registro["quantidade"],
+                    registro["valor_unitario"],
+                    registro["valor_total"]
+            
+                )
+            )
+        
+            txt_lote.delete(0, tk.END)
+        
+            txt_serie_produto.delete(0, tk.END)
+        
+            txt_validade.delete(0, tk.END)
+        
+            txt_quantidade.delete(0, tk.END)
+
+            total = 0
+
+            for item in itens_nf:
+            
+                total += item["valor_total"]
+            
+            lbl_total_itens.config(
+                text=f"Total dos Itens: R$ {total:,.2f}"
+            )
+
+        tk.Button(
+            janela,
+            text="Incluir Item",
+            command=incluir_item
+        ).pack(
+            pady=5
+        )
+
+        grid_temp.heading(
+            "codigo",
+            text="Código"
+        )
+        
+        grid_temp.heading(
+            "material",
+            text="Produto"
+        )
+        
+        grid_temp.heading(
+            "lote",
+            text="Lote"
+        )
+        
+        grid_temp.heading(
+            "serie",
+            text="Série"
+        )
+        
+        grid_temp.heading(
+            "validade",
+            text="Validade"
+        )
+        
+        grid_temp.heading(
+            "quantidade",
+            text="Qtd"
+        )
 
         tk.Button(
             janela,
@@ -969,33 +1181,4 @@ class EntradasFrame(tk.Frame):
                 values=registro
             )
 
-    def carregar_itens_nf(self, event=None):
-
-        selecionado = self.grid.selection()
     
-        if not selecionado:
-            return
-    
-        item = self.grid.item(
-            selecionado[0]
-        )
-    
-        numero_nf = item["values"][1]
-    
-        for linha in self.grid_itens.get_children():
-    
-            self.grid_itens.delete(
-                linha
-            )
-    
-        dados = EntradaService.listar_itens_nf(
-            numero_nf
-        )
-    
-        for registro in dados:
-    
-            self.grid_itens.insert(
-                "",
-                "end",
-                values=registro
-            )
