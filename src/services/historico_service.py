@@ -22,9 +22,6 @@ class HistoricoService:
         lote=None,
         codigo_unico=None,
 
-        status_anterior=None,
-        status_novo=None,
-
         paciente_nome=None,
         paciente_registro=None,
 
@@ -59,9 +56,6 @@ class HistoricoService:
 
                 Lote,
                 CodigoUnico,
-
-                StatusAnterior,
-                StatusNovo,
 
                 PacienteNome,
                 PacienteRegistro,
@@ -127,9 +121,6 @@ class HistoricoService:
 
             lote,
             codigo_unico,
-
-            status_anterior,
-            status_novo,
 
             paciente_nome,
             paciente_registro,
