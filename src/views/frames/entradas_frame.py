@@ -273,19 +273,7 @@ class EntradasFrame(tk.Frame):
             "status",
             text="Status"
         )
-
-    def _mousewheel(event):
-
-        canvas.yview_scroll(
-            int(-1 * (event.delta / 120)),
-            "units"
-        )
-    
-    canvas.bind_all(
-        "<MouseWheel>",
-        _mousewheel
-    )
-
+        
     def carregar_dados(self):
 
         for item in self.grid.get_children():
@@ -345,9 +333,7 @@ class EntradasFrame(tk.Frame):
             "Nova Entrada"
         )
         
-        janela.geometry(
-            "1200x700"
-        )
+        janela.state("zoomed")
 
         canvas = tk.Canvas(
             janela
@@ -390,18 +376,21 @@ class EntradasFrame(tk.Frame):
             side="right",
             fill="y"
         )
+
+        def _mousewheel(event):
+
+            canvas.yview_scroll(
+                int(-1 * (event.delta / 120)),
+                "units"
+            )
+        
+        canvas.bind_all(
+            "<MouseWheel>",
+            _mousewheel
+        )
+
         
         itens_nf = []
-        
-        lbl_total_itens = tk.Label(
-            frame_conteudo,
-            text="Total dos Itens: R$ 0,00",
-            font=("Arial", 10, "bold")
-        )
-        
-        lbl_total_itens.pack(
-            pady=5
-        )
         
         frame_nota = ttk.LabelFrame(
             frame_conteudo,
@@ -806,8 +795,18 @@ class EntradasFrame(tk.Frame):
             pady=5
         )
 
+        lbl_total_itens = tk.Label(
+            frame_conteudo,
+            text="Total dos Itens: R$ 0,00",
+            font=("Arial", 10, "bold")
+        )
+        
+        lbl_total_itens.pack(
+            pady=5
+        )
+
         frame_botoes_itens = tk.Frame(
-            janela
+            frame_conteudo
         )
         
         frame_botoes_itens.pack(
@@ -1204,6 +1203,25 @@ class EntradasFrame(tk.Frame):
             text="Valor Total"
         )
 
+        tk.Label(
+            frame_conteudo,
+            text="Observação"
+        ).pack(
+            anchor="w",
+            padx=10
+        )
+        
+        txt_observacao = tk.Text(
+            frame_conteudo,
+            height=4
+        )
+        
+        txt_observacao.pack(
+            fill="x",
+            padx=10,
+            pady=5
+        )
+
         tk.Button(
             frame_botoes_itens,
             text="Incluir Item",
@@ -1223,7 +1241,7 @@ class EntradasFrame(tk.Frame):
        
 
         tk.Button(
-            janela,
+            frame_conteudo,
             text="Salvar",
             command=salvar
         ).pack(
