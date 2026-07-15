@@ -169,6 +169,84 @@ class EntradasFrame(tk.Frame):
             pady=5
         )
 
+        self.grid.bind(
+            "<<TreeviewSelect>>",
+            self.carregar_itens_nf
+        )
+
+        frame_itens = tk.LabelFrame(
+            self,
+            text="Itens da Nota Fiscal"
+        )
+        
+        frame_itens.pack(
+            fill="both",
+            expand=True,
+            padx=10,
+            pady=10
+        )
+
+        colunas_itens = (
+            "licitacao",
+            "codigo",
+            "material",
+            "lote",
+            "serie",
+            "validade",
+            "quantidade",
+            "status"
+        )
+
+        frame_grid_itens, self.grid_itens = criar_treeview(
+            frame_itens,
+            colunas_itens
+        )
+        
+        frame_grid_itens.pack(
+            fill="both",
+            expand=True
+        )
+
+        self.grid_itens.heading(
+            "licitacao",
+            text="Licitação"
+        )
+        
+        self.grid_itens.heading(
+            "codigo",
+            text="Código"
+        )
+        
+        self.grid_itens.heading(
+            "material",
+            text="Nome Produto"
+        )
+        
+        self.grid_itens.heading(
+            "lote",
+            text="Lote"
+        )
+        
+        self.grid_itens.heading(
+            "serie",
+            text="Série Produto"
+        )
+        
+        self.grid_itens.heading(
+            "validade",
+            text="Validade"
+        )
+        
+        self.grid_itens.heading(
+            "quantidade",
+            text="Qtd"
+        )
+        
+        self.grid_itens.heading(
+            "status",
+            text="Status"
+        )
+
     def carregar_dados(self):
 
         for item in self.grid.get_children():
@@ -740,7 +818,6 @@ class EntradasFrame(tk.Frame):
                 codigo_unico=txt_serie_produto.get()
             
             )
-            ``
 
             try:
 
@@ -831,5 +908,33 @@ class EntradasFrame(tk.Frame):
             "SIGOPME",
             "Entrada excluída."
         )
+
+    def carregar_itens_nf(self, event=None):
+
+        selecionado = self.grid.selection()
+    
+        if not selecionado:
+            return
+    
+        item = self.grid.item(
+            selecionado[0]
+        )
+    
+        nf = item["values"][1]
+    
+        for linha in self.grid_itens.get_children():
+            self.grid_itens.delete(linha)
+    
+        dados = EntradaService.listar_itens_nf(
+            nf
+        )
+    
+        for registro in dados:
+    
+            self.grid_itens.insert(
+                "",
+                "end",
+                values=registro
+            )
 
 
