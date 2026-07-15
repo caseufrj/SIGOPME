@@ -17,6 +17,7 @@ from services.estoque_rastreado_service import (
     EstoqueRastreadoService
 )
 
+
 class EntradasFrame(tk.Frame):
 
     def __init__(self, parent):
