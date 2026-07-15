@@ -11,7 +11,7 @@ class EstoqueRastreadoService:
         nome_material,
         lote,
         codigo_unico,
-        NumeroNF
+        numero_nf
     ):
 
         codigo_barras = (
