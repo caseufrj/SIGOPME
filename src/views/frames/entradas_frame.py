@@ -192,7 +192,6 @@ class EntradasFrame(tk.Frame):
             "material",
             "lote",
             "serie",
-            "validade",
             "quantidade",
             "status"
         )
@@ -232,10 +231,10 @@ class EntradasFrame(tk.Frame):
             text="Série Produto"
         )
         
-        self.grid_itens.heading(
+        """self.grid_itens.heading(
             "validade",
             text="Validade"
-        )
+        )"""
         
         self.grid_itens.heading(
             "quantidade",
@@ -939,4 +938,33 @@ class EntradasFrame(tk.Frame):
                 values=registro
             )
 
+    def carregar_itens_nf(self, event=None):
 
+        selecionado = self.grid.selection()
+    
+        if not selecionado:
+            return
+    
+        item = self.grid.item(
+            selecionado[0]
+        )
+    
+        numero_nf = item["values"][1]
+    
+        for linha in self.grid_itens.get_children():
+    
+            self.grid_itens.delete(
+                linha
+            )
+    
+        dados = EntradaService.listar_itens_nf(
+            numero_nf
+        )
+    
+        for registro in dados:
+    
+            self.grid_itens.insert(
+                "",
+                "end",
+                values=registro
+            )
