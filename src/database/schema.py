@@ -387,7 +387,11 @@ CREATE TABLE IF NOT EXISTS HistoricoMovimentacao (
 
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-    EstoqueId INTEGER,
+    Tipo TEXT,
+
+    Acao TEXT,
+
+    ReferenciaId INTEGER,
 
     NumeroLicitacao TEXT,
 
@@ -399,15 +403,15 @@ CREATE TABLE IF NOT EXISTS HistoricoMovimentacao (
 
     CodigoUnico TEXT,
 
-    StatusAnterior TEXT,
-
-    StatusNovo TEXT,
-
     PacienteNome TEXT,
 
     PacienteRegistro TEXT,
 
     Sala TEXT,
+
+    Fornecedor TEXT,
+
+    Documento TEXT,
 
     Usuario TEXT,
 
@@ -416,6 +420,7 @@ CREATE TABLE IF NOT EXISTS HistoricoMovimentacao (
     Observacao TEXT
 
 );
+
 -- =========================
 -- ÍNDICES
 -- =========================
@@ -464,4 +469,37 @@ ON EstoqueRastreado (Status);
 
 CREATE INDEX IF NOT EXISTS IDX_RASTREIO_PACIENTE
 ON EstoqueRastreado (PacienteRegistro);
+
+CREATE INDEX IF NOT EXISTS IDX_HIST_ACAO
+ON HistoricoMovimentacao (Acao);
+
+CREATE INDEX IF NOT EXISTS IDX_HIST_DATA
+ON HistoricoMovimentacao (DataMovimento);
+
+CREATE INDEX IF NOT EXISTS IDX_HIST_LICITACAO
+ON HistoricoMovimentacao (NumeroLicitacao);
+
+CREATE INDEX IF NOT EXISTS IDX_HIST_ITEM
+ON HistoricoMovimentacao (CodItem);
+
+CREATE INDEX IF NOT EXISTS IDX_HIST_LOTE
+ON HistoricoMovimentacao (Lote);
+
+CREATE INDEX IF NOT EXISTS IDX_HIST_SERIE
+ON HistoricoMovimentacao (CodigoUnico);
+
+CREATE INDEX IF NOT EXISTS IDX_HIST_PACIENTE
+ON HistoricoMovimentacao (PacienteRegistro);
+
+CREATE INDEX IF NOT EXISTS IDX_HIST_PACIENTE_NOME
+ON HistoricoMovimentacao (PacienteNome);
+
+CREATE INDEX IF NOT EXISTS IDX_HIST_SALA
+ON HistoricoMovimentacao (Sala);
+
+CREATE INDEX IF NOT EXISTS IDX_HIST_FORNECEDOR
+ON HistoricoMovimentacao (Fornecedor);
+
+CREATE INDEX IF NOT EXISTS IDX_HIST_TIPO
+ON HistoricoMovimentacao (Tipo);
 """
