@@ -382,7 +382,6 @@ CREATE TABLE IF NOT EXISTS EstoqueRastreado (
 -- HISTÓRIOCO
 -- =========================
 
-
 CREATE TABLE IF NOT EXISTS HistoricoMovimentacao (
 
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
