@@ -62,3 +62,39 @@ class SolicitacaoService:
         conn.commit()
     
         conn.close()
+
+    @staticmethod
+    def devolver(
+        id_item,
+        data_devolucao
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE EstoqueRastreado
+            SET
+    
+                Status = 'DISPONIVEL',
+    
+                PacienteId = NULL,
+    
+                PacienteRegistro = NULL,
+    
+                PacienteNome = NULL,
+    
+                Sala = NULL,
+    
+                DataDevolucao = ?
+    
+            WHERE Id = ?
+        """, (
+            data_devolucao,
+            id_item
+        ))
+    
+        conn.commit()
+    
+        conn.close()
