@@ -34,3 +34,31 @@ class SolicitacaoService:
         conn.close()
 
         return resultado
+
+    @staticmethod
+    def utilizado(
+        id_item,
+        data_utilizacao
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE EstoqueRastreado
+            SET
+    
+                Status = 'UTILIZADO',
+    
+                DataUtilizacao = ?
+    
+            WHERE Id = ?
+        """, (
+            data_utilizacao,
+            id_item
+        ))
+    
+        conn.commit()
+    
+        conn.close()
