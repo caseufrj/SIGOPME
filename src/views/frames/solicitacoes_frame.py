@@ -613,7 +613,13 @@ class SolicitacoesFrame(tk.Frame):
             paciente_registro,
             paciente_nome,
             sala,
-            *resto
+            data_entrada,
+            data_retirada,
+            data_utilizacao,
+            data_devolucao,
+            data_extravio,
+            data_pagamento,
+            observacao
         ) = resultado
 
         self.id_item = _id
