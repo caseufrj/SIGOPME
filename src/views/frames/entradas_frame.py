@@ -17,6 +17,9 @@ from services.estoque_rastreado_service import (
     EstoqueRastreadoService
 )
 
+from services.nota_itens_service import (
+    NotaItensService
+)
 
 class EntradasFrame(tk.Frame):
 
@@ -897,6 +900,22 @@ class EntradasFrame(tk.Frame):
 
             for item in itens_nf:
 
+                NotaItensService.inserir(
+            
+                    nota_id,
+            
+                    item["codigo"],
+            
+                    item["material"],
+            
+                    item["quantidade"],
+            
+                    item["valor_unitario"],
+            
+                    item["valor_total"]
+            
+                )
+            
                 HistoricoService.registrar(
             
                     tipo="ENTRADA",
