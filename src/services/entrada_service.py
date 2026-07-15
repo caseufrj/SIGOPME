@@ -194,3 +194,41 @@ class EntradaService:
         conn.commit()
 
         conn.close()
+
+    @staticmethod
+    def listar_itens_nf(nf):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+    
+                NumeroLicitacao,
+    
+                CodItem,
+    
+                NomeMaterial,
+    
+                Lote,
+    
+                CodigoUnico,
+    
+                DataValidade,
+    
+                Quantidade,
+    
+                Status
+    
+            FROM EstoqueRastreado
+    
+            WHERE Documento = ?
+    
+        """, (nf,))
+    
+        dados = cursor.fetchall()
+    
+        conn.close()
+    
+        return dados
