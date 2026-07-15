@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 
 from services.solicitacao_service import SolicitacaoService
+from services.paciente_service import PacienteService
 
 class SolicitacoesFrame(tk.Frame):
 
