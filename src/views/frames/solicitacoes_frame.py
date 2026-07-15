@@ -784,11 +784,16 @@ class SolicitacoesFrame(tk.Frame):
                 nome
             )
 
-        print(
-            "DATA RETIRADA:",
-            repr(
-                self.txt_data_retirada.get()
-            )
+        HistoricoService.registrar(
+
+            tipo="PACIENTE",
+        
+            acao="PACIENTE_CADASTRADO",
+        
+            paciente_nome=nome,
+        
+            paciente_registro=registro
+        
         )
     
         EstoqueRastreadoService.registrar_retirada(
@@ -801,6 +806,22 @@ class SolicitacoesFrame(tk.Frame):
     
             data
     
+        )
+
+        HistoricoService.registrar(
+
+            tipo="MATERIAL",
+        
+            acao="ITEM_RETIRADO",
+        
+            referencia_id=self.id_item,
+        
+            paciente_nome=nome,
+        
+            paciente_registro=registro,
+        
+            observacao="Retirada para paciente"
+        
         )
     
         messagebox.showinfo(
@@ -837,6 +858,16 @@ class SolicitacoesFrame(tk.Frame):
             self.id_item,
             data
         )
+
+        HistoricoService.registrar(
+
+            tipo="MATERIAL",
+        
+            acao="ITEM_UTILIZADO",
+        
+            referencia_id=self.id_item
+        
+        )
     
         messagebox.showinfo(
             "SIGOPME",
@@ -861,6 +892,16 @@ class SolicitacoesFrame(tk.Frame):
         EstoqueRastreadoService.devolver(
             self.id_item,
             data
+        )
+
+        HistoricoService.registrar(
+
+            tipo="MATERIAL",
+        
+            acao="ITEM_DEVOLVIDO",
+        
+            referencia_id=self.id_item
+        
         )
     
         messagebox.showinfo(
