@@ -795,3 +795,28 @@ class SolicitacoesFrame(tk.Frame):
         )
     
         self.pesquisar()
+
+    def devolver(self):
+
+        data = self.txt_data_devolucao.get().strip()
+    
+        if not data:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Informe a data de devolução."
+            )
+    
+            return
+    
+        EstoqueRastreadoService.devolver(
+            self.id_item,
+            data
+        )
+    
+        messagebox.showinfo(
+            "SIGOPME",
+            "Material devolvido."
+        )
+    
+        self.pesquisar()
