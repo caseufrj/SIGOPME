@@ -232,3 +232,41 @@ class EntradaService:
         conn.close()
     
         return dados
+
+    @staticmethod
+    def listar_itens_nf(numero_nf):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+    
+                NumeroLicitacao,
+    
+                CodItem,
+    
+                NomeMaterial,
+    
+                Lote,
+    
+                CodigoUnico,
+    
+                Quantidade,
+    
+                Status
+    
+            FROM EstoqueRastreado
+    
+            WHERE NumeroNF = ?
+    
+            ORDER BY NomeMaterial
+    
+        """, (numero_nf,))
+    
+        dados = cursor.fetchall()
+    
+        conn.close()
+    
+        return dados
