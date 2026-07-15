@@ -115,6 +115,10 @@ class SolicitacoesFrame(tk.Frame):
             padx=5,
             pady=5
         )
+        self.txt_paciente.bind(
+            "<FocusOut>",
+            localizar_por_nome
+        )
 
         tk.Label(
             self.frame_paciente,
@@ -138,6 +142,11 @@ class SolicitacoesFrame(tk.Frame):
             padx=5,
             pady=5
         )
+        self.txt_registro.bind(
+            "<FocusOut>",
+            localizar_por_registro
+        )
+        
 
         tk.Label(
             self.frame_paciente,
@@ -219,9 +228,9 @@ class SolicitacoesFrame(tk.Frame):
         self.btn_registrar = tk.Button(
             frame_botoes,
             text="Registrar",
-            state="disabled"
+            command=self.registrar
         )
-        
+
         self.btn_registrar.pack(
             side="left",
             padx=5
@@ -480,7 +489,7 @@ class SolicitacoesFrame(tk.Frame):
             sticky="w"
         )
 
-    def localizar_por_registro(event=None):
+    def localizar_por_registro(self, event=None):
 
         registro = self.txt_registro.get().strip()
     
@@ -510,7 +519,7 @@ class SolicitacoesFrame(tk.Frame):
             localizar_por_registro
         )
 
-    def localizar_por_nome(event=None):
+    def localizar_por_nome(self, event=None):
 
         nome = self.txt_paciente.get().strip()
     
@@ -535,10 +544,7 @@ class SolicitacoesFrame(tk.Frame):
             0,
             paciente[1]
         )
-        self.txt_paciente.bind(
-            "<FocusOut>",
-            localizar_por_nome
-        )
+        
 
     def pesquisar(self):
 
@@ -636,6 +642,28 @@ class SolicitacoesFrame(tk.Frame):
         self.lbl_codigo_barras.config(
             text=f"Código Barras: {codigo_barras}"
         )
+
+        self.txt_paciente.delete(0, tk.END)
+        self.txt_registro.delete(0, tk.END)
+        self.txt_sala.delete(0, tk.END)
+        
+        if paciente_nome:
+            self.txt_paciente.insert(
+                0,
+                paciente_nome
+            )
+        
+        if paciente_registro:
+            self.txt_registro.insert(
+                0,
+                paciente_registro
+            )
+        
+        if sala:
+            self.txt_sala.insert(
+                0,
+                sala
+            )
         
         # =====================
         # PACIENTE / SALA
@@ -666,44 +694,76 @@ class SolicitacoesFrame(tk.Frame):
                 sala
             )
 
+    def registrar(self):
+
+        if not hasattr(self, "id_item"):
     
-    @staticmethod
-    def registrar_retirada(
-        id_item,
-        paciente_nome,
-        paciente_registro,
-        data_retirada
-    ):
+            messagebox.showwarning(
+                "SIGOPME",
+                "Pesquise um item primeiro."
+            )
     
-        conn = DatabaseService.get_connection()
+            return
     
-        cursor = conn.cursor()
+        registro = (
+            self.txt_registro.get().strip()
+        )
     
-        cursor.execute("""
-            UPDATE EstoqueRastreado
-            SET
+        nome = (
+            self.txt_paciente.get().strip()
+        )
     
-                Status = 'RETIRADO',
+        data = (
+            self.txt_data_retirada.get().strip()
+        )
     
-                PacienteNome = ?,
+        if not registro or not nome:
     
-                PacienteRegistro = ?,
+            messagebox.showwarning(
+                "SIGOPME",
+                "Informe paciente e registro."
+            )
     
-                DataRetirada = ?
+            return
     
-            WHERE Id = ?
-        """, (
+        paciente = (
+            PacienteService.obter_por_registro(
+                registro
+            )
+        )
     
-            paciente_nome,
+        if not paciente:
     
-            paciente_registro,
+            PacienteService.inserir(
+                registro,
+                nome
+            )
     
-            data_retirada,
+        EstoqueRastreadoService.registrar_retirada(
     
-            id_item
+            self.id_item,
     
-        ))
+            nome,
     
-        conn.commit()
+            registro,
     
-        conn.close()
+            data
+    
+        )
+    
+        messagebox.showinfo(
+            "SIGOPME",
+            "Retirada registrada."
+        )
+    
+        self.pesquisar()
+
+        self.txt_data_utilizacao.delete(
+            0,
+            tk.END
+        )
+        
+        self.txt_data_devolucao.delete(
+            0,
+            tk.END
+        )
