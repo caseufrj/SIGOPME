@@ -39,15 +39,9 @@ class EntradaService:
         data_entrada,
         tipo_entrada,
         fornecedor,
-        codigo_item,
-        nome_material,
-        quantidade,
         valor_nf,
-        valor_unitario,
-        lote,
-        serie_produto,
-        data_validade,
-        observacao
+        observacao,
+        numero_licitacao
     ):
     
         FornecedorService.obter_ou_criar(
@@ -60,43 +54,56 @@ class EntradaService:
     
         cursor.execute("""
             INSERT INTO Entradas (
+        
+                NumeroLicitacao,
+        
                 NumeroNF,
+        
                 SerieNF,
+        
                 DataEmissao,
+        
                 DataEntrada,
+        
                 TipoEntrada,
+        
                 Fornecedor,
-                CodItem,
-                NomeMaterial,
-                Quantidade,
+        
                 ValorTotalNF,
-                ValorUnitario,
-                Lote,
-                SerieProduto,
-                DataValidade,
+        
                 Observacao
+        
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
+        
+            numero_licitacao,
+        
             numero_nf,
+        
             serie_nf,
+        
             data_emissao,
+        
             data_entrada,
+        
             tipo_entrada,
+        
             fornecedor,
-            codigo_item,
-            nome_material,
-            quantidade,
+        
             valor_nf,
-            valor_unitario,
-            lote,
-            serie_produto,
-            data_validade,
+        
             observacao
+        
         ))
     
+        nota_id = cursor.lastrowid
+
         conn.commit()
+        
         conn.close()
+        
+        return nota_id
 
     @staticmethod
     def obter_por_id(id_registro):
