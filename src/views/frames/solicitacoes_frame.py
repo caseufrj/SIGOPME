@@ -741,6 +741,13 @@ class SolicitacoesFrame(tk.Frame):
                 registro,
                 nome
             )
+
+        print(
+            "DATA RETIRADA:",
+            repr(
+                self.txt_data_retirada.get()
+            )
+        )
     
         EstoqueRastreadoService.registrar_retirada(
     
