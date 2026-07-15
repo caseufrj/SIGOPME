@@ -377,6 +377,45 @@ CREATE TABLE IF NOT EXISTS EstoqueRastreado (
     REFERENCES Licitacoes(Id)
 
 );
+
+-- =========================
+-- HISTÓRIOCO
+-- =========================
+
+
+CREATE TABLE IF NOT EXISTS HistoricoMovimentacao (
+
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    EstoqueId INTEGER,
+
+    NumeroLicitacao TEXT,
+
+    CodItem TEXT,
+
+    NomeMaterial TEXT,
+
+    Lote TEXT,
+
+    CodigoUnico TEXT,
+
+    StatusAnterior TEXT,
+
+    StatusNovo TEXT,
+
+    PacienteNome TEXT,
+
+    PacienteRegistro TEXT,
+
+    Sala TEXT,
+
+    Usuario TEXT,
+
+    DataMovimento TEXT,
+
+    Observacao TEXT
+
+);
 -- =========================
 -- ÍNDICES
 -- =========================
