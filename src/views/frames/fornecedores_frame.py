@@ -5,6 +5,7 @@ from tkinter import messagebox
 from services.fornecedor_service import FornecedorService
 from views.components.grid_helper import criar_treeview
 from views.components.search_helper import criar_barra_pesquisa
+from services.historico_service import HistoricoService
 
 class FornecedoresFrame(tk.Frame):
 
@@ -243,6 +244,20 @@ class FornecedoresFrame(tk.Frame):
                 txt_email.get()
             )
 
+            HistoricoService.registrar(
+            
+                tipo="FORNECEDOR",
+            
+                acao="FORNECEDOR_CADASTRADO",
+            
+                fornecedor=txt_nome.get(),
+            
+                observacao=(
+                    f"CNPJ: {txt_cnpj.get()}"
+                )
+            
+            )
+
             self.carregar_dados()
 
             janela.destroy()
@@ -284,6 +299,18 @@ class FornecedoresFrame(tk.Frame):
 
         FornecedorService.excluir(
             id_registro
+        )
+
+        HistoricoService.registrar(
+
+            tipo="FORNECEDOR",
+        
+            acao="FORNECEDOR_EXCLUIDO",
+        
+            referencia_id=id_registro,
+        
+            fornecedor=item["values"][1]
+        
         )
 
         self.carregar_dados()
@@ -427,6 +454,22 @@ class FornecedoresFrame(tk.Frame):
                 txt_telefone.get(),
                 txt_contato.get(),
                 txt_email.get()
+            )
+
+            HistoricoService.registrar(
+
+                tipo="FORNECEDOR",
+            
+                acao="FORNECEDOR_EDITADO",
+            
+                referencia_id=id_registro,
+            
+                fornecedor=txt_nome.get(),
+            
+                observacao=(
+                    f"CNPJ: {txt_cnpj.get()}"
+                )
+            
             )
     
             self.carregar_dados()
