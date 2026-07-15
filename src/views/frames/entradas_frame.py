@@ -852,7 +852,7 @@ class EntradasFrame(tk.Frame):
             try:
 
                 EstoqueRastreadoService.inserir(
-
+                
                     item_selecionado["id"],
                 
                     cmb_licitacao.get(),
