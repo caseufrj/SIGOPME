@@ -480,6 +480,66 @@ class SolicitacoesFrame(tk.Frame):
             sticky="w"
         )
 
+    def localizar_por_registro(event=None):
+
+        registro = self.txt_registro.get().strip()
+    
+        if not registro:
+            return
+    
+        paciente = (
+            PacienteService.obter_por_registro(
+                registro
+            )
+        )
+    
+        if not paciente:
+            return
+    
+        self.txt_paciente.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_paciente.insert(
+            0,
+            paciente[2]
+        )
+        self.txt_registro.bind(
+            "<FocusOut>",
+            localizar_por_registro
+        )
+
+    def localizar_por_nome(event=None):
+
+        nome = self.txt_paciente.get().strip()
+    
+        if not nome:
+            return
+    
+        paciente = (
+            PacienteService.obter_por_nome(
+                nome
+            )
+        )
+    
+        if not paciente:
+            return
+    
+        self.txt_registro.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_registro.insert(
+            0,
+            paciente[1]
+        )
+        self.txt_paciente.bind(
+            "<FocusOut>",
+            localizar_por_nome
+        )
+
     def pesquisar(self):
 
         texto = self.txt_busca.get().strip()
