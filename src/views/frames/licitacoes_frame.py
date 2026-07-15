@@ -4,6 +4,7 @@ from tkinter import messagebox
 
 from services.licitacao_service import LicitacaoService
 from views.components.grid_helper import criar_treeview
+from services.historico_service import HistoricoService
 from views.components.masks import (
     aplicar_mascara_data,
     aplicar_mascara_moeda
@@ -454,6 +455,20 @@ class LicitacoesFrame(tk.Frame):
                 1 if var_consignado.get() else 0,
                 valor_total
             )
+
+            HistoricoService.registrar(
+            
+                tipo="LICITACAO",
+            
+                acao="LICITACAO_CADASTRADA",
+            
+                numero_licitacao=txt_numero.get(),
+            
+                fornecedor=txt_fornecedor.get(),
+            
+                observacao="Cadastro de licitação"
+            
+            )
         
             self.carregar_dados()
         
@@ -637,6 +652,22 @@ class LicitacoesFrame(tk.Frame):
                 1 if var_consignado.get() else 0,
                 valor_total
             )
+
+            HistoricoService.registrar(
+
+                tipo="LICITACAO",
+            
+                acao="LICITACAO_EDITADA",
+            
+                referencia_id=id_registro,
+            
+                numero_licitacao=txt_numero.get(),
+            
+                fornecedor=txt_fornecedor.get(),
+            
+                observacao="Licitação alterada"
+            
+            )
         
             self.carregar_dados()
         
@@ -685,6 +716,18 @@ class LicitacoesFrame(tk.Frame):
     
         LicitacaoService.excluir_licitacao(
             numero_licitacao
+        )
+
+        HistoricoService.registrar(
+
+            tipo="LICITACAO",
+        
+            acao="LICITACAO_EXCLUIDA",
+        
+            referencia_id=id_registro,
+        
+            numero_licitacao=numero_licitacao
+        
         )
     
         self.carregar_dados()
