@@ -18,7 +18,7 @@ from services.estoque_rastreado_service import (
 )
 
 from services.nota_itens_service import (
-    NotaItensServicelicitacao.bin
+    NotaItensService
 )
 
 class EntradasFrame(tk.Frame):
