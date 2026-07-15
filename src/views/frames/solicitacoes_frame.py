@@ -606,6 +606,8 @@ class SolicitacoesFrame(tk.Frame):
             sala,
             *resto
         ) = resultado
+
+        self.id_item = _id
     
         self.lbl_licitacao.config(
             text=f"Licitação: {numero_licitacao}"
@@ -663,3 +665,45 @@ class SolicitacoesFrame(tk.Frame):
                 0,
                 sala
             )
+
+    
+    @staticmethod
+    def registrar_retirada(
+        id_item,
+        paciente_nome,
+        paciente_registro,
+        data_retirada
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE EstoqueRastreado
+            SET
+    
+                Status = 'RETIRADO',
+    
+                PacienteNome = ?,
+    
+                PacienteRegistro = ?,
+    
+                DataRetirada = ?
+    
+            WHERE Id = ?
+        """, (
+    
+            paciente_nome,
+    
+            paciente_registro,
+    
+            data_retirada,
+    
+            id_item
+    
+        ))
+    
+        conn.commit()
+    
+        conn.close()
