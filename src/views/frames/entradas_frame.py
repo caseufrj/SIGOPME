@@ -273,8 +273,6 @@ class EntradasFrame(tk.Frame):
             "status",
             text="Status"
         )
-
-    item_selecionado = {}
         
     def carregar_dados(self):
 
@@ -661,29 +659,30 @@ class EntradasFrame(tk.Frame):
             padx=5,
             pady=5
         )
+        item_selecionado = {}
 
         def carregar_itens_licitacao(event=None):
 
-        numero_licitacao = cmb_licitacao.get()
-    
-        itens = (
-            LicitacaoService.listar_itens_entrada(
-                numero_licitacao
+            numero_licitacao = cmb_licitacao.get()
+        
+            itens = (
+                LicitacaoService.listar_itens_entrada(
+                    numero_licitacao
+                )
             )
-        )
+        
+            cmb_item["values"] = [
+                f"{x[1]} - {x[2]}"
+                for x in itens
+            ]
+        
+            item_selecionado["dados"] = itens
     
-        cmb_item["values"] = [
-            f"{x[1]} - {x[2]}"
-            for x in itens
-        ]
-    
-        item_selecionado["dados"] = itens
-
         cmb_licitacao.bind(
             "<<ComboboxSelected>>",
             carregar_itens_licitacao
         )
-    
+
         def selecionar_item(event=None):
     
             texto = cmb_item.get()
@@ -716,6 +715,11 @@ class EntradasFrame(tk.Frame):
                     )
         
                     break
+
+        cmb_item.bind(
+            "<<ComboboxSelected>>",
+            selecionar_item
+        )
             
         
         tk.Label(
