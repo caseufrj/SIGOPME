@@ -89,7 +89,8 @@ class MainView(tk.Tk):
         tk.Button(
             barra_menu,
             text="Solicitações",
-            command=self.mostrar_solicitacoes
+            command=self.mostrar_solicitacoes,
+            **estilo_menu
         ).pack(
             side="left",
             padx=5
