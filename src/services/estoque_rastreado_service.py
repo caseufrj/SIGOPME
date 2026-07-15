@@ -83,3 +83,44 @@ class EstoqueRastreadoService:
         conn.commit()
 
         conn.close()
+
+    @staticmethod
+    def registrar_retirada(
+        id_item,
+        paciente_nome,
+        paciente_registro,
+        data_retirada
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE EstoqueRastreado
+            SET
+    
+                Status = 'RETIRADO',
+    
+                PacienteNome = ?,
+    
+                PacienteRegistro = ?,
+    
+                DataRetirada = ?
+    
+            WHERE Id = ?
+        """, (
+    
+            paciente_nome,
+    
+            paciente_registro,
+    
+            data_retirada,
+    
+            id_item
+    
+        ))
+    
+        conn.commit()
+    
+        conn.close()
