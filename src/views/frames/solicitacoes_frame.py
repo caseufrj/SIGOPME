@@ -673,6 +673,42 @@ class SolicitacoesFrame(tk.Frame):
                 0,
                 sala
             )
+
+        self.txt_data_retirada.delete(
+            0,
+            tk.END
+        )
+        
+        self.txt_data_utilizacao.delete(
+            0,
+            tk.END
+        )
+        
+        self.txt_data_devolucao.delete(
+            0,
+            tk.END
+        )
+        
+        if data_retirada:
+        
+            self.txt_data_retirada.insert(
+                0,
+                data_retirada
+            )
+        
+        if data_utilizacao:
+        
+            self.txt_data_utilizacao.insert(
+                0,
+                data_utilizacao
+            )
+        
+        if data_devolucao:
+        
+            self.txt_data_devolucao.insert(
+                0,
+                data_devolucao
+            )
         
         # =====================
         # PACIENTE / SALA
