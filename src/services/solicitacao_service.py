@@ -79,20 +79,26 @@ class SolicitacaoService:
     
                 Status = 'DISPONIVEL',
     
-                PacienteId = NULL,
+                PacienteNome = NULL,
     
                 PacienteRegistro = NULL,
     
-                PacienteNome = NULL,
-    
                 Sala = NULL,
+    
+                DataRetirada = NULL,
+    
+                DataUtilizacao = NULL,
     
                 DataDevolucao = ?
     
             WHERE Id = ?
+    
         """, (
+    
             data_devolucao,
+    
             id_item
+    
         ))
     
         conn.commit()
