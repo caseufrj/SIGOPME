@@ -274,6 +274,18 @@ class EntradasFrame(tk.Frame):
             text="Status"
         )
 
+    def _mousewheel(event):
+
+        canvas.yview_scroll(
+            int(-1 * (event.delta / 120)),
+            "units"
+        )
+    
+    canvas.bind_all(
+        "<MouseWheel>",
+        _mousewheel
+    )
+
     def carregar_dados(self):
 
         for item in self.grid.get_children():
@@ -336,11 +348,53 @@ class EntradasFrame(tk.Frame):
         janela.geometry(
             "1200x700"
         )
+
+        canvas = tk.Canvas(
+            janela
+        )
+        
+        scroll = ttk.Scrollbar(
+            janela,
+            orient="vertical",
+            command=canvas.yview
+        )
+        
+        frame_conteudo = tk.Frame(
+            canvas
+        )
+        
+        frame_conteudo.bind(
+            "<Configure>",
+            lambda e: canvas.configure(
+                scrollregion=canvas.bbox("all")
+            )
+        )
+        
+        canvas.create_window(
+            (0, 0),
+            window=frame_conteudo,
+            anchor="nw"
+        )
+        
+        canvas.configure(
+            yscrollcommand=scroll.set
+        )
+        
+        canvas.pack(
+            side="left",
+            fill="both",
+            expand=True
+        )
+        
+        scroll.pack(
+            side="right",
+            fill="y"
+        )
         
         itens_nf = []
         
         lbl_total_itens = tk.Label(
-            janela,
+            frame_conteudo,
             text="Total dos Itens: R$ 0,00",
             font=("Arial", 10, "bold")
         )
@@ -350,7 +404,7 @@ class EntradasFrame(tk.Frame):
         )
         
         frame_nota = ttk.LabelFrame(
-            janela,
+            frame_conteudo,
             text="Dados da Nota Fiscal"
         )
         
@@ -538,7 +592,7 @@ class EntradasFrame(tk.Frame):
 
         lst_fornecedores = tk.Listbox(
             frame_nota,
-            height=4
+            height=3
         )
         
         lst_fornecedores.grid(
@@ -576,7 +630,7 @@ class EntradasFrame(tk.Frame):
         )
 
         frame_item = ttk.LabelFrame(
-            janela,
+            frame_conteudo,
             text="Item da Nota"
         )
         
@@ -1006,7 +1060,7 @@ class EntradasFrame(tk.Frame):
         )
         
         frame_temp, grid_temp = criar_treeview(
-            janela,
+            frame_conteudo,
             colunas_temp
         )
         
