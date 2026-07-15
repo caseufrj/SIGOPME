@@ -273,6 +273,8 @@ class EntradasFrame(tk.Frame):
             "status",
             text="Status"
         )
+
+    item_selecionado = {}
         
     def carregar_dados(self):
 
@@ -323,6 +325,61 @@ class EntradasFrame(tk.Frame):
                 "end",
                 values=registro
             )
+
+    def carregar_itens_licitacao(event=None):
+
+        numero_licitacao = cmb_licitacao.get()
+    
+        itens = (
+            LicitacaoService.listar_itens_entrada(
+                numero_licitacao
+            )
+        )
+    
+        cmb_item["values"] = [
+            f"{x[1]} - {x[2]}"
+            for x in itens
+        ]
+    
+        item_selecionado["dados"] = itens
+
+    cmb_licitacao.bind(
+        "<<ComboboxSelected>>",
+        carregar_itens_licitacao
+    )
+
+    def selecionar_item(event=None):
+
+        texto = cmb_item.get()
+    
+        if not texto:
+            return
+    
+        codigo = texto.split(" - ")[0]
+    
+        for registro in item_selecionado["dados"]:
+    
+            if registro[1] == codigo:
+    
+                item_selecionado["id"] = registro[0]
+    
+                item_selecionado["codigo"] = registro[1]
+    
+                item_selecionado["material"] = registro[2]
+    
+                item_selecionado["valor_unitario"] = registro[3]
+    
+                txt_valor_unitario.delete(
+                    0,
+                    tk.END
+                )
+    
+                txt_valor_unitario.insert(
+                    0,
+                    str(registro[3])
+                )
+    
+                break
             
 
     def novo(self):
@@ -1099,10 +1156,10 @@ class EntradasFrame(tk.Frame):
                     item_selecionado["id"],
             
                 "codigo":
-                    txt_codigo.get(),
-            
+                    item_selecionado["codigo"],
+                
                 "material":
-                    txt_material.get(),
+                    item_selecionado["material"],
             
                 "lote":
                     txt_lote.get(),
