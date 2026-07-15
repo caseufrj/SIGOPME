@@ -265,6 +265,37 @@ class EntradasFrame(tk.Frame):
             text=f"{len(dados)} registros"
         )
 
+    def carregar_itens_nf(self, event=None):
+
+        selecionado = self.grid.selection()
+    
+        if not selecionado:
+            return
+    
+        item = self.grid.item(
+            selecionado[0]
+        )
+    
+        numero_nf = item["values"][1]
+    
+        for linha in self.grid_itens.get_children():
+    
+            self.grid_itens.delete(
+                linha
+            )
+    
+        dados = EntradaService.listar_itens_nf(
+            numero_nf
+        )
+    
+        for registro in dados:
+    
+            self.grid_itens.insert(
+                "",
+                "end",
+                values=registro
+            )
+
     def novo(self):
 
         janela = tk.Toplevel(self)
