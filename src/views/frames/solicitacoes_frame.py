@@ -4,6 +4,9 @@ from tkinter import messagebox
 
 from services.solicitacao_service import SolicitacaoService
 from services.paciente_service import PacienteService
+from services.estoque_rastreado_service import (
+    EstoqueRastreadoService
+)
 
 class SolicitacoesFrame(tk.Frame):
 
