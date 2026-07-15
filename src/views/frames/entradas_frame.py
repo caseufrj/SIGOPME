@@ -7,6 +7,7 @@ from services.fornecedor_service import FornecedorService
 from views.components.grid_helper import criar_treeview
 from views.components.search_helper import criar_barra_pesquisa
 from services.licitacao_service import LicitacaoService
+from services.historico_service import HistoricoService
 
 from views.components.masks import (
     aplicar_mascara_data,
@@ -717,6 +718,29 @@ class EntradasFrame(tk.Frame):
                     "end"
                 ).strip()
             )
+
+            HistoricoService.registrar(
+            
+                tipo="ENTRADA",
+            
+                acao="NF_CADASTRADA",
+            
+                numero_licitacao=cmb_licitacao.get(),
+            
+                fornecedor=txt_fornecedor.get(),
+            
+                documento=txt_nf.get(),
+            
+                cod_item=txt_codigo.get(),
+            
+                nome_material=txt_material.get(),
+            
+                lote=txt_lote.get(),
+            
+                codigo_unico=txt_serie_produto.get()
+            
+            )
+            ``
 
             try:
 
