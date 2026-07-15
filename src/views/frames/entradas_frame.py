@@ -822,19 +822,21 @@ class EntradasFrame(tk.Frame):
             try:
 
                 EstoqueRastreadoService.inserir(
-            
+
                     item_selecionado["id"],
-            
+                
                     cmb_licitacao.get(),
-            
+                
                     txt_codigo.get(),
-            
+                
                     txt_material.get(),
-            
+                
                     txt_lote.get(),
-            
-                    txt_serie_produto.get()
-            
+                
+                    txt_serie_produto.get(),
+                
+                    txt_nf.get()
+                
                 )
             
             except Exception as erro:
