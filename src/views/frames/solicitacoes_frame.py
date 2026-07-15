@@ -770,3 +770,28 @@ class SolicitacoesFrame(tk.Frame):
             0,
             tk.END
         )
+        
+    def utilizado(self):
+
+        data = self.txt_data_utilizacao.get().strip()
+    
+        if not data:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Informe a data de utilização."
+            )
+    
+            return
+    
+        EstoqueRastreadoService.utilizado(
+            self.id_item,
+            data
+        )
+    
+        messagebox.showinfo(
+            "SIGOPME",
+            "Material marcado como utilizado."
+        )
+    
+        self.pesquisar()
