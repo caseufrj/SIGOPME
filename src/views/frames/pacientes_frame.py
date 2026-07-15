@@ -5,6 +5,7 @@ from services.paciente_service import PacienteService
 
 from views.components.grid_helper import criar_treeview
 from views.components.search_helper import criar_barra_pesquisa
+from services.historico_service import HistoricoService
 
 from views.components.masks import (
     aplicar_mascara_data
@@ -248,7 +249,21 @@ class PacientesFrame(tk.Frame):
                 txt_nome.get().strip(),
                 txt_data.get().strip()
             )
-    
+
+            HistoricoService.registrar(
+
+                tipo="PACIENTE",
+            
+                acao="PACIENTE_CADASTRADO",
+            
+                paciente_nome=txt_nome.get(),
+            
+                paciente_registro=txt_registro.get(),
+            
+                observacao="Cadastro de paciente"
+            
+            )
+                
             self.carregar_dados()
     
             janela.destroy()
@@ -378,6 +393,22 @@ class PacientesFrame(tk.Frame):
                 txt_nome.get(),
                 txt_data.get()
             )
+
+            HistoricoService.registrar(
+
+                tipo="PACIENTE",
+            
+                acao="PACIENTE_EDITADO",
+            
+                referencia_id=id_registro,
+            
+                paciente_nome=txt_nome.get(),
+            
+                paciente_registro=txt_registro.get(),
+            
+                observacao="Atualização de cadastro"
+            
+            )
     
             self.carregar_dados()
     
@@ -425,6 +456,20 @@ class PacientesFrame(tk.Frame):
     
         PacienteService.excluir(
             id_registro
+        )
+
+        HistoricoService.registrar(
+
+            tipo="PACIENTE",
+        
+            acao="PACIENTE_EXCLUIDO",
+        
+            referencia_id=id_registro,
+        
+            paciente_nome=nome,
+        
+            paciente_registro=registro
+        
         )
     
         self.carregar_dados()
