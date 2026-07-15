@@ -332,149 +332,451 @@ class EntradasFrame(tk.Frame):
         janela.title(
             "Nova Entrada"
         )
-
+        
         janela.geometry(
-            "700x800"
+            "1200x700"
         )
+        
         itens_nf = []
-
+        
         lbl_total_itens = tk.Label(
             janela,
-            text="Total dos Itens: R$ 0,00"
+            text="Total dos Itens: R$ 0,00",
+            font=("Arial", 10, "bold")
         )
         
         lbl_total_itens.pack(
             pady=5
         )
-
-        tk.Label(
+        
+        frame_nota = ttk.LabelFrame(
             janela,
-            text="Nota Fiscal"
-        ).pack()
-
-        txt_nf = tk.Entry(janela)
-
-        txt_nf.pack(
+            text="Dados da Nota Fiscal"
+        )
+        
+        frame_nota.pack(
             fill="x",
-            padx=10
+            padx=10,
+            pady=5
+        )
+        
+        frame_nota.columnconfigure(
+            0,
+            weight=1
+        )
+        
+        frame_nota.columnconfigure(
+            1,
+            weight=1
         )
 
         tk.Label(
-            janela,
+            frame_nota,
+            text="NF"
+        ).grid(
+            row=0,
+            column=0,
+            sticky="w"
+        )
+        
+        txt_nf = tk.Entry(
+            frame_nota
+        )
+        
+        txt_nf.grid(
+            row=1,
+            column=0,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+        
+        tk.Label(
+            frame_nota,
             text="Série"
-        ).pack()
-
-        txt_serie = tk.Entry(janela)
-
-        txt_serie.pack(
-            fill="x",
-            padx=10
+        ).grid(
+            row=0,
+            column=1,
+            sticky="w"
+        )
+        
+        txt_serie = tk.Entry(
+            frame_nota
+        )
+        
+        txt_serie.grid(
+            row=1,
+            column=1,
+            sticky="ew",
+            padx=5,
+            pady=5
         )
 
         tk.Label(
-            janela,
+            frame_nota,
             text="Data Emissão"
-        ).pack()
-
-        txt_data_emissao = tk.Entry(janela)
+        ).grid(
+            row=2,
+            column=0,
+            sticky="w"
+        )
+        
+        txt_data_emissao = tk.Entry(
+            frame_nota
+        )
+        
         aplicar_mascara_data(
             txt_data_emissao
         )
-
-
-        txt_data_emissao.pack(
-            fill="x",
-            padx=10
+        
+        txt_data_emissao.grid(
+            row=3,
+            column=0,
+            sticky="ew",
+            padx=5,
+            pady=5
         )
-
+        
         tk.Label(
-            janela,
+            frame_nota,
             text="Data Entrada"
-        ).pack()
-
-        txt_data_entrada = tk.Entry(janela)
+        ).grid(
+            row=2,
+            column=1,
+            sticky="w"
+        )
+        
+        txt_data_entrada = tk.Entry(
+            frame_nota
+        )
+        
         aplicar_mascara_data(
             txt_data_entrada
         )
-
-        txt_data_entrada.pack(
-            fill="x",
-            padx=10
+        
+        txt_data_entrada.grid(
+            row=3,
+            column=1,
+            sticky="ew",
+            padx=5,
+            pady=5
         )
 
         tk.Label(
-            janela,
+            frame_nota,
             text="Tipo Entrada"
-        ).pack()
-
+        ).grid(
+            row=4,
+            column=0,
+            sticky="w"
+        )
+        
         cmb_tipo = ttk.Combobox(
-            janela,
+            frame_nota,
             values=[
                 "CONSIGNADO",
                 "VENDA"
             ],
             state="readonly"
         )
-
-        cmb_tipo.pack(
-            fill="x",
-            padx=10
+        
+        cmb_tipo.grid(
+            row=5,
+            column=0,
+            sticky="ew",
+            padx=5,
+            pady=5
         )
-
+        
         cmb_tipo.set(
             "CONSIGNADO"
         )
-
-        tk.Label(
-            janela,
-            text="Fornecedor"
-        ).pack()
-
-        txt_fornecedor = tk.Entry(janela)
-
-        txt_fornecedor.pack(
-            fill="x",
-            padx=10
-        )
         
-        lst_fornecedores = tk.Listbox(
-            janela,
-            height=5
-        )
-        
-        lst_fornecedores.pack(
-            fill="x",
-            padx=10
-        )
-
         tk.Label(
-            janela,
+            frame_nota,
             text="Licitação"
-        ).pack()
+        ).grid(
+            row=4,
+            column=1,
+            sticky="w"
+        )
         
         cmb_licitacao = ttk.Combobox(
-            janela,
+            frame_nota,
             state="readonly"
         )
         
-        cmb_licitacao.pack(
-            fill="x",
-            padx=10
+        cmb_licitacao.grid(
+            row=5,
+            column=1,
+            sticky="ew",
+            padx=5,
+            pady=5
         )
 
         tk.Label(
+            frame_nota,
+            text="Fornecedor"
+        ).grid(
+            row=6,
+            column=0,
+            sticky="w"
+        )
+        
+        txt_fornecedor = tk.Entry(
+            frame_nota
+        )
+        
+        txt_fornecedor.grid(
+            row=7,
+            column=0,
+            columnspan=2,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+
+        lst_fornecedores = tk.Listbox(
+            frame_nota,
+            height=4
+        )
+        
+        lst_fornecedores.grid(
+            row=8,
+            column=0,
+            columnspan=2,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+
+        tk.Label(
+            frame_nota,
+            text="Valor Total NF"
+        ).grid(
+            row=9,
+            column=0,
+            sticky="w"
+        )
+        
+        txt_valor_nf = tk.Entry(
+            frame_nota
+        )
+        
+        aplicar_mascara_moeda(
+            txt_valor_nf
+        )
+        
+        txt_valor_nf.grid(
+            row=10,
+            column=0,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+
+        frame_item = ttk.LabelFrame(
             janela,
+            text="Item da Nota"
+        )
+        
+        frame_item.pack(
+            fill="x",
+            padx=10,
+            pady=5
+        )
+        
+        frame_item.columnconfigure(
+            0,
+            weight=1
+        )
+        
+        frame_item.columnconfigure(
+            1,
+            weight=1
+        )
+
+        tk.Label(
+            frame_item,
             text="Item da Licitação"
-        ).pack()
+        ).grid(
+            row=0,
+            column=0,
+            sticky="w"
+        )
         
         cmb_item = ttk.Combobox(
-            janela,
+            frame_item,
             state="readonly"
         )
         
-        cmb_item.pack(
+        cmb_item.grid(
+            row=1,
+            column=0,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+        
+        tk.Label(
+            frame_item,
+            text="Quantidade"
+        ).grid(
+            row=0,
+            column=1,
+            sticky="w"
+        )
+        
+        txt_quantidade = tk.Entry(
+            frame_item
+        )
+        
+        txt_quantidade.grid(
+            row=1,
+            column=1,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+
+        tk.Label(
+            frame_item,
+            text="Código Item"
+        ).grid(
+            row=2,
+            column=0,
+            sticky="w"
+        )
+        
+        txt_codigo = tk.Entry(
+            frame_item
+        )
+        
+        txt_codigo.grid(
+            row=3,
+            column=0,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+        
+        tk.Label(
+            frame_item,
+            text="Valor Unitário"
+        ).grid(
+            row=2,
+            column=1,
+            sticky="w"
+        )
+        
+        txt_valor_unitario = tk.Entry(
+            frame_item
+        )
+        
+        aplicar_mascara_moeda(
+            txt_valor_unitario
+        )
+        
+        txt_valor_unitario.grid(
+            row=3,
+            column=1,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+
+        tk.Label(
+            frame_item,
+            text="Lote"
+        ).grid(
+            row=4,
+            column=0,
+            sticky="w"
+        )
+        
+        txt_lote = tk.Entry(
+            frame_item
+        )
+        
+        txt_lote.grid(
+            row=5,
+            column=0,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+        
+        tk.Label(
+            frame_item,
+            text="Série Produto"
+        ).grid(
+            row=4,
+            column=1,
+            sticky="w"
+        )
+        
+        txt_serie_produto = tk.Entry(
+            frame_item
+        )
+        
+        txt_serie_produto.grid(
+            row=5,
+            column=1,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+
+        tk.Label(
+            frame_item,
+            text="Data Validade"
+        ).grid(
+            row=6,
+            column=0,
+            sticky="w"
+        )
+        
+        txt_validade = tk.Entry(
+            frame_item
+        )
+        
+        aplicar_mascara_data(
+            txt_validade
+        )
+        
+        txt_validade.grid(
+            row=7,
+            column=0,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+
+        frame_botoes_itens = tk.Frame(
+            janela
+        )
+        
+        frame_botoes_itens.pack(
             fill="x",
-            padx=10
+            padx=10,
+            pady=5
+        )
+        
+        tk.Button(
+            frame_botoes_itens,
+            text="Incluir Item",
+            command=incluir_item
+        ).pack(
+            side="left",
+            padx=5
+        )
+        
+        tk.Button(
+            frame_botoes_itens,
+            text="Remover Item"
+        ).pack(
+            side="left",
+            padx=5
         )
        
         def pesquisar_fornecedor(event=None):
