@@ -259,10 +259,15 @@ class EntradasFrame(tk.Frame):
             text="Série Produto"
         )
         
-        """self.grid_itens.heading(
+        self.grid_itens.heading(
             "validade",
-            text="Validade"
-        )"""
+            text="Data Validade"
+        )
+
+        self.grid_itens.column(
+            "validade",
+            width=100
+        )
         
         self.grid_itens.heading(
             "quantidade",
@@ -283,6 +288,15 @@ class EntradasFrame(tk.Frame):
 
         for entrada in dados:
 
+            entrada = list(entrada)
+        
+            entrada[8] = (
+                f"R$ {float(entrada[8]):,.2f}"
+                .replace(",", "X")
+                .replace(".", ",")
+                .replace("X", ".")
+            )
+        
             self.grid.insert(
                 "",
                 "end",
