@@ -1353,18 +1353,19 @@ class EntradasFrame(tk.Frame):
     
             return
     
-        messagebox.showinfo(
-            "SIGOPME",
-            f"Entrada {id_entrada} carregada."
-        )
+        print("DADOS ENTRADA:")
+        print(dados)
     
         itens = NotaItensService.listar_por_entrada(
             id_entrada
         )
     
-        print(
-            "ITENS DA ENTRADA:",
-            itens
+        print("ITENS DA ENTRADA:")
+        print(itens)
+    
+        messagebox.showinfo(
+            "SIGOPME",
+            f"Entrada {id_entrada} carregada."
         )
     
     
