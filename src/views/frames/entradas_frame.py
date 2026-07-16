@@ -711,7 +711,10 @@ class EntradasFrame(tk.Frame):
         
                     txt_valor_unitario.insert(
                         0,
-                        str(registro[3])
+                        f"R$ {float(registro[3]):,.2f}"
+                            .replace(",", "X")
+                            .replace(".", ",")
+                            .replace("X", ".")
                     )
         
                     break
