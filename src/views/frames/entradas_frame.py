@@ -335,7 +335,11 @@ class EntradasFrame(tk.Frame):
                 values=registro
             )
 
-    def novo(self):
+    def novo(
+        self,
+        modo_edicao=False,
+        id_entrada=None
+    ):
 
         janela = tk.Toplevel(self)
 
@@ -868,6 +872,26 @@ class EntradasFrame(tk.Frame):
             padx=5,
             pady=5
         )
+
+        tk.Label(
+            frame_conteudo,
+            text="Observação"
+        ).pack(
+            anchor="w",
+            padx=10
+        )
+        
+        txt_observacao = tk.Text(
+            frame_conteudo,
+            height=4
+        )
+        
+        txt_observacao.pack(
+            fill="x",
+            padx=10,
+            pady=5
+        )
+
         
         # ==========================
         # TOTAL
@@ -1138,6 +1162,39 @@ class EntradasFrame(tk.Frame):
             pady=10
         )
 
+        if modo_edicao:
+
+            itens_salvos = (
+                NotaItensService.listar_por_entrada(
+                    id_entrada
+                )
+            )
+        
+            for item in itens_salvos:
+            
+                registro = {
+            
+                    "codigo": item[0],
+                    "material": item[1],
+                    "lote": item[2],
+                    "serie": item[3],
+                    "validade": item[4],
+                    "quantidade": item[5],
+                    "valor_unitario": item[6],
+                    "valor_total": item[7]
+            
+                }
+            
+                itens_nf.append(
+                    registro
+                )
+            
+                grid_temp.insert(
+                    "",
+                    "end",
+                    values=item
+                )
+
         def incluir_item():
 
             if "id" not in item_selecionado:
@@ -1271,24 +1328,85 @@ class EntradasFrame(tk.Frame):
             text="Valor Total"
         )
 
-        tk.Label(
-            frame_conteudo,
-            text="Observação"
-        ).pack(
-            anchor="w",
-            padx=10
-        )
         
-        txt_observacao = tk.Text(
-            frame_conteudo,
-            height=4
-        )
+        if modo_edicao:
+
+            dados = EntradaService.obter_por_id(
+                id_entrada
+            )
         
-        txt_observacao.pack(
-            fill="x",
-            padx=10,
-            pady=5
-        )
+            if dados:
+        
+                (
+                    _id,
+                    numero_licitacao,
+                    numero_nf,
+                    serie_nf,
+                    data_emissao,
+                    data_entrada,
+                    tipo_entrada,
+                    fornecedor,
+                    valor_total_nf,
+                    observacao
+                ) = dados
+        
+                txt_nf.insert(
+                    0,
+                    numero_nf
+                )
+        
+                txt_serie.insert(
+                    0,
+                    serie_nf
+                )
+        
+                txt_data_emissao.insert(
+                    0,
+                    data_emissao
+                )
+        
+                txt_data_entrada.insert(
+                    0,
+                    data_entrada
+                )
+        
+                cmb_tipo.set(
+                    tipo_entrada
+                )
+        
+                txt_fornecedor.insert(
+                    0,
+                    fornecedor
+                )
+                
+                licitacoes = (
+                    LicitacaoService.listar_licitacoes_fornecedor(
+                        fornecedor
+                    )
+                )
+                
+                cmb_licitacao["values"] = [
+                    x[0] for x in licitacoes
+                ]
+                
+                cmb_licitacao.set(
+                    numero_licitacao
+                )
+        
+                txt_valor_nf.insert(
+                    0,
+                    (
+                        f"R$ {float(valor_total_nf):,.2f}"
+                        .replace(",", "X")
+                        .replace(".", ",")
+                        .replace("X", ".")
+                    )
+                )
+        
+                txt_observacao.insert(
+                    "1.0",
+                    observacao or ""
+                )
 
         tk.Button(
             frame_botoes_itens,
@@ -1335,32 +1453,9 @@ class EntradasFrame(tk.Frame):
     
         id_entrada = item["values"][0]
     
-        dados = EntradaService.obter_por_id(
-            id_entrada
-        )
-    
-        if not dados:
-    
-            messagebox.showerror(
-                "SIGOPME",
-                "Entrada não encontrada."
-            )
-    
-            return
-    
-        print("DADOS ENTRADA:")
-        print(dados)
-    
-        itens = NotaItensService.listar_por_entrada(
-            id_entrada
-        )
-    
-        print("ITENS DA ENTRADA:")
-        print(itens)
-    
-        messagebox.showinfo(
-            "SIGOPME",
-            f"Entrada {id_entrada} carregada."
+        self.novo(
+            modo_edicao=True,
+            id_entrada=id_entrada
         )
     
     
