@@ -211,3 +211,67 @@ class EntradaService:
         conn.close()
     
         return dados
+
+    @staticmethod
+    def obter_por_id(id_entrada):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+    
+                Id,
+                NumeroLicitacao,
+                NumeroNF,
+                SerieNF,
+                DataEmissao,
+                DataEntrada,
+                TipoEntrada,
+                Fornecedor,
+                ValorTotalNF,
+                Observacao
+    
+            FROM Entradas
+    
+            WHERE Id = ?
+        """, (id_entrada,))
+    
+        dados = cursor.fetchone()
+    
+        conn.close()
+    
+        return dados
+
+    @staticmethod
+    def listar_por_entrada(entrada_id):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+    
+                CodItem,
+                NomeItem,
+                Lote,
+                SerieProduto,
+                DataValidade,
+                Quantidade,
+                ValorUnitario,
+                ValorTotal
+    
+            FROM NotaItens
+    
+            WHERE EntradaId = ?
+    
+            ORDER BY NomeItem
+        """, (entrada_id,))
+    
+        dados = cursor.fetchall()
+    
+        conn.close()
+    
+        return dados
