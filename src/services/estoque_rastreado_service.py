@@ -60,11 +60,10 @@ class EstoqueRastreadoService:
             )
             VALUES (
 
-                ?, ?, ?, ?, ?, ?, ?,?,?,
-
+                ?, ?, ?, ?, ?, ?, ?, ?,
+            
                 'DISPONIVEL'
             )
-
         """, (
             licitacao_item_id,
         
