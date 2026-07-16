@@ -94,10 +94,6 @@ class HistoricoService:
                 ?,
                 ?,
 
-                ?,
-
-                ?,
-
                 datetime('now'),
 
                 ?
