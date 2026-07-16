@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS Movimentacoes (
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- =========================
+"""-- =========================
 -- NOTAS FISCAIS
 -- =========================
 
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS NotasFiscais (
     Observacao TEXT,
 
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+);"""
 
 -- =========================
 -- ITENS DA NF
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS NotaItens (
 
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-    NotaFiscalId INTEGER NOT NULL,
+    EntradaId INTEGER NOT NULL,
 
     CodItem TEXT NOT NULL,
 
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS NotaItens (
 
     ValorTotal REAL,
 
-    FOREIGN KEY (NotaFiscalId)
+    FOREIGN KEY (EntradaId)
     REFERENCES Entradas(Id)
 );
 
