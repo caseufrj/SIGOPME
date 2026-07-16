@@ -304,6 +304,8 @@ CREATE TABLE IF NOT EXISTS EstoqueRastreado (
 
     CodigoUnico TEXT NOT NULL,
 
+    DataValidade TEXT,
+
     CodigoBarras TEXT NOT NULL UNIQUE,
 
     Quantidade INTEGER NOT NULL DEFAULT 1,
