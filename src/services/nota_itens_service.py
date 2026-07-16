@@ -8,6 +8,9 @@ class NotaItensService:
         nota_fiscal_id,
         cod_item,
         nome_item,
+        lote,
+        serie_produto,
+        data_validade,
         quantidade,
         valor_unitario,
         valor_total
@@ -19,27 +22,33 @@ class NotaItensService:
 
         cursor.execute("""
             INSERT INTO NotaItens (
-
+        
                 NotaFiscalId,
                 CodItem,
                 NomeItem,
+                Lote,
+                SerieProduto,
+                DataValidade,
                 Quantidade,
                 ValorUnitario,
                 ValorTotal
-
+        
             )
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
-
+        
             nota_fiscal_id,
             cod_item,
             nome_item,
+            lote,
+            serie_produto,
+            data_validade,
             quantidade,
             valor_unitario,
             valor_total
-
+        
         ))
-
+    
         conn.commit()
 
         conn.close()
