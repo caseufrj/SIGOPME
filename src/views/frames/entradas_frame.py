@@ -318,13 +318,10 @@ class EntradasFrame(tk.Frame):
             selecionado[0]
         )
     
-        numero_nf = item["values"][1]
+        numero_nf = item["values"][2]
     
         for linha in self.grid_itens.get_children():
-    
-            self.grid_itens.delete(
-                linha
-            )
+            self.grid_itens.delete(linha)
     
         dados = EntradaService.listar_itens_nf(
             numero_nf
