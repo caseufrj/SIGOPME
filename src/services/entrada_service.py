@@ -191,21 +191,13 @@ class EntradaService:
     
         cursor.execute("""
             SELECT
-    
-                NumeroLicitacao,
-    
                 CodItem,
-    
                 NomeMaterial,
-    
                 Lote,
-    
                 CodigoUnico,
-    
+                DataValidade,
                 Quantidade,
-    
                 Status
-    
             FROM EstoqueRastreado
     
             WHERE NumeroNF = ?
