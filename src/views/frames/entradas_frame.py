@@ -745,27 +745,6 @@ class EntradasFrame(tk.Frame):
             padx=5,
             pady=5
         )
-
-        tk.Label(
-            frame_item,
-            text="Código Item"
-        ).grid(
-            row=2,
-            column=0,
-            sticky="w"
-        )
-        
-        txt_codigo = tk.Entry(
-            frame_item
-        )
-        
-        txt_codigo.grid(
-            row=3,
-            column=0,
-            sticky="ew",
-            padx=5,
-            pady=5
-        )
         
         tk.Label(
             frame_item,
@@ -1136,13 +1115,13 @@ class EntradasFrame(tk.Frame):
 
         def incluir_item():
 
-            if not txt_codigo.get():
-        
+            if "id" not in item_selecionado:
+
                 messagebox.showwarning(
                     "SIGOPME",
-                    "Selecione um item."
+                    "Selecione um item da licitação."
                 )
-        
+            
                 return
         
             valor_unitario = float(
