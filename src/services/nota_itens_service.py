@@ -22,7 +22,7 @@ class NotaItensService:
 
         cursor.execute("""
             INSERT INTO NotaItens (
-
+        
                 EntradaId,
                 CodItem,
                 NomeItem,
@@ -32,22 +32,21 @@ class NotaItensService:
                 Quantidade,
                 ValorUnitario,
                 ValorTotal
-            
+        
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
         
-            (
-                entrada_id,    
-                cod_item,
-                nome_item,
-                lote,
-                serie_produto,
-                data_validade,
-                quantidade,
-                valor_unitario,
-                valor_total
-            
+            entrada_id,
+            cod_item,
+            nome_item,
+            lote,
+            serie_produto,
+            data_validade,
+            quantidade,
+            valor_unitario,
+            valor_total
+        
         ))
     
         conn.commit()
