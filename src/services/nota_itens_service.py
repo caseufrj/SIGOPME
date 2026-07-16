@@ -5,7 +5,7 @@ class NotaItensService:
 
     @staticmethod
     def inserir(
-        nota_fiscal_id,
+        entrada_id,
         cod_item,
         nome_item,
         lote,
@@ -22,8 +22,8 @@ class NotaItensService:
 
         cursor.execute("""
             INSERT INTO NotaItens (
-        
-                NotaFiscalId,
+
+                EntradaId,
                 CodItem,
                 NomeItem,
                 Lote,
@@ -32,12 +32,13 @@ class NotaItensService:
                 Quantidade,
                 ValorUnitario,
                 ValorTotal
-        
+            
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
         
-            nota_fiscal_id,
+            (
+            entrada_id,    
             cod_item,
             nome_item,
             lote,
