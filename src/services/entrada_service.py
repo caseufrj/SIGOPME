@@ -56,47 +56,40 @@ class EntradaService:
             INSERT INTO Entradas (
         
                 NumeroLicitacao,
-        
                 NumeroNF,
-        
                 SerieNF,
-        
                 DataEmissao,
-        
                 DataEntrada,
-        
                 TipoEntrada,
-        
                 Fornecedor,
         
-                ValorTotalNF,
+                CodItem,
+                NomeMaterial,
+                Quantidade,
         
+                ValorTotalNF,
                 Observacao
         
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
         
             numero_licitacao,
-        
             numero_nf,
-        
             serie_nf,
-        
             data_emissao,
-        
             data_entrada,
-        
             tipo_entrada,
-        
             fornecedor,
         
-            valor_nf,
+            "",
+            "",
+            0,
         
+            valor_nf,
             observacao
         
         ))
-    
         nota_id = cursor.lastrowid
 
         conn.commit()
