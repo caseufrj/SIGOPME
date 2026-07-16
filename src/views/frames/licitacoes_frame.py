@@ -457,19 +457,18 @@ class LicitacoesFrame(tk.Frame):
             )
 
             HistoricoService.registrar(
-            
+
                 tipo="LICITACAO",
             
                 acao="LICITACAO_CADASTRADA",
             
-                numero_licitacao=txt_numero.get(),
+                numero_licitacao=txt_licitacao.get(),
             
                 fornecedor=txt_fornecedor.get(),
             
                 observacao="Cadastro de licitação"
             
             )
-        
             self.carregar_dados()
         
             janela.destroy()
@@ -659,16 +658,13 @@ class LicitacoesFrame(tk.Frame):
             
                 acao="LICITACAO_EDITADA",
             
-                referencia_id=id_registro,
-            
-                numero_licitacao=txt_numero.get(),
+                numero_licitacao=txt_licitacao.get(),
             
                 fornecedor=txt_fornecedor.get(),
             
                 observacao="Licitação alterada"
             
             )
-        
             self.carregar_dados()
         
             janela.destroy()
@@ -723,8 +719,6 @@ class LicitacoesFrame(tk.Frame):
             tipo="LICITACAO",
         
             acao="LICITACAO_EXCLUIDA",
-        
-            referencia_id=id_registro,
         
             numero_licitacao=numero_licitacao
         
