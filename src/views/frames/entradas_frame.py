@@ -1323,9 +1323,48 @@ class EntradasFrame(tk.Frame):
 
     def editar(self):
 
+        selecionado = self.grid.selection()
+    
+        if not selecionado:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Selecione uma entrada."
+            )
+    
+            return
+    
+        item = self.grid.item(
+            selecionado[0]
+        )
+    
+        id_entrada = item["values"][0]
+    
+        dados = EntradaService.obter_por_id(
+            id_entrada
+        )
+    
+        if not dados:
+    
+            messagebox.showerror(
+                "SIGOPME",
+                "Entrada não encontrada."
+            )
+    
+            return
+    
         messagebox.showinfo(
             "SIGOPME",
-            "Editar em desenvolvimento."
+            f"Entrada {id_entrada} carregada."
+        )
+    
+        itens = NotaItensService.listar_por_entrada(
+            id_entrada
+        )
+    
+        print(
+            "ITENS DA ENTRADA:",
+            itens
         )
     
     
@@ -1366,33 +1405,5 @@ class EntradasFrame(tk.Frame):
             "SIGOPME",
             "Entrada excluída."
         )
-
-    def carregar_itens_nf(self, event=None):
-
-        selecionado = self.grid.selection()
-    
-        if not selecionado:
-            return
-    
-        item = self.grid.item(
-            selecionado[0]
-        )
-    
-        nf = item["values"][1]
-    
-        for linha in self.grid_itens.get_children():
-            self.grid_itens.delete(linha)
-    
-        dados = EntradaService.listar_itens_nf(
-            nf
-        )
-    
-        for registro in dados:
-    
-            self.grid_itens.insert(
-                "",
-                "end",
-                values=registro
-            )
 
     
