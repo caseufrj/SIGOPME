@@ -280,6 +280,8 @@ CREATE TABLE IF NOT EXISTS Entradas (
 
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
+    NumeroLicitacao TEXT,
+
     NumeroNF TEXT,
 
     SerieNF TEXT,
@@ -292,27 +294,14 @@ CREATE TABLE IF NOT EXISTS Entradas (
 
     Fornecedor TEXT NOT NULL,
 
-    CodItem TEXT NOT NULL,
-
-    NomeMaterial TEXT NOT NULL,
-
-    Quantidade INTEGER NOT NULL,
-
     ValorTotalNF REAL,
-
-    ValorUnitario REAL,
-
-    Lote TEXT,
-
-    SerieProduto TEXT,
-
-    DataValidade TEXT,
 
     Observacao TEXT,
 
     Usuario TEXT,
 
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
+
 );
 
 -- =========================
@@ -388,11 +377,11 @@ CREATE TABLE IF NOT EXISTS HistoricoMovimentacao (
 
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
 
+    EstoqueId INTEGER,
+
     Tipo TEXT,
 
     Acao TEXT,
-
-    ReferenciaId INTEGER,
 
     NumeroLicitacao TEXT,
 
