@@ -628,7 +628,7 @@ class EntradasFrame(tk.Frame):
             pady=5
         )
         
-       frame_item.columnconfigure(
+        frame_item.columnconfigure(
             0,
             weight=4
         )
