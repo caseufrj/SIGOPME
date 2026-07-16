@@ -160,6 +160,12 @@ CREATE TABLE IF NOT EXISTS NotaItens (
 
     NomeItem TEXT NOT NULL,
 
+    Lote TEXT,
+
+    SerieProduto TEXT,
+
+    DataValidade TEXT,
+
     Quantidade INTEGER NOT NULL,
 
     ValorUnitario REAL,
@@ -167,7 +173,7 @@ CREATE TABLE IF NOT EXISTS NotaItens (
     ValorTotal REAL,
 
     FOREIGN KEY (NotaFiscalId)
-    REFERENCES NotasFiscais(Id)
+    REFERENCES Entradas(Id)
 );
 
 -- =========================
@@ -439,11 +445,14 @@ ON Pacientes (Registro);
 CREATE INDEX IF NOT EXISTS IDX_PACIENTES_NOME
 ON Pacientes (Nome);
 
-CREATE INDEX IF NOT EXISTS IDX_ENTRADAS_CODIGO
-ON Entradas (CodItem);
-
 CREATE INDEX IF NOT EXISTS IDX_ENTRADAS_FORNECEDOR
 ON Entradas (Fornecedor);
+
+CREATE INDEX IF NOT EXISTS IDX_ENTRADAS_NF
+ON Entradas (NumeroNF);
+
+CREATE INDEX IF NOT EXISTS IDX_ENTRADAS_LICITACAO
+ON Entradas (NumeroLicitacao);
 
 CREATE INDEX IF NOT EXISTS IDX_RASTREIO_CODIGO
 ON EstoqueRastreado (CodigoBarras);
