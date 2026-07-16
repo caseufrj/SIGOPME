@@ -11,6 +11,7 @@ class EstoqueRastreadoService:
         nome_material,
         lote,
         codigo_unico,
+        data_validade,
         numero_nf
     ):
 
