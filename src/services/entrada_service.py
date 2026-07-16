@@ -13,14 +13,14 @@ class EntradaService:
         cursor.execute("""
             SELECT
                 Id,
+                NumeroLicitacao,
                 NumeroNF,
                 SerieNF,
+                DataEmissao,
                 DataEntrada,
                 TipoEntrada,
                 Fornecedor,
-                CodItem,
-                NomeMaterial,
-                Quantidade
+                ValorTotalNF
             FROM Entradas
             ORDER BY DataEntrada DESC
         """)
@@ -62,16 +62,11 @@ class EntradaService:
                 DataEntrada,
                 TipoEntrada,
                 Fornecedor,
-        
-                CodItem,
-                NomeMaterial,
-                Quantidade,
-        
                 ValorTotalNF,
                 Observacao
         
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
         
             numero_licitacao,
@@ -81,11 +76,6 @@ class EntradaService:
             data_entrada,
             tipo_entrada,
             fornecedor,
-        
-            "",
-            "",
-            0,
-        
             valor_nf,
             observacao
         
@@ -108,15 +98,14 @@ class EntradaService:
         cursor.execute("""
             SELECT
                 Id,
+                NumeroLicitacao,
                 NumeroNF,
                 SerieNF,
                 DataEmissao,
                 DataEntrada,
                 TipoEntrada,
                 Fornecedor,
-                CodItem,
-                NomeMaterial,
-                Quantidade,
+                ValorTotalNF,
                 Observacao
             FROM Entradas
             WHERE Id = ?
@@ -130,17 +119,15 @@ class EntradaService:
 
     @staticmethod
     def atualizar(
-        id_registro,
-        numero_nf,
-        serie_nf,
-        data_emissao,
-        data_entrada,
-        tipo_entrada,
-        fornecedor,
-        codigo_item,
-        nome_material,
-        quantidade,
-        observacao
+        NumeroLicitacao,
+        NumeroNF,
+        SerieNF,
+        DataEmissao,
+        DataEntrada,
+        TipoEntrada,
+        Fornecedor,
+        ValorTotalNF,
+        Observacao
     ):
 
         conn = DatabaseService.get_connection()
@@ -194,44 +181,6 @@ class EntradaService:
         conn.commit()
 
         conn.close()
-
-    @staticmethod
-    def listar_itens_nf(nf):
-    
-        conn = DatabaseService.get_connection()
-    
-        cursor = conn.cursor()
-    
-        cursor.execute("""
-            SELECT
-    
-                NumeroLicitacao,
-    
-                CodItem,
-    
-                NomeMaterial,
-    
-                Lote,
-    
-                CodigoUnico,
-    
-                DataValidade,
-    
-                Quantidade,
-    
-                Status
-    
-            FROM EstoqueRastreado
-    
-            WHERE Documento = ?
-    
-        """, (nf,))
-    
-        dados = cursor.fetchall()
-    
-        conn.close()
-    
-        return dados
 
     @staticmethod
     def listar_itens_nf(numero_nf):
