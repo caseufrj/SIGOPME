@@ -965,12 +965,7 @@ class EntradasFrame(tk.Frame):
 
         def salvar():
 
-            try:
-        
-                quantidade = int(
-                    txt_quantidade.get()
-                )
-        
+            try:        
                 valor_nf = float(
                     txt_valor_nf.get()
                     .replace("R$", "")
@@ -978,15 +973,7 @@ class EntradasFrame(tk.Frame):
                     .replace(",", ".")
                     .strip()
                 )
-        
-                valor_unitario = float(
-                    txt_valor_unitario.get()
-                    .replace("R$", "")
-                    .replace(".", "")
-                    .replace(",", ".")
-                    .strip()
-                )
-        
+                
             except ValueError:
         
                 messagebox.showerror(
