@@ -1094,21 +1094,16 @@ class EntradasFrame(tk.Frame):
                 )
             
                 EstoqueRastreadoService.inserir(
-            
+
                     item["licitacao_item_id"],
-            
                     cmb_licitacao.get(),
-            
                     item["codigo"],
-            
                     item["material"],
-            
                     item["lote"],
-            
                     item["serie"],
-            
+                    item["validade"],
                     txt_nf.get()
-            
+                
                 )
         
             self.carregar_dados()
