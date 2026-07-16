@@ -117,34 +117,6 @@ CREATE TABLE IF NOT EXISTS Movimentacoes (
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-"""-- =========================
--- NOTAS FISCAIS
--- =========================
-
-CREATE TABLE IF NOT EXISTS NotasFiscais (
-
-    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-    NumeroNF TEXT NOT NULL,
-
-    ChaveAcesso TEXT,
-
-    DataNF DATETIME NOT NULL,
-
-    Fornecedor TEXT NOT NULL,
-
-    Cnpj TEXT,
-
-    TipoNota TEXT NOT NULL,
-
-    ValorTotal REAL,
-
-    Status TEXT DEFAULT 'ABERTA',
-
-    Observacao TEXT,
-
-    DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
-);"""
 
 -- =========================
 -- ITENS DA NF
