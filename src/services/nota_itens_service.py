@@ -38,16 +38,16 @@ class NotaItensService:
         """, (
         
             (
-            entrada_id,    
-            cod_item,
-            nome_item,
-            lote,
-            serie_produto,
-            data_validade,
-            quantidade,
-            valor_unitario,
-            valor_total
-        
+                entrada_id,    
+                cod_item,
+                nome_item,
+                lote,
+                serie_produto,
+                data_validade,
+                quantidade,
+                valor_unitario,
+                valor_total
+            
         ))
     
         conn.commit()
