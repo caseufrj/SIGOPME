@@ -628,22 +628,49 @@ class EntradasFrame(tk.Frame):
             pady=5
         )
         
-        frame_item.columnconfigure(
+       frame_item.columnconfigure(
             0,
-            weight=1
+            weight=4
         )
         
         frame_item.columnconfigure(
             1,
             weight=1
         )
-
+        
+        frame_item.columnconfigure(
+            2,
+            weight=1
+        )
+        
+        # ==========================
+        # PRIMEIRA LINHA
+        # ==========================
+        
         tk.Label(
             frame_item,
             text="Item da Licitação"
         ).grid(
             row=0,
             column=0,
+            sticky="w"
+        )
+        
+        tk.Label(
+            frame_item,
+            text="Quantidade"
+        ).grid(
+            row=0,
+            column=1,
+            sticky="w"
+        )
+        
+        tk.Label(
+            frame_item,
+            text="Valor Unitário"
+        ).grid(
+            row=0,
+            column=2,
             sticky="w"
         )
         
@@ -659,16 +686,47 @@ class EntradasFrame(tk.Frame):
             padx=5,
             pady=5
         )
+        
+        txt_quantidade = tk.Entry(
+            frame_item
+        )
+        
+        txt_quantidade.grid(
+            row=1,
+            column=1,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+        
+        txt_valor_unitario = tk.Entry(
+            frame_item
+        )
+        
+        aplicar_mascara_moeda(
+            txt_valor_unitario
+        )
+        
+        txt_valor_unitario.grid(
+            row=1,
+            column=2,
+            sticky="ew",
+            padx=5,
+            pady=5
+        )
+        
+        # ==========================
+        # CARREGA ITENS
+        # ==========================
+        
         item_selecionado = {}
-
+        
         def carregar_itens_licitacao(event=None):
-
+        
             numero_licitacao = cmb_licitacao.get()
         
-            itens = (
-                LicitacaoService.listar_itens_entrada(
-                    numero_licitacao
-                )
+            itens = LicitacaoService.listar_itens_entrada(
+                numero_licitacao
             )
         
             cmb_item["values"] = [
@@ -677,14 +735,16 @@ class EntradasFrame(tk.Frame):
             ]
         
             item_selecionado["dados"] = itens
-    
+        
+        
         cmb_licitacao.bind(
             "<<ComboboxSelected>>",
             carregar_itens_licitacao
         )
-
+        
+        
         def selecionar_item(event=None):
-    
+        
             texto = cmb_item.get()
         
             if not texto:
@@ -711,72 +771,50 @@ class EntradasFrame(tk.Frame):
         
                     txt_valor_unitario.insert(
                         0,
-                        f"R$ {float(registro[3]):,.2f}"
+                        (
+                            f"R$ {float(registro[3]):,.2f}"
                             .replace(",", "X")
                             .replace(".", ",")
                             .replace("X", ".")
+                        )
                     )
         
                     break
-
+        
+        
         cmb_item.bind(
             "<<ComboboxSelected>>",
             selecionar_item
         )
-            
+        
+        # ==========================
+        # SEGUNDA LINHA
+        # ==========================
         
         tk.Label(
             frame_item,
-            text="Quantidade"
+            text="Lote"
         ).grid(
-            row=0,
-            column=1,
+            row=2,
+            column=0,
             sticky="w"
         )
         
-        txt_quantidade = tk.Entry(
-            frame_item
-        )
-        
-        txt_quantidade.grid(
-            row=1,
-            column=1,
-            sticky="ew",
-            padx=5,
-            pady=5
-        )
-        
         tk.Label(
             frame_item,
-            text="Valor Unitário"
+            text="Série Produto"
         ).grid(
             row=2,
             column=1,
             sticky="w"
         )
         
-        txt_valor_unitario = tk.Entry(
-            frame_item
-        )
-        
-        aplicar_mascara_moeda(
-            txt_valor_unitario
-        )
-        
-        txt_valor_unitario.grid(
-            row=3,
-            column=1,
-            sticky="ew",
-            padx=5,
-            pady=5
-        )
-
         tk.Label(
             frame_item,
-            text="Lote"
+            text="Data Validade"
         ).grid(
-            row=4,
-            column=0,
+            row=2,
+            column=2,
             sticky="w"
         )
         
@@ -785,20 +823,11 @@ class EntradasFrame(tk.Frame):
         )
         
         txt_lote.grid(
-            row=5,
+            row=3,
             column=0,
             sticky="ew",
             padx=5,
             pady=5
-        )
-        
-        tk.Label(
-            frame_item,
-            text="Série Produto"
-        ).grid(
-            row=4,
-            column=1,
-            sticky="w"
         )
         
         txt_serie_produto = tk.Entry(
@@ -806,20 +835,11 @@ class EntradasFrame(tk.Frame):
         )
         
         txt_serie_produto.grid(
-            row=5,
+            row=3,
             column=1,
             sticky="ew",
             padx=5,
             pady=5
-        )
-
-        tk.Label(
-            frame_item,
-            text="Data Validade"
-        ).grid(
-            row=6,
-            column=0,
-            sticky="w"
         )
         
         txt_validade = tk.Entry(
@@ -831,13 +851,17 @@ class EntradasFrame(tk.Frame):
         )
         
         txt_validade.grid(
-            row=7,
-            column=0,
+            row=3,
+            column=2,
             sticky="ew",
             padx=5,
             pady=5
         )
-
+        
+        # ==========================
+        # TOTAL
+        # ==========================
+        
         lbl_total_itens = tk.Label(
             frame_conteudo,
             text="Total dos Itens: R$ 0,00",
@@ -847,7 +871,11 @@ class EntradasFrame(tk.Frame):
         lbl_total_itens.pack(
             pady=5
         )
-
+        
+        # ==========================
+        # BOTÕES
+        # ==========================
+        
         frame_botoes_itens = tk.Frame(
             frame_conteudo
         )
@@ -857,8 +885,6 @@ class EntradasFrame(tk.Frame):
             padx=10,
             pady=5
         )
-
-        frame_botoes_itens.tkraise()
         
         def pesquisar_fornecedor(event=None):
 
