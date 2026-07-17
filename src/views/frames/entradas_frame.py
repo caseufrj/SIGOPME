@@ -1046,8 +1046,35 @@ class EntradasFrame(tk.Frame):
                     ).strip()
             
                 )
-                print(itens_nf)
-                
+            
+                NotaItensService.excluir_por_entrada(
+                    id_entrada
+                )
+            
+                for item in itens_nf:
+            
+                    NotaItensService.inserir(
+            
+                        id_entrada,
+            
+                        item["codigo"],
+            
+                        item["material"],
+            
+                        item["lote"],
+            
+                        item["serie"],
+            
+                        item["validade"],
+            
+                        item["quantidade"],
+            
+                        item["valor_unitario"],
+            
+                        item["valor_total"]
+            
+                    )
+            
                 self.carregar_dados()
             
                 janela.destroy()
