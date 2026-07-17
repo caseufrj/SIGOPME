@@ -1096,11 +1096,42 @@ class EntradasFrame(tk.Frame):
                         )
                 
                     else:
-                
-                        print(
-                            "ITEM NÃO EXISTE NO RASTREADO:",
-                            item
+
+                        licitacao = LicitacaoService.listar_itens_entrada(
+                            cmb_licitacao.get()
                         )
+                    
+                        licitacao_item_id = None
+                    
+                        for registro in licitacao:
+                    
+                            if registro[1].strip() == item["codigo"].strip():
+                    
+                                licitacao_item_id = registro[0]
+                    
+                                break
+                    
+                        if licitacao_item_id:
+                    
+                            EstoqueRastreadoService.inserir(
+                    
+                                licitacao_item_id,
+                    
+                                cmb_licitacao.get(),
+                    
+                                item["codigo"].strip(),
+                    
+                                item["material"].strip(),
+                    
+                                item["lote"],
+                    
+                                item["serie"],
+                    
+                                item["validade"],
+                    
+                                txt_nf.get()
+                    
+                            )
             
                 self.carregar_dados()
             
