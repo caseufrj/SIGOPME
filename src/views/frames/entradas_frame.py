@@ -1074,6 +1074,33 @@ class EntradasFrame(tk.Frame):
                         item["valor_total"]
             
                     )
+
+                for item in itens_nf:
+
+                    if EstoqueRastreadoService.existe(
+                
+                        txt_nf.get(),
+                        item["codigo"],
+                        item["lote"]
+                
+                    ):
+                
+                        EstoqueRastreadoService.atualizar(
+                
+                            txt_nf.get(),
+                            item["codigo"],
+                            item["lote"],
+                            item["serie"],
+                            item["validade"]
+                
+                        )
+                
+                    else:
+                
+                        print(
+                            "ITEM NÃO EXISTE NO RASTREADO:",
+                            item
+                        )
             
                 self.carregar_dados()
             
