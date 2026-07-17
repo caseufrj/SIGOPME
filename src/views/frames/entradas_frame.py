@@ -343,6 +343,16 @@ class EntradasFrame(tk.Frame):
 
         janela = tk.Toplevel(self)
 
+        janela.transient(
+            self.winfo_toplevel()
+        )
+        
+        janela.grab_set()
+        
+        janela.lift()
+        
+        janela.focus_force()
+
         janela.title(
             "Nova Entrada"
         )
