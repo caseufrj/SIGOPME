@@ -1080,9 +1080,7 @@ class EntradasFrame(tk.Frame):
                     if EstoqueRastreadoService.existe(
                 
                         txt_nf.get(),
-                        item["codigo"].strip(),
-                        item["lote"].strip()
-                
+                        item["codigo"].strip(),                
                     ):
                 
                         EstoqueRastreadoService.atualizar(
