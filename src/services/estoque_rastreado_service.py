@@ -217,3 +217,46 @@ class EstoqueRastreadoService:
         conn.close()
     
         return resultado
+
+    @staticmethod
+    def atualizar(
+    
+        numero_nf,
+        cod_item,
+        lote,
+        codigo_unico,
+        data_validade
+    
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE EstoqueRastreado
+            SET
+    
+                CodigoUnico = ?,
+                DataValidade = ?
+    
+            WHERE
+    
+                NumeroNF = ?
+                AND CodItem = ?
+                AND Lote = ?
+    
+        """, (
+    
+            codigo_unico,
+            data_validade,
+    
+            numero_nf,
+            cod_item,
+            lote
+    
+        ))
+    
+        conn.commit()
+    
+        conn.close()
