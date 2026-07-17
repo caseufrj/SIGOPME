@@ -773,9 +773,9 @@ class EntradasFrame(tk.Frame):
         
                     item_selecionado["id"] = registro[0]
         
-                    item_selecionado["codigo"] = registro[1]
+                    item_selecionado["codigo"] = registro[1].strip()
         
-                    item_selecionado["material"] = registro[2]
+                    item_selecionado["material"] = registro[2].strip()
         
                     item_selecionado["valor_unitario"] = registro[3]
         
