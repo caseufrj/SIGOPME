@@ -1000,6 +1000,15 @@ class EntradasFrame(tk.Frame):
 
         def salvar():
 
+            if modo_edicao:
+        
+                messagebox.showinfo(
+                    "SIGOPME",
+                    "Modo edição carregado com sucesso."
+                )
+        
+                return
+
             try:        
                 valor_nf = float(
                     txt_valor_nf.get()
@@ -1440,18 +1449,7 @@ class EntradasFrame(tk.Frame):
             pady=10
         )
 
-    def salvar():
-
-        if modo_edicao:
-    
-            messagebox.showinfo(
-                "SIGOPME",
-                "Modo edição carregado com sucesso."
-            )
-    
-            return
-    
-        # restante do código atual
+    def editar(self):
 
         selecionado = self.grid.selection()
     
