@@ -16,6 +16,8 @@ class SolicitacoesFrame(tk.Frame):
 
         self.criar_componentes()
 
+        self.carregar_protocolos()
+
     def criar_componentes(self):
 
         titulo = tk.Label(
@@ -831,6 +833,24 @@ class SolicitacoesFrame(tk.Frame):
                 sala
             )
 
+    def carregar_protocolos(self):
+
+        for item in self.grid_protocolos.get_children():
+    
+            self.grid_protocolos.delete(item)
+    
+        dados = (
+            SolicitacaoService.listar_protocolos_abertos()
+        )
+    
+        for registro in dados:
+    
+            self.grid_protocolos.insert(
+                "",
+                "end",
+                values=registro
+            )
+
     def registrar(self):
 
         if not hasattr(self, "id_item"):
@@ -923,6 +943,8 @@ class SolicitacoesFrame(tk.Frame):
     
         self.pesquisar()
 
+        self.carregar_protocolos()
+
         self.txt_data_utilizacao.delete(
             0,
             tk.END
@@ -968,6 +990,8 @@ class SolicitacoesFrame(tk.Frame):
     
         self.pesquisar()
 
+        self.carregar_protocolos()
+
     def devolver(self):
 
         data = self.txt_data_devolucao.get().strip()
@@ -1002,3 +1026,7 @@ class SolicitacoesFrame(tk.Frame):
         )
     
         self.pesquisar()
+
+        self.carregar_protocolos()
+
+    
