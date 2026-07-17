@@ -262,6 +262,97 @@ class SolicitacoesFrame(tk.Frame):
             padx=5
         )
 
+        frame_protocolos = tk.LabelFrame(
+            self,
+            text="Protocolos em Aberto"
+        )
+        
+        frame_protocolos.pack(
+            fill="both",
+            expand=True,
+            padx=10,
+            pady=10
+        )
+
+        colunas = (
+
+            "protocolo",
+        
+            "paciente_sala",
+        
+            "material",
+        
+            "lote",
+        
+            "status"
+        
+        )
+
+        self.grid_protocolos = ttk.Treeview(
+
+            frame_protocolos,
+        
+            columns=colunas,
+        
+            show="headings"
+        
+        )
+        
+        self.grid_protocolos.pack(
+            fill="both",
+            expand=True
+        )
+
+        self.grid_protocolos.heading(
+            "protocolo",
+            text="Protocolo"
+        )
+        
+        self.grid_protocolos.heading(
+            "paciente_sala",
+            text="Paciente / Sala"
+        )
+        
+        self.grid_protocolos.heading(
+            "material",
+            text="Material"
+        )
+        
+        self.grid_protocolos.heading(
+            "lote",
+            text="Lote"
+        )
+        
+        self.grid_protocolos.heading(
+            "status",
+            text="Status"
+        )
+
+        self.grid_protocolos.column(
+            "protocolo",
+            width=100
+        )
+        
+        self.grid_protocolos.column(
+            "paciente_sala",
+            width=250
+        )
+        
+        self.grid_protocolos.column(
+            "material",
+            width=450
+        )
+        
+        self.grid_protocolos.column(
+            "lote",
+            width=120
+        )
+        
+        self.grid_protocolos.column(
+            "status",
+            width=120
+        )
+
         # ====================
         # ABA SALA
         # ====================
