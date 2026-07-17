@@ -1157,18 +1157,42 @@ class EntradasFrame(tk.Frame):
             
                 )
             
-                EstoqueRastreadoService.inserir(
+                if EstoqueRastreadoService.existe(
 
-                    item["licitacao_item_id"],
-                    cmb_licitacao.get(),
+                    txt_nf.get(),
                     item["codigo"],
-                    item["material"],
-                    item["lote"],
-                    item["serie"],
-                    item["validade"],
-                    txt_nf.get()
+                    item["lote"]
                 
-                )
+                ):
+                
+                    EstoqueRastreadoService.atualizar(
+                
+                        txt_nf.get(),
+                
+                        item["codigo"],
+                
+                        item["lote"],
+                
+                        item["serie"],
+                
+                        item["validade"]
+                
+                    )
+                
+                else:
+                
+                    EstoqueRastreadoService.inserir(
+    
+                        item["licitacao_item_id"],
+                        cmb_licitacao.get(),
+                        item["codigo"],
+                        item["material"],
+                        item["lote"],
+                        item["serie"],
+                        item["validade"],
+                        txt_nf.get()
+                    
+                    )
         
             self.carregar_dados()
         
