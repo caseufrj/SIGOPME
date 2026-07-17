@@ -318,13 +318,13 @@ class EntradasFrame(tk.Frame):
             selecionado[0]
         )
     
-        numero_nf = item["values"][2]
+        id_entrada = item["values"][0]
     
         for linha in self.grid_itens.get_children():
             self.grid_itens.delete(linha)
     
-        dados = EntradaService.listar_itens_nf(
-            numero_nf
+        dados = NotaItensService.listar_por_entrada(
+            id_entrada
         )
     
         for registro in dados:
@@ -332,7 +332,17 @@ class EntradasFrame(tk.Frame):
             self.grid_itens.insert(
                 "",
                 "end",
-                values=registro
+                values=(
+    
+                    registro[0],  # Código
+                    registro[1],  # Material
+                    registro[2],  # Lote
+                    registro[3],  # Série
+                    registro[4],  # Validade
+                    registro[5],  # Quantidade
+                    ""            # Status
+    
+                )
             )
 
     def novo(
