@@ -1057,21 +1057,21 @@ class EntradasFrame(tk.Frame):
             
                         id_entrada,
             
-                        item["codigo"],
+                        item["codigo"].strip(),
             
-                        item["material"],
+                        item["material"].strip(),
             
-                        item["lote"],
+                        item["lote"].strip(),
             
-                        item["serie"],
+                        item["serie"].strip(),
             
-                        item["validade"],
+                        item["validade"].strip(),
             
-                        item["quantidade"],
+                        item["quantidade"].strip(),
             
-                        item["valor_unitario"],
+                        item["valor_unitario"].strip(),
             
-                        item["valor_total"]
+                        item["valor_total"].strip()
             
                     )
 
@@ -1080,18 +1080,18 @@ class EntradasFrame(tk.Frame):
                     if EstoqueRastreadoService.existe(
                 
                         txt_nf.get(),
-                        item["codigo"],
-                        item["lote"]
+                        item["codigo"].strip(),
+                        item["lote"].strip()
                 
                     ):
                 
                         EstoqueRastreadoService.atualizar(
                 
                             txt_nf.get(),
-                            item["codigo"],
-                            item["lote"],
-                            item["serie"],
-                            item["validade"]
+                            item["codigo"].strip(),
+                            item["lote"].strip(),
+                            item["serie"].strip(),
+                            item["validade"].strip()
                 
                         )
                 
@@ -1123,11 +1123,11 @@ class EntradasFrame(tk.Frame):
                     
                                 item["material"].strip(),
                     
-                                item["lote"],
+                                item["lote"].strip(),
                     
-                                item["serie"],
+                                item["serie"].strip(),
                     
-                                item["validade"],
+                                item["validade"].strip(),
                     
                                 txt_nf.get()
                     
@@ -1203,21 +1203,21 @@ class EntradasFrame(tk.Frame):
 
                     nota_id,
                 
-                    item["codigo"],
+                    item["codigo"].strip(),
                 
-                    item["material"],
+                    item["material"].strip(),
                 
-                    item["lote"],
+                    item["lote"].strip(),
                 
-                    item["serie"],
+                    item["serie"].strip(),
                 
-                    item["validade"],
+                    item["validade"].strip(),
                 
-                    item["quantidade"],
+                    item["quantidade"].strip(),
                 
-                    item["valor_unitario"],
+                    item["valor_unitario"].strip(),
                 
-                    item["valor_total"]
+                    item["valor_total"].strip()
                 
                 )
             
@@ -1233,21 +1233,21 @@ class EntradasFrame(tk.Frame):
             
                     documento=txt_nf.get(),
             
-                    cod_item=item["codigo"],
+                    cod_item=item["codigo"].strip(),
             
-                    nome_material=item["material"],
+                    nome_material=item["material"].strip(),
             
-                    lote=item["lote"],
+                    lote=item["lote"].strip(),
             
-                    codigo_unico=item["serie"]
+                    codigo_unico=item["serie"].strip()
             
                 )
             
                 if EstoqueRastreadoService.existe(
 
                     txt_nf.get(),
-                    item["codigo"],
-                    item["lote"]
+                    item["codigo"].strip(),
+                    item["lote"].strip()
                 
                 ):
                 
@@ -1255,13 +1255,13 @@ class EntradasFrame(tk.Frame):
                 
                         txt_nf.get(),
                 
-                        item["codigo"],
+                        item["codigo"].strip(),
                 
-                        item["lote"],
+                        item["lote"].strip(),
                 
-                        item["serie"],
+                        item["serie"].strip(),
                 
-                        item["validade"]
+                        item["validade"].strip()
                 
                     )
                 
@@ -1269,13 +1269,13 @@ class EntradasFrame(tk.Frame):
                 
                     EstoqueRastreadoService.inserir(
     
-                        item["licitacao_item_id"],
+                        item["licitacao_item_id"].strip(),
                         cmb_licitacao.get(),
-                        item["codigo"],
-                        item["material"],
-                        item["lote"],
-                        item["serie"],
-                        item["validade"],
+                        item["codigo"].strip(),
+                        item["material"].strip(),
+                        item["lote"].strip(),
+                        item["serie"].strip(),
+                        item["validade"].strip(),
                         txt_nf.get()
                     
                     )
@@ -1290,8 +1290,8 @@ class EntradasFrame(tk.Frame):
                 if EstoqueRastreadoService.existe(
             
                     txt_nf.get(),
-                    item["codigo"],
-                    item["lote"]
+                    item["codigo"].strip(),
+                    item["lote"].strip()
             
                 ):
             
@@ -1303,13 +1303,13 @@ class EntradasFrame(tk.Frame):
             
                         txt_nf.get(),
             
-                        item["codigo"],
+                        item["codigo"].strip(),
             
-                        item["lote"],
+                        item["lote"].strip(),
             
-                        item["serie"],
+                        item["serie"].strip(),
             
-                        item["validade"]
+                        item["validade"].strip()
             
                     )
             
