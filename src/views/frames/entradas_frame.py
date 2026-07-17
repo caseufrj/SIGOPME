@@ -1001,12 +1001,43 @@ class EntradasFrame(tk.Frame):
         def salvar():
 
             if modo_edicao:
-        
+
+                EntradaService.atualizar(
+            
+                    id_entrada,
+            
+                    cmb_licitacao.get(),
+            
+                    txt_nf.get(),
+            
+                    txt_serie.get(),
+            
+                    txt_data_emissao.get(),
+            
+                    txt_data_entrada.get(),
+            
+                    cmb_tipo.get(),
+            
+                    txt_fornecedor.get(),
+            
+                    valor_nf,
+            
+                    txt_observacao.get(
+                        "1.0",
+                        "end"
+                    ).strip()
+            
+                )
+            
+                self.carregar_dados()
+            
+                janela.destroy()
+            
                 messagebox.showinfo(
                     "SIGOPME",
-                    "Modo edição carregado com sucesso."
+                    "Entrada atualizada."
                 )
-        
+            
                 return
 
             try:        
