@@ -1267,7 +1267,7 @@ class EntradasFrame(tk.Frame):
                 
                     EstoqueRastreadoService.inserir(
     
-                        item["licitacao_item_id"].strip(),
+                        item["licitacao_item_id"],
                         cmb_licitacao.get(),
                         item["codigo"].strip(),
                         item["material"].strip(),
@@ -1277,13 +1277,6 @@ class EntradasFrame(tk.Frame):
                         txt_nf.get()
                     
                     )
-
-            for item in itens_nf:
-
-                print(
-                    "ITEM EDICAO:",
-                    item
-                )
             
                 if EstoqueRastreadoService.existe(
             
