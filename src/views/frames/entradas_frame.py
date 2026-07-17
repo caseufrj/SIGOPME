@@ -1069,9 +1069,9 @@ class EntradasFrame(tk.Frame):
             
                         item["quantidade"].strip(),
             
-                        item["valor_unitario"].strip(),
+                        item["valor_unitario"],
             
-                        item["valor_total"].strip()
+                        item["valor_total"]
             
                     )
 
@@ -1213,9 +1213,9 @@ class EntradasFrame(tk.Frame):
                 
                     item["quantidade"].strip(),
                 
-                    item["valor_unitario"].strip(),
+                    item["valor_unitario"],
                 
-                    item["valor_total"].strip()
+                    item["valor_total"]
                 
                 )
             
