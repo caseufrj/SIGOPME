@@ -1683,6 +1683,50 @@ class EntradasFrame(tk.Frame):
             selecionar_item_edicao
         )
 
+        def remover_item():
+
+            selecionado = grid_temp.selection()
+        
+            if not selecionado:
+        
+                messagebox.showwarning(
+                    "SIGOPME",
+                    "Selecione um item."
+                )
+        
+                return
+        
+            item_id = selecionado[0]
+        
+            indice = grid_temp.index(
+                item_id
+            )
+        
+            del itens_nf[indice]
+        
+            grid_temp.delete(
+                item_id
+            )
+        
+            total = 0
+        
+            for item in itens_nf:
+        
+                total += item["valor_total"]
+        
+            lbl_total_itens.config(
+                text=(
+                    f"Total dos Itens: R$ {total:,.2f}"
+                    .replace(",", "X")
+                    .replace(".", ",")
+                    .replace("X", ".")
+                )
+            )
+        
+            messagebox.showinfo(
+                "SIGOPME",
+                "Item removido."
+            )
         
         if modo_edicao:
 
@@ -1785,13 +1829,12 @@ class EntradasFrame(tk.Frame):
         
         tk.Button(
             frame_botoes_itens,
-            text="Remover Item"
+            text="Remover Item",
+            command=remover_item
         ).pack(
             side="left",
             padx=5
         )
-       
-
         tk.Button(
             frame_conteudo,
             text="Salvar",
