@@ -1044,9 +1044,10 @@ class EntradasFrame(tk.Frame):
                         "1.0",
                         "end"
                     ).strip()
+                    print(itens_nf)
             
                 )
-            
+                
                 self.carregar_dados()
             
                 janela.destroy()
