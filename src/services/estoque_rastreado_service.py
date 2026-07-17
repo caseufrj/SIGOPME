@@ -200,7 +200,7 @@ class EstoqueRastreadoService:
         conn.close()
 
     @staticmethod
-    def existe(numero_nf, cod_item, lote):
+    def existe(numero_nf, cod_item):
     
         conn = DatabaseService.get_connection()
     
@@ -212,11 +212,9 @@ class EstoqueRastreadoService:
             WHERE
                 NumeroNF = ?
                 AND CodItem = ?
-                AND Lote = ?
         """, (
             numero_nf,
-            cod_item,
-            lote
+            cod_item
         ))
     
         resultado = cursor.fetchone()
@@ -224,6 +222,7 @@ class EstoqueRastreadoService:
         conn.close()
     
         return resultado
+
 
     @staticmethod
     def atualizar(
@@ -244,6 +243,7 @@ class EstoqueRastreadoService:
             UPDATE EstoqueRastreado
             SET
     
+                Lote = ?,
                 CodigoUnico = ?,
                 DataValidade = ?
     
@@ -251,16 +251,15 @@ class EstoqueRastreadoService:
     
                 NumeroNF = ?
                 AND CodItem = ?
-                AND Lote = ?
     
         """, (
     
+            lote,
             codigo_unico,
             data_validade,
     
             numero_nf,
-            cod_item,
-            lote
+            cod_item
     
         ))
     
