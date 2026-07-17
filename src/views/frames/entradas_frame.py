@@ -1285,8 +1285,14 @@ class EntradasFrame(tk.Frame):
                 total += item["valor_total"]
             
             lbl_total_itens.config(
-                text=f"Total dos Itens: R$ {total:,.2f}"
+                text=(
+                    f"Total dos Itens: R$ {total:,.2f}"
+                    .replace(",", "X")
+                    .replace(".", ",")
+                    .replace("X", ".")
+                )
             )
+
 
         grid_temp.heading(
             "codigo",
