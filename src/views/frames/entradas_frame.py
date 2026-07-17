@@ -1000,6 +1000,24 @@ class EntradasFrame(tk.Frame):
 
         def salvar():
 
+            try:        
+                valor_nf = float(
+                    txt_valor_nf.get()
+                    .replace("R$", "")
+                    .replace(".", "")
+                    .replace(",", ".")
+                    .strip()
+                )
+                
+            except ValueError:
+        
+                messagebox.showerror(
+                    "SIGOPME",
+                    "Valores inválidos."
+                )
+        
+                return
+
             if modo_edicao:
 
                 EntradaService.atualizar(
@@ -1038,24 +1056,6 @@ class EntradasFrame(tk.Frame):
                     "Entrada atualizada."
                 )
             
-                return
-
-            try:        
-                valor_nf = float(
-                    txt_valor_nf.get()
-                    .replace("R$", "")
-                    .replace(".", "")
-                    .replace(",", ".")
-                    .strip()
-                )
-                
-            except ValueError:
-        
-                messagebox.showerror(
-                    "SIGOPME",
-                    "Valores inválidos."
-                )
-        
                 return
 
             if not itens_nf:
