@@ -1589,31 +1589,31 @@ class EntradasFrame(tk.Frame):
                     fornecedor
                 )
                 
-                        licitacoes = (
-                            LicitacaoService.listar_licitacoes_fornecedor(
-                                fornecedor
-                            )
-                        )
-                
-                        cmb_licitacao["values"] = [
-                            x[0] for x in licitacoes
-                        ]
-                
-                        cmb_licitacao.set(
-                            numero_licitacao
-                        )
-                
-                        carregar_itens_licitacao()
-                
-                        txt_valor_nf.insert(
-                            0,
-                            (
-                                f"R$ {float(valor_total_nf):,.2f}"
-                                .replace(",", "X")
-                                .replace(".", ",")
-                                .replace("X", ".")
-                            )
-                        )
+                licitacoes = (
+                    LicitacaoService.listar_licitacoes_fornecedor(
+                        fornecedor
+                    )
+                )
+        
+                cmb_licitacao["values"] = [
+                    x[0] for x in licitacoes
+                ]
+        
+                cmb_licitacao.set(
+                    numero_licitacao
+                )
+        
+                carregar_itens_licitacao()
+        
+                txt_valor_nf.insert(
+                    0,
+                    (
+                        f"R$ {float(valor_total_nf):,.2f}"
+                        .replace(",", "X")
+                        .replace(".", ",")
+                        .replace("X", ".")
+                    )
+                )
         
                 txt_observacao.insert(
                     "1.0",
