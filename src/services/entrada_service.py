@@ -119,51 +119,54 @@ class EntradaService:
 
     @staticmethod
     def atualizar(
-        NumeroLicitacao,
-        NumeroNF,
-        SerieNF,
-        DataEmissao,
-        DataEntrada,
-        TipoEntrada,
-        Fornecedor,
-        ValorTotalNF,
-        Observacao
+        id_entrada,
+        numero_licitacao,
+        numero_nf,
+        serie_nf,
+        data_emissao,
+        data_entrada,
+        tipo_entrada,
+        fornecedor,
+        valor_total_nf,
+        observacao
     ):
-
+    
         conn = DatabaseService.get_connection()
-
+    
         cursor = conn.cursor()
-
+    
         cursor.execute("""
             UPDATE Entradas
             SET
+    
+                NumeroLicitacao = ?,
                 NumeroNF = ?,
                 SerieNF = ?,
                 DataEmissao = ?,
                 DataEntrada = ?,
                 TipoEntrada = ?,
                 Fornecedor = ?,
-                CodItem = ?,
-                NomeMaterial = ?,
-                Quantidade = ?,
+                ValorTotalNF = ?,
                 Observacao = ?
+    
             WHERE Id = ?
         """, (
+    
+            numero_licitacao,
             numero_nf,
             serie_nf,
             data_emissao,
             data_entrada,
             tipo_entrada,
             fornecedor,
-            codigo_item,
-            nome_material,
-            quantidade,
+            valor_total_nf,
             observacao,
-            id_registro
+            id_entrada
+    
         ))
-
+    
         conn.commit()
-
+    
         conn.close()
 
     @staticmethod
