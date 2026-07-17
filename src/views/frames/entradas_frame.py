@@ -1258,6 +1258,7 @@ class EntradasFrame(tk.Frame):
                     "end",
                     values=item
                 )
+                
 
         def incluir_item():
 
@@ -1396,6 +1397,51 @@ class EntradasFrame(tk.Frame):
         grid_temp.heading(
             "valor_total",
             text="Valor Total"
+        )
+
+        def selecionar_item_edicao(event=None):
+
+            selecionado = grid_temp.selection()
+        
+            if not selecionado:
+                return
+        
+            valores = grid_temp.item(
+                selecionado[0]
+            )["values"]
+
+            texto_item = (
+                f"{valores[0]} - {valores[1]}"
+            )
+            
+            cmb_item.set(
+                texto_item
+            )
+        
+            txt_lote.delete(0, tk.END)
+            txt_lote.insert(0, valores[2])
+        
+            txt_serie_produto.delete(0, tk.END)
+            txt_serie_produto.insert(0, valores[3])
+        
+            txt_validade.delete(0, tk.END)
+            txt_validade.insert(0, valores[4])
+        
+            txt_quantidade.delete(0, tk.END)
+            txt_quantidade.insert(0, valores[5])
+        
+            txt_valor_unitario.delete(0, tk.END)
+            txt_valor_unitario.insert(
+                0,
+                f"R$ {float(valores[6]):,.2f}"
+                .replace(",", "X")
+                .replace(".", ",")
+                .replace("X", ".")
+            )
+
+        grid_temp.bind(
+            "<Double-1>",
+            selecionar_item_edicao
         )
 
         
