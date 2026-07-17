@@ -191,3 +191,29 @@ class EstoqueRastreadoService:
         conn.commit()
     
         conn.close()
+
+    @staticmethod
+    def existe(numero_nf, cod_item, lote):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT Id
+            FROM EstoqueRastreado
+            WHERE
+                NumeroNF = ?
+                AND CodItem = ?
+                AND Lote = ?
+        """, (
+            numero_nf,
+            cod_item,
+            lote
+        ))
+    
+        resultado = cursor.fetchone()
+    
+        conn.close()
+    
+        return resultado
