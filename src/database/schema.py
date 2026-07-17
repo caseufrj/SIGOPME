@@ -173,10 +173,6 @@ CREATE TABLE IF NOT EXISTS Solicitacoes (
     DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- =========================
--- ITENS SOLICITADOS
--- =========================
-
 CREATE TABLE IF NOT EXISTS SolicitacaoItens (
 
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -189,6 +185,8 @@ CREATE TABLE IF NOT EXISTS SolicitacaoItens (
 
     Quantidade INTEGER NOT NULL,
 
+    QuantidadeAtendida INTEGER DEFAULT 0,
+
     Status TEXT NOT NULL CHECK (
         Status IN (
             'SOLICITADO',
@@ -200,8 +198,11 @@ CREATE TABLE IF NOT EXISTS SolicitacaoItens (
         )
     ),
 
+    DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+
     FOREIGN KEY (SolicitacaoId)
     REFERENCES Solicitacoes(Id)
+
 );
 
 -- =========================
