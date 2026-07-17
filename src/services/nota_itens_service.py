@@ -85,3 +85,19 @@ class NotaItensService:
         conn.close()
     
         return dados
+
+    @staticmethod
+    def excluir_por_entrada(entrada_id):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            DELETE FROM NotaItens
+            WHERE EntradaId = ?
+        """, (entrada_id,))
+    
+        conn.commit()
+    
+        conn.close()
