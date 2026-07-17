@@ -1410,6 +1410,8 @@ class EntradasFrame(tk.Frame):
                 selecionado[0]
             )["values"]
 
+            item_selecionado["id"] = 1
+
             texto_item = (
                 f"{valores[0]} - {valores[1]}"
             )
