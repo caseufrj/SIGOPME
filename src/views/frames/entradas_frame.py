@@ -1440,7 +1440,18 @@ class EntradasFrame(tk.Frame):
             pady=10
         )
 
-    def editar(self):
+    def salvar():
+
+        if modo_edicao:
+    
+            messagebox.showinfo(
+                "SIGOPME",
+                "Modo edição carregado com sucesso."
+            )
+    
+            return
+    
+        # restante do código atual
 
         selecionado = self.grid.selection()
     
