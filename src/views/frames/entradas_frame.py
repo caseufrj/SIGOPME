@@ -1451,6 +1451,28 @@ class EntradasFrame(tk.Frame):
                 item_id,
                 values=valores
             )
+
+            indice = grid_temp.index(
+                item_id
+            )
+            
+            itens_nf[indice]["codigo"] = item_selecionado["codigo"]
+            
+            itens_nf[indice]["material"] = item_selecionado["material"]
+            
+            itens_nf[indice]["lote"] = txt_lote.get()
+            
+            itens_nf[indice]["serie"] = txt_serie_produto.get()
+            
+            itens_nf[indice]["validade"] = txt_validade.get()
+            
+            itens_nf[indice]["quantidade"] = quantidade
+            
+            itens_nf[indice]["valor_unitario"] = valor_unitario
+            
+            itens_nf[indice]["valor_total"] = (
+                quantidade * valor_unitario
+            )
         
             total = 0
         
