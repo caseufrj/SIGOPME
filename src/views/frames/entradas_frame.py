@@ -1399,6 +1399,84 @@ class EntradasFrame(tk.Frame):
             text="Valor Total"
         )
 
+        def alterar_item():
+
+            selecionado = grid_temp.selection()
+        
+            if not selecionado:
+        
+                messagebox.showwarning(
+                    "SIGOPME",
+                    "Selecione um item da grade."
+                )
+        
+                return
+        
+            item_id = selecionado[0]
+        
+            valor_unitario = float(
+                txt_valor_unitario.get()
+                .replace("R$", "")
+                .replace(".", "")
+                .replace(",", ".")
+                .strip()
+            )
+        
+            quantidade = int(
+                txt_quantidade.get()
+            )
+        
+            valores = (
+        
+                item_selecionado["codigo"],
+        
+                item_selecionado["material"],
+        
+                txt_lote.get(),
+        
+                txt_serie_produto.get(),
+        
+                txt_validade.get(),
+        
+                quantidade,
+        
+                valor_unitario,
+        
+                quantidade * valor_unitario
+        
+            )
+        
+            grid_temp.item(
+                item_id,
+                values=valores
+            )
+        
+            total = 0
+        
+            for linha in grid_temp.get_children():
+        
+                dados = grid_temp.item(
+                    linha
+                )["values"]
+        
+                total += float(
+                    dados[7]
+                )
+        
+            lbl_total_itens.config(
+                text=(
+                    f"Total dos Itens: R$ {total:,.2f}"
+                    .replace(",", "X")
+                    .replace(".", ",")
+                    .replace("X", ".")
+                )
+            )
+        
+            messagebox.showinfo(
+                "SIGOPME",
+                "Item atualizado."
+            )
+
         def selecionar_item_edicao(event=None):
 
             selecionado = grid_temp.selection()
@@ -1409,13 +1487,27 @@ class EntradasFrame(tk.Frame):
             valores = grid_temp.item(
                 selecionado[0]
             )["values"]
-
-            item_selecionado["id"] = 1
-
+        
+            codigo = str(valores[0])
+        
+            for registro in item_selecionado["dados"]:
+        
+                if registro[1].strip() == codigo.strip():
+        
+                    item_selecionado["id"] = registro[0]
+        
+                    item_selecionado["codigo"] = registro[1]
+        
+                    item_selecionado["material"] = registro[2]
+        
+                    item_selecionado["valor_unitario"] = registro[3]
+        
+                    break
+        
             texto_item = (
                 f"{valores[0]} - {valores[1]}"
             )
-            
+        
             cmb_item.set(
                 texto_item
             )
@@ -1497,29 +1589,31 @@ class EntradasFrame(tk.Frame):
                     fornecedor
                 )
                 
-                licitacoes = (
-                    LicitacaoService.listar_licitacoes_fornecedor(
-                        fornecedor
-                    )
-                )
+                        licitacoes = (
+                            LicitacaoService.listar_licitacoes_fornecedor(
+                                fornecedor
+                            )
+                        )
                 
-                cmb_licitacao["values"] = [
-                    x[0] for x in licitacoes
-                ]
+                        cmb_licitacao["values"] = [
+                            x[0] for x in licitacoes
+                        ]
                 
-                cmb_licitacao.set(
-                    numero_licitacao
-                )
-        
-                txt_valor_nf.insert(
-                    0,
-                    (
-                        f"R$ {float(valor_total_nf):,.2f}"
-                        .replace(",", "X")
-                        .replace(".", ",")
-                        .replace("X", ".")
-                    )
-                )
+                        cmb_licitacao.set(
+                            numero_licitacao
+                        )
+                
+                        carregar_itens_licitacao()
+                
+                        txt_valor_nf.insert(
+                            0,
+                            (
+                                f"R$ {float(valor_total_nf):,.2f}"
+                                .replace(",", "X")
+                                .replace(".", ",")
+                                .replace("X", ".")
+                            )
+                        )
         
                 txt_observacao.insert(
                     "1.0",
@@ -1530,6 +1624,15 @@ class EntradasFrame(tk.Frame):
             frame_botoes_itens,
             text="Incluir Item",
             command=incluir_item
+        ).pack(
+            side="left",
+            padx=5
+        )
+
+        tk.Button(
+            frame_botoes_itens,
+            text="Alterar Item",
+            command=alterar_item
         ).pack(
             side="left",
             padx=5
