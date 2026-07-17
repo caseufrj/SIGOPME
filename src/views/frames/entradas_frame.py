@@ -1087,7 +1087,7 @@ class EntradasFrame(tk.Frame):
             
                         item["validade"].strip(),
             
-                        item["quantidade"].strip(),
+                        item["quantidade"],
             
                         item["valor_unitario"],
             
@@ -1231,7 +1231,7 @@ class EntradasFrame(tk.Frame):
                 
                     item["validade"].strip(),
                 
-                    item["quantidade"].strip(),
+                    item["quantidade"],
                 
                     item["valor_unitario"],
                 
@@ -1374,11 +1374,11 @@ class EntradasFrame(tk.Frame):
             
                 registro = {
             
-                    "codigo": item[0],
-                    "material": item[1],
-                    "lote": item[2],
-                    "serie": item[3],
-                    "validade": item[4],
+                    "codigo": item[0].strip(),
+                    "material": item[1].strip(),
+                    "lote": item[2].strip(),
+                    "serie": item[3].strip(),
+                    "validade": item[4].strip(),
                     "quantidade": item[5],
                     "valor_unitario": item[6],
                     "valor_total": item[7]
