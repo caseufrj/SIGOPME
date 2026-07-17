@@ -221,3 +221,45 @@ class SolicitacaoService:
         conn.commit()
 
         conn.close()
+
+    @staticmethod
+    def listar_protocolos_abertos():
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+    
+                s.Id,
+    
+                s.PacienteRegistro,
+    
+                si.NomeItem,
+    
+                er.Lote,
+    
+                si.Status
+    
+            FROM Solicitacoes s
+    
+            INNER JOIN SolicitacaoItens si
+                ON si.SolicitacaoId = s.Id
+    
+            LEFT JOIN EstoqueRastreado er
+                ON er.CodItem = si.CodItem
+    
+            WHERE si.Status IN (
+                'SOLICITADO',
+                'RETIRADO'
+            )
+    
+            ORDER BY s.Id DESC
+        """)
+    
+        dados = cursor.fetchall()
+    
+        conn.close()
+    
+        return dados
