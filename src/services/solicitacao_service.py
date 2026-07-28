@@ -261,7 +261,7 @@ class SolicitacaoService:
     
                 si.NomeItem,
     
-                er.Lote,
+                si.Lote,
     
                 si.Status
     
@@ -270,9 +270,7 @@ class SolicitacaoService:
             INNER JOIN SolicitacaoItens si
                 ON si.SolicitacaoId = s.Id
     
-            LEFT JOIN EstoqueRastreado er
-                ON er.CodItem = si.CodItem
-    
+                
             WHERE si.Status IN (
                 'SOLICITADO',
                 'RETIRADO'
