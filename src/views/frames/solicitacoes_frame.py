@@ -368,6 +368,11 @@ class SolicitacoesFrame(tk.Frame):
             width=120
         )
 
+        self.grid_protocolos.bind(
+            "<Double-1>",
+            self.carregar_protocolo
+        )
+
         # ====================
         # ABA SALA
         # ====================
@@ -822,6 +827,41 @@ class SolicitacoesFrame(tk.Frame):
                 "end",
                 values=registro
             )
+
+    def carregar_protocolo(self, event=None):
+
+        selecionado = (
+            self.grid_protocolos.selection()
+        )
+    
+        if not selecionado:
+            return
+    
+        valores = self.grid_protocolos.item(
+            selecionado[0]
+        )["values"]
+    
+        self.protocolo_id = valores[0]
+    
+        self.txt_registro.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_registro.insert(
+            0,
+            valores[1]
+        )
+    
+        self.txt_paciente.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_paciente.insert(
+            0,
+            valores[2]
+        )
 
     def registrar(self):
 
