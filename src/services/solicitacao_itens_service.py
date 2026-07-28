@@ -18,30 +18,31 @@ class SolicitacaoItensService:
 
         cursor.execute("""
             INSERT INTO SolicitacaoItens (
-
+        
                 SolicitacaoId,
                 CodItem,
                 NomeItem,
+                Lote,
                 Quantidade,
                 QuantidadeAtendida,
                 Status
-
+        
             )
             VALUES (
-
-                ?, ?, ?, ?, 0,
+        
+                ?, ?, ?, ?, ?, 0,
                 'SOLICITADO'
-
+        
             )
         """, (
-
+        
             solicitacao_id,
             cod_item,
             nome_item,
+            lote,
             quantidade
-
+        
         ))
-
         conn.commit()
 
         conn.close()
