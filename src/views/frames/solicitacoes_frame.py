@@ -738,6 +738,30 @@ class SolicitacoesFrame(tk.Frame):
                     0,
                     protocolo[2]
                 )
+            
+            if protocolo:
+            
+                self.protocolo_id = protocolo[0]
+            
+                self.txt_registro.delete(
+                    0,
+                    tk.END
+                )
+            
+                self.txt_registro.insert(
+                    0,
+                    protocolo[1]
+                )
+            
+                self.txt_paciente.delete(
+                    0,
+                    tk.END
+                )
+            
+                self.txt_paciente.insert(
+                    0,
+                    protocolo[2]
+                )
 
             messagebox.showwarning(
                 "SIGOPME",
