@@ -184,7 +184,7 @@ class SolicitacaoService:
             texto
         ))
 
-        resultado = cursor.fetchone()
+        resultados = cursor.fetchall()
 
         conn.close()
 
