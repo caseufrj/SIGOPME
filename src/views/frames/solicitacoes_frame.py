@@ -283,8 +283,10 @@ class SolicitacoesFrame(tk.Frame):
         )
 
         colunas = (
-
+        
             "protocolo",
+        
+            "registro",
         
             "paciente_sala",
         
@@ -314,6 +316,11 @@ class SolicitacoesFrame(tk.Frame):
         self.grid_protocolos.heading(
             "protocolo",
             text="Protocolo"
+        )
+        
+        self.grid_protocolos.heading(
+            "registro",
+            text="Registro"
         )
         
         self.grid_protocolos.heading(
