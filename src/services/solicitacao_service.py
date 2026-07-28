@@ -13,6 +13,7 @@ class SolicitacaoService:
         data_solicitacao,
         cirurgia,
         paciente_registro,
+        paciente_nome,
         especialidade,
         observacao,
         usuario
@@ -29,21 +30,25 @@ class SolicitacaoService:
                 DataSolicitacao,
                 Cirurgia,
                 PacienteRegistro,
+                PacienteNome,
                 Especialidade,
                 Observacao,
                 Usuario
 
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """, (
 
-            numero_solicitacao,
-            data_solicitacao,
-            cirurgia,
-            paciente_registro,
-            especialidade,
-            observacao,
-            usuario
+            (
+                numero_solicitacao,
+                data_solicitacao,
+                cirurgia,
+                paciente_registro,
+                paciente_nome,
+                especialidade,
+                observacao,
+                usuario
+            )
 
         ))
 
