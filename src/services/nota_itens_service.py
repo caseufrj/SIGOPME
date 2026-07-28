@@ -137,7 +137,7 @@ class NotaItensService:
     
         ))
     
-        resultado = cursor.fetchone()
+        resultados = cursor.fetchall()
     
         conn.close()
     
