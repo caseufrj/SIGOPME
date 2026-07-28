@@ -148,3 +148,31 @@ class SolicitacaoItensService:
         conn.commit()
 
         conn.close()
+
+    @staticmethod
+    def obter_por_protocolo(
+        solicitacao_id
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+    
+                Id,
+                Status
+    
+            FROM SolicitacaoItens
+    
+            WHERE SolicitacaoId = ?
+    
+            LIMIT 1
+        """, (solicitacao_id,))
+    
+        dados = cursor.fetchone()
+    
+        conn.close()
+    
+        return dados
