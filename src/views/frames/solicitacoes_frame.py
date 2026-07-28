@@ -689,7 +689,11 @@ class SolicitacoesFrame(tk.Frame):
             self.lbl_codigo_barras.config(
                 text="Código Barras:"
             )
-    
+
+            messagebox.showwarning(
+                "SIGOPME",
+                "Item não encontrado."
+            )    
             return
     
         (
