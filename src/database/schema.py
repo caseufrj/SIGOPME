@@ -163,6 +163,8 @@ CREATE TABLE IF NOT EXISTS Solicitacoes (
     Cirurgia TEXT,
 
     PacienteRegistro TEXT,
+    
+    PacienteNome TEXT,
 
     Especialidade TEXT,
 
