@@ -101,3 +101,44 @@ class NotaItensService:
         conn.commit()
     
         conn.close()
+
+    @staticmethod
+    def buscar_item(texto):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+    
+                CodItem,
+                NomeItem,
+                Lote,
+                SerieProduto,
+                DataValidade,
+                Quantidade
+    
+            FROM NotaItens
+    
+            WHERE
+    
+                CodItem LIKE ?
+    
+                OR Lote LIKE ?
+    
+                OR SerieProduto LIKE ?
+    
+        """, (
+    
+            f"%{texto.strip()}%",
+            f"%{texto.strip()}%",
+            f"%{texto.strip()}%"
+    
+        ))
+    
+        resultado = cursor.fetchone()
+    
+        conn.close()
+    
+        return resultado
