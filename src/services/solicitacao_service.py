@@ -290,3 +290,56 @@ class SolicitacaoService:
         conn.close()
     
         return dados
+
+    @staticmethod
+    def buscar_protocolo_por_item(
+        cod_item,
+        lote
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            SELECT
+    
+                s.Id,
+    
+                s.PacienteRegistro,
+    
+                s.PacienteNome,
+    
+                si.Status
+    
+            FROM Solicitacoes s
+    
+            INNER JOIN SolicitacaoItens si
+                ON si.SolicitacaoId = s.Id
+    
+            WHERE
+    
+                si.CodItem = ?
+                AND si.Lote = ?
+    
+                AND si.Status IN (
+                    'SOLICITADO',
+                    'RETIRADO'
+                )
+    
+            ORDER BY s.Id DESC
+    
+            LIMIT 1
+    
+        """, (
+    
+            cod_item,
+            lote
+    
+        ))
+    
+        dados = cursor.fetchone()
+    
+        conn.close()
+    
+        return dados
