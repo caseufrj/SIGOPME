@@ -1,0 +1,51 @@
+from database.database_service import DatabaseService
+from services.protocolo_rastreabilidade import ProtocoloRastreabilidade
+
+
+class ProtocoloRastreabilidadeService:
+
+    @staticmethod
+    def obter_protocolo_completo(protocolo):
+
+        conn = DatabaseService.get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT
+
+                s.Id,
+                s.PacienteRegistro,
+                s.PacienteNome,
+
+                si.CodItem,
+                si.NomeItem,
+                si.Lote,
+                si.Status
+
+            FROM Solicitacoes s
+
+            INNER JOIN SolicitacaoItens si
+                ON si.SolicitacaoId = s.Id
+
+            WHERE s.Id = ?
+
+            LIMIT 1
+
+        """, (protocolo,))
+
+        resultado = cursor.fetchone()
+
+        conn.close()
+
+        if not resultado:
+            return None
+
+        return ProtocoloRastreabilidade(
+            protocolo=resultado[0],
+            registro=resultado[1] or "",
+            paciente=resultado[2] or "",
+            codigo_item=resultado[3] or "",
+            nome_material=resultado[4] or "",
+            lote=resultado[5] or "",
+            status=resultado[6] or ""
+        )
