@@ -141,4 +141,4 @@ class NotaItensService:
     
         conn.close()
     
-        return resultado
+        return resultados
