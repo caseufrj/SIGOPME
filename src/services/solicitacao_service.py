@@ -271,18 +271,17 @@ class SolicitacaoService:
                 si.Lote,
             
                 si.Status
-    
+            
             FROM Solicitacoes s
-    
+            
             INNER JOIN SolicitacaoItens si
                 ON si.SolicitacaoId = s.Id
-    
-                
+            
             WHERE si.Status IN (
                 'SOLICITADO',
                 'RETIRADO'
             )
-    
+            
             ORDER BY s.Id DESC
         """)
     
