@@ -848,21 +848,23 @@ class SolicitacoesFrame(tk.Frame):
     
         solicitacao_id = (
             SolicitacaoService.inserir(
-    
+
                 numero_protocolo,
-    
+            
                 data,
-    
+            
                 "",
-    
+            
                 registro,
-    
+            
+                nome,
+            
                 "",
-    
+            
                 f"Entrega do item {self.cod_item}",
-    
+            
                 "SIGOPME"
-    
+            
             )
         )
     
