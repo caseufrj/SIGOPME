@@ -136,24 +136,47 @@ class SolicitacaoService:
         cursor = conn.cursor()
 
         cursor.execute("""
-            SELECT *
+            SELECT
+        
+                Id,
+                LicitacaoItemId,
+                NumeroLicitacao,
+                CodItem,
+                NomeMaterial,
+                Lote,
+                CodigoUnico,
+                CodigoBarras,
+                Quantidade,
+                Status,
+                PacienteId,
+                PacienteRegistro,
+                PacienteNome,
+                Sala,
+                DataEntrada,
+                DataRetirada,
+                DataUtilizacao,
+                DataDevolucao,
+                DataExtravio,
+                DataPagamento,
+                Observacao
+        
             FROM EstoqueRastreado
+        
             WHERE
-
+        
                 CodigoBarras = ?
-
+        
                 OR Lote = ?
-
+        
                 OR CodigoUnico = ?
-
+        
                 OR CodItem = ?
+        
         """, (
-
             texto,
             texto,
             texto,
             texto
-
         ))
 
         resultado = cursor.fetchone()
