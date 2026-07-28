@@ -707,66 +707,24 @@ class SolicitacoesFrame(tk.Frame):
             self.lbl_codigo_barras.config(
                 text="Código Barras:"
             )
-
-            protocolo = (
-                SolicitacaoService.buscar_protocolo_por_item(
-                    cod_item,
-                    lote
-                )
-            )
-            
-            if protocolo:
-            
-                self.protocolo_id = protocolo[0]
-            
-                self.txt_registro.delete(
-                    0,
-                    tk.END
-                )
-            
-                self.txt_registro.insert(
-                    0,
-                    protocolo[1]
-                )
-            
-                self.txt_paciente.delete(
-                    0,
-                    tk.END
-                )
-            
-                self.txt_paciente.insert(
-                    0,
-                    protocolo[2]
-                )
-            
-            if protocolo:
-            
-                self.protocolo_id = protocolo[0]
-            
-                self.txt_registro.delete(
-                    0,
-                    tk.END
-                )
-            
-                self.txt_registro.insert(
-                    0,
-                    protocolo[1]
-                )
-            
-                self.txt_paciente.delete(
-                    0,
-                    tk.END
-                )
-            
-                self.txt_paciente.insert(
-                    0,
-                    protocolo[2]
-                )
-
+    
             messagebox.showwarning(
                 "SIGOPME",
                 "Item não encontrado."
-            )    
+            )
+    
+            return
+    
+        if len(resultado) == 1:
+    
+            resultado = resultado[0]
+    
+        elif len(resultado) > 1:
+    
+            self.selecionar_item_encontrado(
+                resultado
+            )
+    
             return
     
         (
@@ -777,62 +735,288 @@ class SolicitacoesFrame(tk.Frame):
             data_validade,
             quantidade
         ) = resultado
-
+    
         self.cod_item = cod_item
-
+    
         self.nome_material = nome_material
-        
+    
         self.lote = lote
-        
+    
         self.serie_produto = serie_produto
-        
+    
         self.quantidade_disponivel = quantidade
     
         self.lbl_cod_item.config(
             text=f"Cód Item: {cod_item}"
         )
-        
+    
         self.lbl_material.config(
             text=f"Nome Material: {nome_material}"
         )
-        
+    
         self.lbl_lote.config(
             text=f"Lote: {lote}"
         )
-        
+    
         self.lbl_serie.config(
             text=f"Série: {serie_produto}"
         )
-        
+    
         self.lbl_status.config(
             text=f"Qtd Disponível: {quantidade}"
         )
-        
+    
         self.lbl_codigo_barras.config(
             text=f"Validade: {data_validade}"
         )
-
-        self.txt_paciente.delete(0, tk.END)
-
-        self.txt_registro.delete(0, tk.END)
-        
-        self.txt_sala.delete(0, tk.END)
-        
+    
+        self.txt_paciente.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_registro.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_sala.delete(
+            0,
+            tk.END
+        )
+    
         self.txt_data_retirada.delete(
             0,
             tk.END
         )
-        
+    
         self.txt_data_utilizacao.delete(
             0,
             tk.END
         )
-        
+    
         self.txt_data_devolucao.delete(
             0,
             tk.END
         )
+    
+        protocolo = (
+            SolicitacaoService.buscar_protocolo_por_item(
+                cod_item,
+                lote
+            )
+        )
+    
+        if protocolo:
+    
+            self.protocolo_id = protocolo[0]
+    
+            self.txt_registro.insert(
+                0,
+                protocolo[1]
+            )
+    
+            self.txt_paciente.insert(
+                0,
+                protocolo[2]
+            )
 
+    def selecionar_item_encontrado(
+        self,
+        resultado
+    ):
+    
+        janela = tk.Toplevel(self)
+    
+        janela.title(
+            "Selecionar Item"
+        )
+    
+        janela.geometry(
+            "1200x400"
+        )
+    
+        colunas = (
+    
+            "codigo",
+    
+            "lote",
+    
+            "material",
+    
+            "validade",
+    
+            "quantidade"
+    
+        )
+    
+        grid = ttk.Treeview(
+    
+            janela,
+    
+            columns=colunas,
+    
+            show="headings"
+    
+        )
+    
+        grid.pack(
+            fill="both",
+            expand=True,
+            padx=10,
+            pady=10
+        )
+    
+        grid.heading(
+            "codigo",
+            text="Código"
+        )
+    
+        grid.heading(
+            "lote",
+            text="Lote"
+        )
+    
+        grid.heading(
+            "material",
+            text="Material"
+        )
+    
+        grid.heading(
+            "validade",
+            text="Validade"
+        )
+    
+        grid.heading(
+            "quantidade",
+            text="Qtd"
+        )
+    
+        grid.column(
+            "codigo",
+            width=100
+        )
+    
+        grid.column(
+            "lote",
+            width=180
+        )
+    
+        grid.column(
+            "material",
+            width=600
+        )
+    
+        grid.column(
+            "validade",
+            width=120
+        )
+    
+        grid.column(
+            "quantidade",
+            width=80
+        )
+    
+        for item in resultado:
+    
+            grid.insert(
+                "",
+                "end",
+                values=(
+    
+                    item[0],  # código
+                    item[2],  # lote
+                    item[1],  # material
+                    item[4],  # validade
+                    item[5]   # quantidade
+    
+                )
+            )
+    
+        def selecionar(event=None):
+    
+            selecionado = grid.selection()
+    
+            if not selecionado:
+                return
+    
+            valores = grid.item(
+                selecionado[0]
+            )["values"]
+    
+            (
+                cod_item,
+                lote,
+                nome_material,
+                data_validade,
+                quantidade
+            ) = valores
+    
+            self.cod_item = cod_item
+    
+            self.nome_material = nome_material
+    
+            self.lote = lote
+    
+            self.quantidade_disponivel = quantidade
+    
+            self.lbl_cod_item.config(
+                text=f"Cód Item: {cod_item}"
+            )
+    
+            self.lbl_material.config(
+                text=f"Nome Material: {nome_material}"
+            )
+    
+            self.lbl_lote.config(
+                text=f"Lote: {lote}"
+            )
+    
+            self.lbl_status.config(
+                text=f"Qtd Disponível: {quantidade}"
+            )
+    
+            self.lbl_codigo_barras.config(
+                text=f"Validade: {data_validade}"
+            )
+    
+            protocolo = (
+                SolicitacaoService.buscar_protocolo_por_item(
+                    cod_item,
+                    lote
+                )
+            )
+    
+            self.txt_paciente.delete(
+                0,
+                tk.END
+            )
+    
+            self.txt_registro.delete(
+                0,
+                tk.END
+            )
+    
+            if protocolo:
+    
+                self.protocolo_id = protocolo[0]
+    
+                self.txt_registro.insert(
+                    0,
+                    protocolo[1]
+                )
+    
+                self.txt_paciente.insert(
+                    0,
+                    protocolo[2]
+                )
+    
+            janela.destroy()
+    
+        grid.bind(
+            "<Double-1>",
+            selecionar
+        )
 
     def carregar_protocolos(self):
 
