@@ -766,35 +766,6 @@ class SolicitacoesFrame(tk.Frame):
             tk.END
         )
 
-        
-        # =====================
-        # PACIENTE / SALA
-        # =====================
-        
-        self.txt_paciente.delete(0, tk.END)
-        self.txt_registro.delete(0, tk.END)
-        self.txt_sala.delete(0, tk.END)
-        
-        if paciente_nome:
-        
-            self.txt_paciente.insert(
-                0,
-                paciente_nome
-            )
-        
-        if paciente_registro:
-        
-            self.txt_registro.insert(
-                0,
-                paciente_registro
-            )
-        
-        if sala:
-        
-            self.txt_sala.insert(
-                0,
-                sala
-            )
 
     def carregar_protocolos(self):
 
