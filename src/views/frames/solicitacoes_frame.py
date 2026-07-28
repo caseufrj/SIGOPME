@@ -703,6 +703,37 @@ class SolicitacoesFrame(tk.Frame):
                 text="Código Barras:"
             )
 
+            protocolo = (
+                SolicitacaoService.buscar_protocolo_por_item(
+                    cod_item,
+                    lote
+                )
+            )
+            
+            if protocolo:
+            
+                self.protocolo_id = protocolo[0]
+            
+                self.txt_registro.delete(
+                    0,
+                    tk.END
+                )
+            
+                self.txt_registro.insert(
+                    0,
+                    protocolo[1]
+                )
+            
+                self.txt_paciente.delete(
+                    0,
+                    tk.END
+                )
+            
+                self.txt_paciente.insert(
+                    0,
+                    protocolo[2]
+                )
+
             messagebox.showwarning(
                 "SIGOPME",
                 "Item não encontrado."
