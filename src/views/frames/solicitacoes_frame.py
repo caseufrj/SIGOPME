@@ -1071,34 +1071,63 @@ class SolicitacoesFrame(tk.Frame):
 
     def preencher_protocolo(self, dados):
 
-        # paciente
-        self.var_registro.set(dados.registro)
-        self.var_paciente.set(dados.paciente)
+        # Paciente
+        self.txt_registro.delete(0, tk.END)
+        self.txt_registro.insert(0, dados.registro)
     
-        # item
-        self.var_codigo_item.set(dados.codigo_item)
-        self.var_material.set(dados.nome_material)
-        self.var_lote.set(dados.lote)
-        self.var_serie.set(dados.serie)
-        self.var_codigo_barras.set(dados.codigo_barras)
+        self.txt_paciente.delete(0, tk.END)
+        self.txt_paciente.insert(0, dados.paciente)
     
-        # datas
-        self.var_data_retirada.set(
+        # Datas
+        self.txt_data_retirada.delete(0, tk.END)
+        self.txt_data_retirada.insert(
+            0,
             dados.data_retirada.strftime("%d/%m/%Y")
             if dados.data_retirada else ""
         )
     
-        self.var_data_utilizacao.set(
+        self.txt_data_utilizacao.delete(0, tk.END)
+        self.txt_data_utilizacao.insert(
+            0,
             dados.data_utilizacao.strftime("%d/%m/%Y")
             if dados.data_utilizacao else ""
         )
     
-        self.var_data_devolucao.set(
+        self.txt_data_devolucao.delete(0, tk.END)
+        self.txt_data_devolucao.insert(
+            0,
             dados.data_devolucao.strftime("%d/%m/%Y")
             if dados.data_devolucao else ""
         )
     
-        self.var_status.set(dados.status)
+        # Dados do Item
+        self.lbl_licitacao.config(
+            text=f"Licitação: {dados.licitacao}"
+        )
+    
+        self.lbl_status.config(
+            text=f"Status: {dados.status}"
+        )
+    
+        self.lbl_cod_item.config(
+            text=f"Cod Item: {dados.codigo_item}"
+        )
+    
+        self.lbl_material.config(
+            text=f"Nome Material: {dados.nome_material}"
+        )
+    
+        self.lbl_lote.config(
+            text=f"Lote: {dados.lote}"
+        )
+    
+        self.lbl_serie.config(
+            text=f"Série: {dados.serie}"
+        )
+    
+        self.lbl_codigo_barras.config(
+            text=f"Código Barras: {dados.codigo_barras}"
+        )
 
 
     def registrar(self):
