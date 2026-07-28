@@ -1,5 +1,5 @@
 from database.database_service import DatabaseService
-from services.protocolo_rastreabilidade import ProtocoloRastreabilidade
+from protocolo_rastreabilidade import ProtocoloRastreabilidade
 
 
 class ProtocoloRastreabilidadeService:
