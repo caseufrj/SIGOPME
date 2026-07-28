@@ -619,7 +619,7 @@ class SolicitacoesFrame(tk.Frame):
         )
         self.txt_registro.bind(
             "<FocusOut>",
-            localizar_por_registro
+            self.localizar_por_registro
         )
 
     def localizar_por_nome(self, event=None):
