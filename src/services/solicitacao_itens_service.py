@@ -63,6 +63,7 @@ class SolicitacaoItensService:
                 Id,
                 CodItem,
                 NomeItem,
+                Lote,
                 Quantidade,
                 QuantidadeAtendida,
                 Status
