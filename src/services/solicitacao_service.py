@@ -259,15 +259,17 @@ class SolicitacaoService:
     
         cursor.execute("""
             SELECT
-    
+
                 s.Id,
-    
+            
                 s.PacienteRegistro,
-    
+            
+                s.PacienteNome,
+            
                 si.NomeItem,
-    
+            
                 si.Lote,
-    
+            
                 si.Status
     
             FROM Solicitacoes s
