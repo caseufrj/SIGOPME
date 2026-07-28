@@ -8,6 +8,9 @@ from services.historico_service import HistoricoService
 from services.estoque_rastreado_service import (
     EstoqueRastreadoService
 )
+from services.nota_itens_service import (
+    NotaItensService
+)
 
 class SolicitacoesFrame(tk.Frame):
 
@@ -656,7 +659,7 @@ class SolicitacoesFrame(tk.Frame):
     
             return
     
-        resultado = SolicitacaoService.buscar_item(
+        resultado = NotaItensService.buscar_item(
             texto
         )
     
@@ -697,39 +700,24 @@ class SolicitacoesFrame(tk.Frame):
             return
     
         (
-            _id,
-            licitacao_item_id,
-            numero_licitacao,
             cod_item,
             nome_material,
             lote,
-            codigo_unico,
-            codigo_barras,
-            quantidade,
-            status,
-            paciente_id,
-            paciente_registro,
-            paciente_nome,
-            sala,
-            data_entrada,
-            data_retirada,
-            data_utilizacao,
-            data_devolucao,
-            data_extravio,
-            data_pagamento,
-            observacao
+            serie_produto,
+            data_validade,
+            quantidade
         ) = resultado
 
-        self.id_item = _id
+        self.cod_item = cod_item
+
+        self.nome_material = nome_material
+        
+        self.lote = lote
+        
+        self.serie_produto = serie_produto
+        
+        self.quantidade_disponivel = quantidade
     
-        self.lbl_licitacao.config(
-            text=f"Licitação: {numero_licitacao}"
-        )
-        
-        self.lbl_status.config(
-            text=f"Status: {status}"
-        )
-        
         self.lbl_cod_item.config(
             text=f"Cód Item: {cod_item}"
         )
@@ -743,35 +731,23 @@ class SolicitacoesFrame(tk.Frame):
         )
         
         self.lbl_serie.config(
-            text=f"Série: {codigo_unico}"
+            text=f"Série: {serie_produto}"
+        )
+        
+        self.lbl_status.config(
+            text=f"Qtd Disponível: {quantidade}"
         )
         
         self.lbl_codigo_barras.config(
-            text=f"Código Barras: {codigo_barras}"
+            text=f"Validade: {data_validade}"
         )
 
         self.txt_paciente.delete(0, tk.END)
+
         self.txt_registro.delete(0, tk.END)
+        
         self.txt_sala.delete(0, tk.END)
         
-        if paciente_nome:
-            self.txt_paciente.insert(
-                0,
-                paciente_nome
-            )
-        
-        if paciente_registro:
-            self.txt_registro.insert(
-                0,
-                paciente_registro
-            )
-        
-        if sala:
-            self.txt_sala.insert(
-                0,
-                sala
-            )
-
         self.txt_data_retirada.delete(
             0,
             tk.END
@@ -786,27 +762,7 @@ class SolicitacoesFrame(tk.Frame):
             0,
             tk.END
         )
-        
-        if data_retirada:
-        
-            self.txt_data_retirada.insert(
-                0,
-                data_retirada
-            )
-        
-        if data_utilizacao:
-        
-            self.txt_data_utilizacao.insert(
-                0,
-                data_utilizacao
-            )
-        
-        if data_devolucao:
-        
-            self.txt_data_devolucao.insert(
-                0,
-                data_devolucao
-            )
+
         
         # =====================
         # PACIENTE / SALA
