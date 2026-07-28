@@ -867,15 +867,17 @@ class SolicitacoesFrame(tk.Frame):
         )
     
         SolicitacaoItensService.inserir(
-    
+
             solicitacao_id,
-    
+        
             self.cod_item,
-    
+        
             self.nome_material,
-    
+        
+            self.lote,
+        
             1
-    
+        
         )
     
         HistoricoService.registrar(
