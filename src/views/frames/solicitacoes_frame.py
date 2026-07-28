@@ -14,16 +14,25 @@ from services.nota_itens_service import (
 from services.solicitacao_itens_service import (
     SolicitacaoItensService
 )
+from services.protocolo_rastreabilidade_service import (
+    ProtocoloRastreabilidadeService
+)
+
 
 class SolicitacoesFrame(tk.Frame):
 
     def __init__(self, parent):
         super().__init__(parent)
 
+        self.protocolo_service = (
+            ProtocoloRastreabilidadeService()
+        )
+
         self.criar_componentes()
 
         self.carregar_protocolos()
 
+        
     def criar_componentes(self):
 
         titulo = tk.Label(
