@@ -918,7 +918,22 @@ class SolicitacoesFrame(tk.Frame):
         
     def utilizado(self):
 
-        data = self.txt_data_utilizacao.get().strip()
+        selecionado = (
+            self.grid_protocolos.selection()
+        )
+    
+        if not selecionado:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Selecione um protocolo."
+            )
+    
+            return
+    
+        data = (
+            self.txt_data_utilizacao.get().strip()
+        )
     
         if not data:
     
@@ -929,19 +944,37 @@ class SolicitacoesFrame(tk.Frame):
     
             return
     
-        EstoqueRastreadoService.utilizado(
-            self.id_item,
-            data
+        protocolo = self.grid_protocolos.item(
+            selecionado[0]
+        )["values"][0]
+    
+        item = (
+            SolicitacaoItensService.obter_por_protocolo(
+                protocolo
+            )
         )
-
+    
+        if not item:
+            return
+    
+        item_id = item[0]
+    
+        SolicitacaoItensService.atualizar_status(
+    
+            item_id,
+    
+            "UTILIZADO"
+    
+        )
+    
         HistoricoService.registrar(
-
-            tipo="MATERIAL",
-        
+    
+            tipo="SOLICITACAO",
+    
             acao="ITEM_UTILIZADO",
-        
-            referencia_id=self.id_item
-        
+    
+            referencia_id=item_id
+    
         )
     
         messagebox.showinfo(
@@ -949,13 +982,26 @@ class SolicitacoesFrame(tk.Frame):
             "Material marcado como utilizado."
         )
     
-        self.pesquisar()
-
         self.carregar_protocolos()
 
     def devolver(self):
 
-        data = self.txt_data_devolucao.get().strip()
+        selecionado = (
+            self.grid_protocolos.selection()
+        )
+    
+        if not selecionado:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Selecione um protocolo."
+            )
+    
+            return
+    
+        data = (
+            self.txt_data_devolucao.get().strip()
+        )
     
         if not data:
     
@@ -966,19 +1012,37 @@ class SolicitacoesFrame(tk.Frame):
     
             return
     
-        EstoqueRastreadoService.devolver(
-            self.id_item,
-            data
+        protocolo = self.grid_protocolos.item(
+            selecionado[0]
+        )["values"][0]
+    
+        item = (
+            SolicitacaoItensService.obter_por_protocolo(
+                protocolo
+            )
         )
-
+    
+        if not item:
+            return
+    
+        item_id = item[0]
+    
+        SolicitacaoItensService.atualizar_status(
+    
+            item_id,
+    
+            "DEVOLVIDO"
+    
+        )
+    
         HistoricoService.registrar(
-
-            tipo="MATERIAL",
-        
+    
+            tipo="SOLICITACAO",
+    
             acao="ITEM_DEVOLVIDO",
-        
-            referencia_id=self.id_item
-        
+    
+            referencia_id=item_id
+    
         )
     
         messagebox.showinfo(
@@ -986,8 +1050,6 @@ class SolicitacoesFrame(tk.Frame):
             "Material devolvido."
         )
     
-        self.pesquisar()
-
         self.carregar_protocolos()
 
     
