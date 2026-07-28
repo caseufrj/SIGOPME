@@ -8,6 +8,7 @@ class SolicitacaoItensService:
         solicitacao_id,
         cod_item,
         nome_item,
+        lote,
         quantidade
     ):
 
