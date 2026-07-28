@@ -813,7 +813,7 @@ class SolicitacoesFrame(tk.Frame):
 
     def registrar(self):
 
-        if not hasattr(self, "id_item"):
+        if not hasattr(self, "cod_item"):
     
             messagebox.showwarning(
                 "SIGOPME",
