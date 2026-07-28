@@ -11,6 +11,9 @@ from services.estoque_rastreado_service import (
 from services.nota_itens_service import (
     NotaItensService
 )
+from services.solicitacao_itens_service import (
+    SolicitacaoItensService
+)
 
 class SolicitacoesFrame(tk.Frame):
 
@@ -855,65 +858,81 @@ class SolicitacoesFrame(tk.Frame):
                 registro,
                 nome
             )
-
-        HistoricoService.registrar(
-
-            tipo="PACIENTE",
-        
-            acao="PACIENTE_CADASTRADO",
-        
-            paciente_nome=nome,
-        
-            paciente_registro=registro
-        
+    
+            HistoricoService.registrar(
+    
+                tipo="PACIENTE",
+    
+                acao="PACIENTE_CADASTRADO",
+    
+                paciente_nome=nome,
+    
+                paciente_registro=registro
+    
+            )
+    
+        numero_protocolo = (
+            f"PROTO-{registro}"
         )
     
-        EstoqueRastreadoService.registrar_retirada(
+        solicitacao_id = (
+            SolicitacaoService.inserir(
     
-            self.id_item,
+                numero_protocolo,
     
-            nome,
+                data,
     
-            registro,
+                "",
     
-            data
+                registro,
+    
+                "",
+    
+                f"Entrega do item {self.cod_item}",
+    
+                "SIGOPME"
+    
+            )
+        )
+    
+        SolicitacaoItensService.inserir(
+    
+            solicitacao_id,
+    
+            self.cod_item,
+    
+            self.nome_material,
+    
+            1
     
         )
-
+    
         HistoricoService.registrar(
-
-            tipo="MATERIAL",
-        
+    
+            tipo="SOLICITACAO",
+    
             acao="ITEM_RETIRADO",
-        
-            referencia_id=self.id_item,
-        
+    
             paciente_nome=nome,
-        
+    
             paciente_registro=registro,
-        
-            observacao="Retirada para paciente"
-        
+    
+            cod_item=self.cod_item,
+    
+            nome_material=self.nome_material,
+    
+            lote=self.lote,
+    
+            observacao="Material entregue ao paciente"
+    
         )
     
         messagebox.showinfo(
             "SIGOPME",
-            "Retirada registrada."
+            "Solicitação registrada."
         )
     
-        self.pesquisar()
-
         self.carregar_protocolos()
-
-        self.txt_data_utilizacao.delete(
-            0,
-            tk.END
-        )
-        
-        self.txt_data_devolucao.delete(
-            0,
-            tk.END
-        )
         
     def utilizado(self):
 
