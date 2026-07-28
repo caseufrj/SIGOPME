@@ -1038,9 +1038,7 @@ class SolicitacoesFrame(tk.Frame):
 
     def carregar_protocolo(self, event=None):
 
-        selecionado = (
-            self.grid_protocolos.selection()
-        )
+        selecionado = self.grid_protocolos.selection()
     
         if not selecionado:
             return
@@ -1049,27 +1047,50 @@ class SolicitacoesFrame(tk.Frame):
             selecionado[0]
         )["values"]
     
-        self.protocolo_id = valores[0]
+        protocolo = valores[0]
     
-        self.txt_registro.delete(
-            0,
-            tk.END
+        dados = self.protocolo_service.obter_protocolo_completo(
+            protocolo
         )
     
-        self.txt_registro.insert(
-            0,
-            valores[1]
+        if not dados:
+            return
+    
+        self.protocolo_id = protocolo
+    
+        self.preencher_protocolo(dados)
+
+    def preencher_protocolo(self, dados):
+
+        # paciente
+        self.var_registro.set(dados.registro)
+        self.var_paciente.set(dados.paciente)
+    
+        # item
+        self.var_codigo_item.set(dados.codigo_item)
+        self.var_material.set(dados.nome_material)
+        self.var_lote.set(dados.lote)
+        self.var_serie.set(dados.serie)
+        self.var_codigo_barras.set(dados.codigo_barras)
+    
+        # datas
+        self.var_data_retirada.set(
+            dados.data_retirada.strftime("%d/%m/%Y")
+            if dados.data_retirada else ""
         )
     
-        self.txt_paciente.delete(
-            0,
-            tk.END
+        self.var_data_utilizacao.set(
+            dados.data_utilizacao.strftime("%d/%m/%Y")
+            if dados.data_utilizacao else ""
         )
     
-        self.txt_paciente.insert(
-            0,
-            valores[2]
+        self.var_data_devolucao.set(
+            dados.data_devolucao.strftime("%d/%m/%Y")
+            if dados.data_devolucao else ""
         )
+    
+        self.var_status.set(dados.status)
+
 
     def registrar(self):
 
