@@ -1,8 +1,29 @@
 from database.database_service import DatabaseService
 from protocolo_rastreabilidade import ProtocoloRastreabilidade
 
-
 class ProtocoloRastreabilidadeService:
+
+    @staticmethod
+    def atualizar_protocolo(
+        protocolo_id,
+        data_retirada
+    ):
+
+        conn = DatabaseService.get_connection()
+
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            UPDATE Solicitacoes
+            SET DataSolicitacao = ?
+            WHERE Id = ?
+        """, (
+            data_retirada,
+            protocolo_id
+        ))
+
+        conn.commit()
+        conn.close()
 
     @staticmethod
     def obter_protocolo_completo(protocolo):
