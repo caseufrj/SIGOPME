@@ -1129,8 +1129,32 @@ class SolicitacoesFrame(tk.Frame):
             text=f"Código Barras: {dados.codigo_barras}"
         )
 
+    def atualizar_protocolo(self):
+
+        data_retirada = self.txt_data_retirada.get()
+    
+        self.protocolo_service.atualizar_protocolo(
+            self.protocolo_id,
+            data_retirada
+        )
+    
+        messagebox.showinfo(
+            "SIGOPME",
+            "Protocolo atualizado com sucesso."
+        )
+    
+        self.carregar_protocolos()
 
     def registrar(self):
+
+        if self.protocolo_id:
+            self.atualizar_protocolo()
+            return
+    
+        self.registrar_novo_protocolo()
+
+
+    def registrar_novo_protocolo(self):
 
         if not hasattr(self, "cod_item"):
     
