@@ -16,17 +16,23 @@ class ProtocoloRastreabilidadeService:
                 s.Id,
                 s.PacienteRegistro,
                 s.PacienteNome,
-
+            
                 si.CodItem,
                 si.NomeItem,
                 si.Lote,
-                si.Status
-
+                si.Status,
+            
+                er.DataRetirada
+            
             FROM Solicitacoes s
-
+            
             INNER JOIN SolicitacaoItens si
                 ON si.SolicitacaoId = s.Id
-
+            
+            LEFT JOIN EstoqueRastreado er
+                ON er.CodItem = si.CodItem
+                AND er.Lote = si.Lote
+            
             WHERE s.Id = ?
 
             LIMIT 1
@@ -47,5 +53,6 @@ class ProtocoloRastreabilidadeService:
             codigo_item=resultado[3] or "",
             nome_material=resultado[4] or "",
             lote=resultado[5] or "",
-            status=resultado[6] or ""
+            status=resultado[6] or "",
+            data_retirada=resultado[7]
         )
