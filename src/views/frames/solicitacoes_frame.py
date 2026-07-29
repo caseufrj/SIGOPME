@@ -1061,6 +1061,7 @@ class SolicitacoesFrame(tk.Frame):
         dados = self.protocolo_service.obter_protocolo_completo(
             protocolo
         )
+        print("Data retirada:", dados.data_retirada)
     
         if not dados:
             return
@@ -1144,6 +1145,8 @@ class SolicitacoesFrame(tk.Frame):
         )
     
         self.carregar_protocolos()
+
+        self.protocolo_id = None
 
     def registrar(self):
 
