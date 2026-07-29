@@ -393,3 +393,36 @@ class SolicitacaoService:
     
         return resultado
 
+    @staticmethod
+    def atualizar_protocolo(
+        protocolo_id,
+        registro,
+        nome,
+        data_retirada
+    ):
+    
+        conn = DatabaseService.get_connection()
+    
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE Solicitacoes
+            SET
+    
+                PacienteRegistro = ?,
+                PacienteNome = ?,
+                DataSolicitacao = ?
+    
+            WHERE Id = ?
+        """, (
+    
+            registro,
+            nome,
+            data_retirada,
+            protocolo_id
+    
+        ))
+    
+        conn.commit()
+        conn.close()
+
