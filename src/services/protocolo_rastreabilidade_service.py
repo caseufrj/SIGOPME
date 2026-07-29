@@ -62,6 +62,8 @@ class ProtocoloRastreabilidadeService:
 
         resultado = cursor.fetchone()
 
+        print(resultado)
+
         conn.close()
 
         if not resultado:
