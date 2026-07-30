@@ -95,6 +95,35 @@ class SolicitacoesFrame(tk.Frame):
             pady=10
         )
 
+        frame_destino = tk.LabelFrame(
+            self,
+            text="Destino"
+        )
+        
+        frame_destino.pack(
+            fill="x",
+            padx=10,
+            pady=10
+        )
+        
+        self.tipo_destino = tk.StringVar(
+            value="PACIENTE"
+        )
+
+        tk.Radiobutton(
+            frame_destino,
+            text="Paciente",
+            variable=self.tipo_destino,
+            value="PACIENTE"
+        ).pack(side="left", padx=5)
+        
+        tk.Radiobutton(
+            frame_destino,
+            text="Sala",
+            variable=self.tipo_destino,
+            value="SALA"
+        ).pack(side="left", padx=5)
+
         notebook = ttk.Notebook(self)
 
         notebook.pack(
@@ -115,7 +144,7 @@ class SolicitacoesFrame(tk.Frame):
             self.frame_sala,
             text="Sala"
         )
-
+        
         #====================
         # ABA PACIENTE
         #====================
@@ -1256,7 +1285,13 @@ class SolicitacoesFrame(tk.Frame):
             self.atualizar_protocolo()
             return
     
-        self.registrar_novo_protocolo()
+        if self.tipo_destino.get() == "PACIENTE":
+
+            self.registrar_novo_protocolo()
+        
+        else:
+        
+            self.registrar_sala()
 
 
     def registrar_novo_protocolo(self):
@@ -1545,5 +1580,67 @@ class SolicitacoesFrame(tk.Frame):
             )
     
             return
-
+    
+        numero_protocolo = (
+            f"SALA-{sala}"
+        )
+    
+        solicitacao_id = (
+            SolicitacaoService.inserir(
+    
+                numero_protocolo,
+    
+                data,
+    
+                "",
+    
+                "",
+    
+                sala,
+    
+                "",
+    
+                f"Entrega do item {self.cod_item}",
+    
+                "SIGOPME"
+    
+            )
+        )
+    
+        SolicitacaoItensService.inserir(
+    
+            solicitacao_id,
+    
+            self.cod_item,
+    
+            self.nome_material,
+    
+            self.lote,
+    
+            1
+    
+        )
+    
+        HistoricoService.registrar(
+    
+            tipo="SOLICITACAO",
+    
+            acao="ITEM_SALA",
+    
+            cod_item=self.cod_item,
+    
+            nome_material=self.nome_material,
+    
+            lote=self.lote,
+    
+            observacao=f"Material entregue para sala {sala}"
+    
+        )
+    
+        messagebox.showinfo(
+            "SIGOPME",
+            "Solicitação para sala registrada."
+        )
+    
+        self.carregar_protocolos()
     
