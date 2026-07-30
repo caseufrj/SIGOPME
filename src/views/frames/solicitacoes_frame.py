@@ -1147,6 +1147,8 @@ class SolicitacoesFrame(tk.Frame):
 
         self.protocolo_id = None
 
+        self.limpar_tela()
+
     def registrar(self):
 
         if self.protocolo_id:
