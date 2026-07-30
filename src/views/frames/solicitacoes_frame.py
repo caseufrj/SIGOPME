@@ -218,7 +218,7 @@ class SolicitacoesFrame(tk.Frame):
         )
 
         aplicar_mascara_data(
-            self.txt_data_retirada
+            self.txt_data_utilizacao
         )
 
         tk.Label(
@@ -244,7 +244,7 @@ class SolicitacoesFrame(tk.Frame):
         )
 
         aplicar_mascara_data(
-            self.txt_data_retirada
+            self.txt_data_devolucao
         )
 
         frame_botoes = tk.Frame(
