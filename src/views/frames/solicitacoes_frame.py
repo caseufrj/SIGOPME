@@ -512,7 +512,7 @@ class SolicitacoesFrame(tk.Frame):
         self.btn_registrar_sala = tk.Button(
             frame_botoes_sala,
             text="Registrar",
-            state="disabled"
+            command=self.registrar_sala
         )
         
         self.btn_registrar_sala.pack(
@@ -523,7 +523,7 @@ class SolicitacoesFrame(tk.Frame):
         self.btn_utilizado_sala = tk.Button(
             frame_botoes_sala,
             text="Utilizado",
-            state="disabled"
+            command=self.utilizado_sala
         )
         
         self.btn_utilizado_sala.pack(
@@ -534,7 +534,7 @@ class SolicitacoesFrame(tk.Frame):
         self.btn_devolver_sala = tk.Button(
             frame_botoes_sala,
             text="Devolver",
-            state="disabled"
+            command=self.devolver_sala
         )
         
         self.btn_devolver_sala.pack(
@@ -1516,5 +1516,32 @@ class SolicitacoesFrame(tk.Frame):
         )
     
         self.carregar_protocolos()
+
+
+    def registrar_sala(self):
+
+        if not hasattr(self, "cod_item"):
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Pesquise um item primeiro."
+            )
+    
+            return
+    
+        sala = self.txt_sala.get().strip()
+    
+        data = (
+            self.txt_data_retirada_sala.get().strip()
+        )
+    
+        if not sala:
+    
+            messagebox.showwarning(
+                "SIGOPME",
+                "Informe a sala."
+            )
+    
+            return
 
     
