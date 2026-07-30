@@ -32,33 +32,30 @@ class ProtocoloRastreabilidadeService:
         cursor = conn.cursor()
 
         cursor.execute("""
-            SELECT
-
-                s.Id,
-                s.PacienteRegistro,
-                s.PacienteNome,
+            cursor.execute("""
+                SELECT
             
-                si.CodItem,
-                si.NomeItem,
-                si.Lote,
-                si.Status,
+                    s.Id,
+                    s.PacienteRegistro,
+                    s.PacienteNome,
             
-                er.DataRetirada
+                    si.CodItem,
+                    si.NomeItem,
+                    si.Lote,
+                    si.Status,
             
-            FROM Solicitacoes s
+                    s.DataSolicitacao
             
-            INNER JOIN SolicitacaoItens si
-                ON si.SolicitacaoId = s.Id
+                FROM Solicitacoes s
             
-            LEFT JOIN EstoqueRastreado er
-                ON er.CodItem = si.CodItem
-                AND er.Lote = si.Lote
+                INNER JOIN SolicitacaoItens si
+                    ON si.SolicitacaoId = s.Id
             
-            WHERE s.Id = ?
-
-            LIMIT 1
-
-        """, (protocolo,))
+                WHERE s.Id = ?
+            
+                LIMIT 1
+            
+            """, (protocolo,))
 
         resultado = cursor.fetchone()
 
