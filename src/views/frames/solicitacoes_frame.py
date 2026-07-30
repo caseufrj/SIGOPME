@@ -18,7 +18,7 @@ from services.protocolo_rastreabilidade_service import (
     ProtocoloRastreabilidadeService
 )
 
-from views.componentes.mascaras import (
+from views.componentes.masks import (
     aplicar_mascara_data,
     aplicar_mascara_moeda
 )
