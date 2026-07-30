@@ -1083,8 +1083,7 @@ class SolicitacoesFrame(tk.Frame):
         self.txt_data_retirada.delete(0, tk.END)
         self.txt_data_retirada.insert(
             0,
-            dados.data_retirada.strftime("%d/%m/%Y")
-            if dados.data_retirada else ""
+            dados.data_retirada or ""
         )
     
         self.txt_data_utilizacao.delete(0, tk.END)
