@@ -523,7 +523,8 @@ class SolicitacoesFrame(tk.Frame):
         self.btn_utilizado_sala = tk.Button(
             frame_botoes_sala,
             text="Utilizado",
-            command=self.utilizado_sala
+            #command=self.utilizado_sala
+            state="disabled"
         )
         
         self.btn_utilizado_sala.pack(
@@ -534,7 +535,8 @@ class SolicitacoesFrame(tk.Frame):
         self.btn_devolver_sala = tk.Button(
             frame_botoes_sala,
             text="Devolver",
-            command=self.devolver_sala
+            #command=self.devolver_sala
+            state="disabled"
         )
         
         self.btn_devolver_sala.pack(
