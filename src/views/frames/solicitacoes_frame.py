@@ -18,6 +18,11 @@ from services.protocolo_rastreabilidade_service import (
     ProtocoloRastreabilidadeService
 )
 
+from views.componentes.mascaras import (
+    aplicar_mascara_data,
+    aplicar_mascara_moeda
+)
+
 
 class SolicitacoesFrame(tk.Frame):
 
