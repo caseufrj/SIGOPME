@@ -1089,14 +1089,14 @@ class SolicitacoesFrame(tk.Frame):
         self.txt_data_utilizacao.delete(0, tk.END)
         self.txt_data_utilizacao.insert(
             0,
-            dados.data_utilizacao.strftime("%d/%m/%Y")
+            dados.data_utilizacao or ""
             if dados.data_utilizacao else ""
         )
     
         self.txt_data_devolucao.delete(0, tk.END)
         self.txt_data_devolucao.insert(
             0,
-            dados.data_devolucao.strftime("%d/%m/%Y")
+            dados.data_devolucao or ""
             if dados.data_devolucao else ""
         )
     
