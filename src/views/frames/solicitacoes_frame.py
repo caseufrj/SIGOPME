@@ -190,6 +190,10 @@ class SolicitacoesFrame(tk.Frame):
             column=1,
             sticky="w"
         )
+        
+        aplicar_mascara_data(
+            self.txt_data_retirada
+        )
 
         tk.Label(
             self.frame_paciente,
@@ -213,6 +217,10 @@ class SolicitacoesFrame(tk.Frame):
             sticky="w"
         )
 
+        aplicar_mascara_data(
+            self.txt_data_retirada
+        )
+
         tk.Label(
             self.frame_paciente,
             text="Data Devolução"
@@ -233,6 +241,10 @@ class SolicitacoesFrame(tk.Frame):
             row=3,
             column=1,
             sticky="w"
+        )
+
+        aplicar_mascara_data(
+            self.txt_data_retirada
         )
 
         frame_botoes = tk.Frame(
