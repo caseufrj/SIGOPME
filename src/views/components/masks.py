@@ -96,6 +96,16 @@ def aplicar_mascara_data(entry):
     
             entry.focus_set()
 
+        entry.bind(
+            "<KeyRelease>",
+            ao_digitar
+        )
+    
+        entry.bind(
+            "<FocusOut>",
+            validar
+        )
+
 def aplicar_mascara_moeda(entry):
 
     def ao_entrar(event):
