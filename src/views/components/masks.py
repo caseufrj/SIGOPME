@@ -5,44 +5,33 @@ from tkinter import messagebox
 
 def aplicar_mascara_data(entry):
 
-    def ao_entrar(event):
-
-        if not entry.get():
-
-            entry.insert(
-                0,
-                "__/__/____"
-            )
-
-            entry.icursor(0)
-
     def ao_digitar(event):
 
-        numeros = "".join(
-            c
-            for c in entry.get()
+        texto = (
+            entry.get()
+            .replace("/", "")
+        )
+
+        if not texto:
+            return
+
+        texto = "".join(
+            c for c in texto
             if c.isdigit()
         )[:8]
 
-        texto = "__/__/____"
+        resultado = ""
 
-        lista = list(texto)
+        if len(texto) >= 1:
+            resultado = texto[:2]
 
-        posicoes = [
-            0, 1,
-            3, 4,
-            6, 7, 8, 9
-        ]
+        if len(texto) > 2:
+            resultado += "/" + texto[2:4]
 
-        for i, numero in enumerate(numeros):
+        if len(texto) > 4:
+            resultado += "/" + texto[4:8]
 
-            if i < len(posicoes):
-
-                lista[
-                    posicoes[i]
-                ] = numero
-
-        texto = "".join(lista)
+        cursor = entry.index(tk.INSERT)
 
         entry.delete(
             0,
@@ -51,70 +40,61 @@ def aplicar_mascara_data(entry):
 
         entry.insert(
             0,
-            texto
+            resultado
         )
 
-        if len(numeros) < 8:
-
-            entry.icursor(
-                posicoes[len(numeros)]
-            )
+        try:
+            entry.icursor(cursor)
+        except:
+            pass
 
     def validar(event):
 
-        valor = entry.get()
-
-        if valor == "__/__/____":
-
-            entry.delete(
-                0,
-                tk.END
-            )
-
+        valor = entry.get().strip()
+    
+        if not valor:
             return
-
-        if "_" in valor:
-
-            messagebox.showwarning(
-                "SIGOPME",
-                "Data incompleta."
+    
+        # 2807 -> 28/07/2026
+        if valor.isdigit() and len(valor) == 4:
+    
+            valor = (
+                f"{valor[:2]}/"
+                f"{valor[2:]}/"
+                f"{datetime.now().year}"
             )
-
-            entry.focus_set()
-
-            return
-
+    
+            entry.delete(0, tk.END)
+    
+            entry.insert(0, valor)
+    
+        # 28/07 -> 28/07/2026
+        elif len(valor) == 5:
+    
+            valor = (
+                f"{valor}/"
+                f"{datetime.now().year}"
+            )
+    
+            entry.delete(0, tk.END)
+    
+            entry.insert(0, valor)
+    
         try:
-
+    
             datetime.strptime(
                 valor,
                 "%d/%m/%Y"
             )
-
+    
         except ValueError:
-
+    
             messagebox.showwarning(
                 "SIGOPME",
                 "Data inválida."
             )
-
+    
             entry.focus_set()
-
-    entry.bind(
-        "<FocusIn>",
-        ao_entrar
-    )
-
-    entry.bind(
-        "<KeyRelease>",
-        ao_digitar
-    )
-
-    entry.bind(
-        "<FocusOut>",
-        validar
-    )
-
 
 def aplicar_mascara_moeda(entry):
 
