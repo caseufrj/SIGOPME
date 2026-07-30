@@ -1044,6 +1044,76 @@ class SolicitacoesFrame(tk.Frame):
             selecionar
         )
 
+    def limpar_tela(self):
+
+        self.txt_busca.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_paciente.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_registro.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_sala.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_data_retirada.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_data_utilizacao.delete(
+            0,
+            tk.END
+        )
+    
+        self.txt_data_devolucao.delete(
+            0,
+            tk.END
+        )
+    
+        self.lbl_licitacao.config(
+            text="Licitação:"
+        )
+    
+        self.lbl_status.config(
+            text="Status:"
+        )
+    
+        self.lbl_cod_item.config(
+            text="Cod Item:"
+        )
+    
+        self.lbl_material.config(
+            text="Nome Material:"
+        )
+    
+        self.lbl_lote.config(
+            text="Lote:"
+        )
+    
+        self.lbl_serie.config(
+            text="Série:"
+        )
+    
+        self.lbl_codigo_barras.config(
+            text="Código Barras:"
+        )
+    
+        self.protocolo_id = None
+    
+        if hasattr(self, "cod_item"):
+            del self.cod_item
+
     def carregar_protocolos(self):
 
         for item in self.grid_protocolos.get_children():
