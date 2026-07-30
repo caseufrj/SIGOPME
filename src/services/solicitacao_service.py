@@ -14,6 +14,7 @@ class SolicitacaoService:
         cirurgia,
         paciente_registro,
         paciente_nome,
+        sala,
         especialidade,
         observacao,
         usuario
@@ -31,26 +32,27 @@ class SolicitacaoService:
                 Cirurgia,
                 PacienteRegistro,
                 PacienteNome,
+                Sala,
                 Especialidade,
                 Observacao,
                 Usuario
-
+            
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        
         """, (
-
+        
             (
-                numero_solicitacao,
-                data_solicitacao,
-                cirurgia,
-                paciente_registro,
-                paciente_nome,
-                especialidade,
-                observacao,
-                usuario
-            )
-
-        ))
+            numero_solicitacao,
+            data_solicitacao,
+            cirurgia,
+            paciente_registro,
+            paciente_nome,
+            sala,
+            especialidade,
+            observacao,
+            usuario
+        )
 
         solicitacao_id = cursor.lastrowid
 
