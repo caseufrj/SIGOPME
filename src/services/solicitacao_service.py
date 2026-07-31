@@ -26,7 +26,7 @@ class SolicitacaoService:
 
         cursor.execute("""
             INSERT INTO Solicitacoes (
-
+        
                 NumeroSolicitacao,
                 DataSolicitacao,
                 Cirurgia,
@@ -36,13 +36,12 @@ class SolicitacaoService:
                 Especialidade,
                 Observacao,
                 Usuario
-            
+        
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         
         """, (
         
-            (
             numero_solicitacao,
             data_solicitacao,
             cirurgia,
@@ -52,8 +51,8 @@ class SolicitacaoService:
             especialidade,
             observacao,
             usuario
-        )
-
+        
+        ))
         solicitacao_id = cursor.lastrowid
 
         conn.commit()
