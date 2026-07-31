@@ -1271,11 +1271,28 @@ class SolicitacoesFrame(tk.Frame):
 
     def atualizar_protocolo(self):
 
-        data_retirada = self.txt_data_retirada.get()
+        registro = self.txt_registro.get().strip()
+    
+        nome = self.txt_paciente.get().strip()
+    
+        sala = self.txt_sala.get().strip()
+    
+        data_retirada = (
+            self.txt_data_retirada.get().strip()
+        )
     
         self.protocolo_service.atualizar_protocolo(
+    
             self.protocolo_id,
+    
+            registro,
+    
+            nome,
+    
+            sala,
+    
             data_retirada
+    
         )
     
         messagebox.showinfo(
@@ -1284,11 +1301,10 @@ class SolicitacoesFrame(tk.Frame):
         )
     
         self.carregar_protocolos()
-
+    
         self.protocolo_id = None
-
+    
         self.limpar_tela()
-
     def registrar(self):
 
         if self.protocolo_id:
