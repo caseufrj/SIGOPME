@@ -207,17 +207,15 @@ class SolicitacaoService:
         cursor.execute("""
             UPDATE EstoqueRastreado
             SET
-
                 Status = 'UTILIZADO',
-
                 DataUtilizacao = ?
-
             WHERE Id = ?
         """, (
             data_utilizacao,
             id_item
         ))
-
+        
+        print("Rows EstoqueRastreado:", cursor.rowcount)
         
         conn.commit()
 
@@ -234,22 +232,18 @@ class SolicitacaoService:
 
         cursor = conn.cursor()
 
-        cursor.execute("""
+       cursor.execute("""
             UPDATE EstoqueRastreado
             SET
-
                 Status = 'DISPONIVEL',
-
                 DataDevolucao = ?
-
             WHERE Id = ?
         """, (
-
             data_devolucao,
             id_item
-
         ))
-
+        
+        print("Rows afetadas:", cursor.rowcount)
         
         conn.commit()
 
