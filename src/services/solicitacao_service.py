@@ -62,17 +62,17 @@ class SolicitacaoService:
 
         return solicitacao_id
 
-
+    
     @staticmethod
     def listar_todas():
-
+        
         conn = DatabaseService.get_connection()
-
+        
         cursor = conn.cursor()
-
+        
         cursor.execute("""
             SELECT
-
+            
                 Id,
                 NumeroSolicitacao,
                 DataSolicitacao,
@@ -80,16 +80,16 @@ class SolicitacaoService:
                 PacienteRegistro,
                 Especialidade,
                 Usuario
-
+                
             FROM Solicitacoes
-
+            
             ORDER BY Id DESC
         """)
-
+        
         dados = cursor.fetchall()
-
+        
         conn.close()
-
+        
         return dados
 
 
