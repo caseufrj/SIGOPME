@@ -18,7 +18,7 @@ class ProtocoloRastreabilidadeService:
             UPDATE Solicitacoes
             SET
                 PacienteRegistro = ?,
-                NomePaciente = ?,
+                PacienteNome = ?,
                 Sala = ?,
                 DataSolicitacao = ?
             WHERE Id = ?
