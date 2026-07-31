@@ -43,10 +43,7 @@ def aplicar_mascara_data(entry):
             resultado
         )
 
-        try:
-            entry.icursor(cursor)
-        except:
-            pass
+        entry.icursor(len(resultado))
 
     def validar(event):
 
