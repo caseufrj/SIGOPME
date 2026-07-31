@@ -218,6 +218,15 @@ class SolicitacaoService:
             id_item
         ))
 
+        item_id = item[0]
+
+        print("SolicitacaoItens.Id =", item_id)
+        
+        SolicitacaoItensService.atualizar_status(
+            item_id,
+            "UTILIZADO"
+        )
+
         print("Atualizando EstoqueRastreado:", id_item)
 
         conn.commit()
@@ -250,6 +259,15 @@ class SolicitacaoService:
             id_item
 
         ))
+
+        item_id = item[0]
+
+        print("SolicitacaoItens.Id =", item_id)
+        
+        SolicitacaoItensService.atualizar_status(
+            item_id,
+            "DEVOLVIDO"
+        )
 
         conn.commit()
 
