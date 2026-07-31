@@ -294,7 +294,7 @@ class SolicitacoesFrame(tk.Frame):
 
         self.btn_registrar = tk.Button(
             frame_botoes,
-            text="Registrar",
+            text="Salvar",
             command=self.registrar
         )
 
@@ -672,6 +672,32 @@ class SolicitacoesFrame(tk.Frame):
             pady=5,
             sticky="w"
         )
+
+    def salvar(self):
+
+        if not self.protocolo_id:
+            self.registrar()
+            return
+    
+        data_utilizacao = (
+            self.txt_data_utilizacao.get().strip()
+        )
+    
+        data_devolucao = (
+            self.txt_data_devolucao.get().strip()
+        )
+    
+        if data_devolucao:
+    
+            self.devolver()
+            return
+    
+        if data_utilizacao:
+    
+            self.utilizado()
+            return
+    
+        self.atualizar_protocolo()
 
     def alterar_destino(self):
 
