@@ -198,6 +198,8 @@ class SolicitacaoService:
         data_utilizacao
     ):
 
+        print("EstoqueRastreado.Id =", id_item)
+
         conn = DatabaseService.get_connection()
 
         cursor = conn.cursor()
