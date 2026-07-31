@@ -179,3 +179,43 @@ class SolicitacaoItensService:
         conn.close()
     
         return dados
+
+    @staticmethod
+    def registrar_utilizacao(item_id, data):
+    
+        conn = DatabaseService.get_connection()
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE SolicitacaoItens
+            SET
+                Status = 'UTILIZADO',
+                DataUtilizacao = ?
+            WHERE Id = ?
+        """, (
+            data,
+            item_id
+        ))
+    
+        conn.commit()
+        conn.close()
+
+    @staticmethod
+    def registrar_devolucao(item_id, data):
+    
+        conn = DatabaseService.get_connection()
+        cursor = conn.cursor()
+    
+        cursor.execute("""
+            UPDATE SolicitacaoItens
+            SET
+                Status = 'DEVOLVIDO',
+                DataDevolucao = ?
+            WHERE Id = ?
+        """, (
+            data,
+            item_id
+        ))
+    
+        conn.commit()
+        conn.close()
