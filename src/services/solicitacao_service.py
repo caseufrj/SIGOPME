@@ -265,12 +265,15 @@ class SolicitacaoService:
             
                 s.PacienteRegistro,
             
-                s.PacienteNome,
+                CASE
+                    WHEN s.Sala IS NOT NULL
+                         AND s.Sala <> ''
+                    THEN s.Sala
+                    ELSE s.PacienteNome
+                END,
             
                 si.NomeItem,
-            
                 si.Lote,
-            
                 si.Status
             
             FROM Solicitacoes s
@@ -292,59 +295,7 @@ class SolicitacaoService:
     
         return dados
 
-    @staticmethod
-    def buscar_protocolo_por_item(
-        cod_item,
-        lote
-    ):
     
-        conn = DatabaseService.get_connection()
-    
-        cursor = conn.cursor()
-    
-        cursor.execute("""
-            SELECT
-    
-                s.Id,
-    
-                s.PacienteRegistro,
-    
-                s.PacienteNome,
-    
-                si.Status
-    
-            FROM Solicitacoes s
-    
-            INNER JOIN SolicitacaoItens si
-                ON si.SolicitacaoId = s.Id
-    
-            WHERE
-    
-                si.CodItem = ?
-                AND si.Lote = ?
-    
-                AND si.Status IN (
-                    'SOLICITADO',
-                    'RETIRADO'
-                )
-    
-            ORDER BY s.Id DESC
-    
-            LIMIT 1
-    
-        """, (
-    
-            cod_item,
-            lote
-    
-        ))
-    
-        dados = cursor.fetchone()
-    
-        conn.close()
-    
-        return dados
-
     @staticmethod
     def buscar_protocolo_por_item(
         cod_item,
@@ -399,6 +350,7 @@ class SolicitacaoService:
         protocolo_id,
         registro,
         nome,
+        sala,
         data_retirada
     ):
     
@@ -412,6 +364,7 @@ class SolicitacaoService:
     
                 PacienteRegistro = ?,
                 PacienteNome = ?,
+                Sala = ?,
                 DataSolicitacao = ?
     
             WHERE Id = ?
@@ -419,6 +372,7 @@ class SolicitacaoService:
     
             registro,
             nome,
+            sala,
             data_retirada,
             protocolo_id
     
