@@ -191,9 +191,9 @@ CREATE TABLE IF NOT EXISTS SolicitacaoItens (
 
     QuantidadeAtendida INTEGER DEFAULT 0,
 
-    DataUtilizacao TEXT;
+    DataUtilizacao TEXT,
 
-    DataDevolucao TEXT;
+    DataDevolucao TEXT,
 
     Status TEXT NOT NULL CHECK (
         Status IN (
