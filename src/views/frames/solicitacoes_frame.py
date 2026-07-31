@@ -683,19 +683,37 @@ class SolicitacoesFrame(tk.Frame):
             self.txt_data_devolucao.get().strip()
         )
     
-        if data_devolucao:
+        # DEVOLUÇÃO
+        if (
+            data_retirada
+            and data_devolucao
+        ):
             self.devolver()
             return
-    
-        if data_utilizacao:
+        
+        # UTILIZAÇÃO
+        if (
+            data_retirada
+            and data_utilizacao
+        ):
             self.utilizado()
             return
-    
+
+        if (
+            data_devolucao
+            and data_utilizacao
+        ):
+            self.utilizado()
+            return
+        
+        # ALTERAÇÃO DE PROTOCOLO
         if self.protocolo_id:
             self.atualizar_protocolo()
             return
-    
+        
+        # NOVA SOLICITAÇÃO
         self.registrar_novo_protocolo()
+
 
     def alterar_destino(self):
 
