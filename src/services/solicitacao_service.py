@@ -232,7 +232,7 @@ class SolicitacaoService:
 
         cursor = conn.cursor()
 
-       cursor.execute("""
+        cursor.execute("""
             UPDATE EstoqueRastreado
             SET
                 Status = 'DISPONIVEL',
