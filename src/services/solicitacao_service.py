@@ -216,6 +216,8 @@ class SolicitacaoService:
             id_item
         ))
 
+        print("Atualizando EstoqueRastreado:", id_item)
+
         conn.commit()
 
         conn.close()
