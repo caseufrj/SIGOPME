@@ -1504,12 +1504,9 @@ class SolicitacoesFrame(tk.Frame):
             data
         )
     
-        SolicitacaoItensService.atualizar_status(
-    
+        SolicitacaoItensService.registrar_utilizacao(
             item_id,
-    
-            "UTILIZADO"
-    
+            data
         )
     
         HistoricoService.registrar(
@@ -1579,9 +1576,9 @@ class SolicitacoesFrame(tk.Frame):
             data
         )
         
-        SolicitacaoItensService.atualizar_status(
+        SolicitacaoItensService.registrar_devolucao(
             item_id,
-            "DEVOLVIDO"
+            data
         )
         
         HistoricoService.registrar(
