@@ -675,10 +675,6 @@ class SolicitacoesFrame(tk.Frame):
 
     def salvar(self):
 
-        if not self.protocolo_id:
-            self.registrar()
-            return
-    
         data_utilizacao = (
             self.txt_data_utilizacao.get().strip()
         )
@@ -688,16 +684,18 @@ class SolicitacoesFrame(tk.Frame):
         )
     
         if data_devolucao:
-    
             self.devolver()
             return
     
         if data_utilizacao:
-    
             self.utilizado()
             return
     
-        self.atualizar_protocolo()
+        if self.protocolo_id:
+            self.atualizar_protocolo()
+            return
+    
+        self.registrar_novo_protocolo()
 
     def alterar_destino(self):
 
