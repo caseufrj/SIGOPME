@@ -673,6 +673,16 @@ class SolicitacoesFrame(tk.Frame):
             sticky="w"
         )
 
+    def alterar_destino(self):
+
+        if self.tipo_destino.get() == "PACIENTE":
+    
+            self.frame_paciente.select()
+    
+        else:
+    
+            self.frame_sala.select()
+
     def localizar_por_registro(self, event=None):
 
         registro = self.txt_registro.get().strip()
