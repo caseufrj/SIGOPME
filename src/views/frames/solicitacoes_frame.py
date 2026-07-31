@@ -1497,6 +1497,8 @@ class SolicitacoesFrame(tk.Frame):
     
         item_id = item[0]
 
+        print("ItemId:", item_id)
+
         SolicitacaoService.utilizado(
             item_id,
             data
@@ -1569,6 +1571,8 @@ class SolicitacoesFrame(tk.Frame):
             return
     
         item_id = item[0]
+
+        print("ItemId:", item_id)
 
         SolicitacaoService.devolver(
             item_id,
