@@ -3,28 +3,36 @@ from protocolo_rastreabilidade import ProtocoloRastreabilidade
 
 class ProtocoloRastreabilidadeService:
 
-    @staticmethod
     def atualizar_protocolo(
+        self,
         protocolo_id,
+        registro,
+        nome,
+        sala,
         data_retirada
     ):
-
         conn = DatabaseService.get_connection()
-
         cursor = conn.cursor()
-
+    
         cursor.execute("""
             UPDATE Solicitacoes
-            SET DataSolicitacao = ?
+            SET
+                Registro = ?,
+                NomePaciente = ?,
+                Sala = ?,
+                DataSolicitacao = ?
             WHERE Id = ?
         """, (
+            registro,
+            nome,
+            sala,
             data_retirada,
             protocolo_id
         ))
-
+    
         conn.commit()
         conn.close()
-
+        
     @staticmethod
     def obter_protocolo_completo(protocolo):
     
