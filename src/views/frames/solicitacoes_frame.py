@@ -674,6 +674,7 @@ class SolicitacoesFrame(tk.Frame):
         )
 
     def salvar(self):
+        print("ENTROU EM SALVAR")
 
         data_utilizacao = (
             self.txt_data_utilizacao.get().strip()
@@ -1312,6 +1313,7 @@ class SolicitacoesFrame(tk.Frame):
         )
 
     def atualizar_protocolo(self):
+        print("ENTROU EM ATUALIZAR_PROTOCOLO")
 
         registro = self.txt_registro.get().strip()
     
@@ -1497,6 +1499,7 @@ class SolicitacoesFrame(tk.Frame):
         self.carregar_protocolos()
         
     def utilizado(self):
+        print("ENTROU EM UTILIZADO")
 
         selecionado = (
             self.grid_protocolos.selection()
@@ -1569,7 +1572,8 @@ class SolicitacoesFrame(tk.Frame):
         self.carregar_protocolos()
 
     def devolver(self):
-
+        print("ENTROU EM DEVOLVER")
+        
         selecionado = (
             self.grid_protocolos.selection()
         )
