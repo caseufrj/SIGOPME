@@ -13,6 +13,14 @@ class ProtocoloRastreabilidadeService:
     ):
         conn = DatabaseService.get_connection()
         cursor = conn.cursor()
+
+        print(
+            protocolo_id,
+            registro,
+            nome,
+            sala,
+            data_retirada
+        )
     
         cursor.execute("""
             UPDATE Solicitacoes
@@ -29,7 +37,9 @@ class ProtocoloRastreabilidadeService:
             data_retirada,
             protocolo_id
         ))
-    
+
+        print("Rows afetadas:", cursor.rowcount)
+        
         conn.commit()
         conn.close()
         
