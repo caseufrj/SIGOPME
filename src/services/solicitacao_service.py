@@ -287,7 +287,7 @@ class SolicitacaoService:
             
             WHERE si.Status IN (
                 'SOLICITADO',
-                'RETIRADO'
+                'UTILIZADO'
             )
             
             ORDER BY s.Id DESC
@@ -330,7 +330,7 @@ class SolicitacaoService:
     
                 AND si.Status IN (
                     'SOLICITADO',
-                    'RETIRADO'
+                    'UTILIZADO'
                 )
     
             ORDER BY s.Id DESC
@@ -349,8 +349,8 @@ class SolicitacaoService:
     
         return resultado
 
-    @staticmethod
     def atualizar_protocolo(
+        self,
         protocolo_id,
         registro,
         nome,
