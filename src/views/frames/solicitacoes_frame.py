@@ -1589,14 +1589,13 @@ class SolicitacoesFrame(tk.Frame):
             SolicitacaoService.inserir(
     
                 numero_protocolo,
-    
                 data,
     
                 "",
     
-                "",
-    
-                sala,
+                "",      # registro
+                "",      # paciente
+                sala,    # sala
     
                 "",
     
@@ -1639,8 +1638,10 @@ class SolicitacoesFrame(tk.Frame):
     
         messagebox.showinfo(
             "SIGOPME",
-            "Solicitação para sala registrada."
+            "Solicitação registrada."
         )
     
         self.carregar_protocolos()
+    
+        self.limpar_tela()
     
