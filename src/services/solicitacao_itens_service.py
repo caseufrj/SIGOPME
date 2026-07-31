@@ -170,8 +170,11 @@ class SolicitacaoItensService:
     
             LIMIT 1
         """, (solicitacao_id,))
-    
+
+            
         dados = cursor.fetchone()
+
+        print("SolicitacaoItens =", dados)
     
         conn.close()
     
