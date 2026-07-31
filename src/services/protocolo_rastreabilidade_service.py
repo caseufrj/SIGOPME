@@ -17,7 +17,7 @@ class ProtocoloRastreabilidadeService:
         cursor.execute("""
             UPDATE Solicitacoes
             SET
-                Registro = ?,
+                PacienteRegistro = ?,
                 NomePaciente = ?,
                 Sala = ?,
                 DataSolicitacao = ?
