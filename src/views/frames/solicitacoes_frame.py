@@ -1281,6 +1281,15 @@ class SolicitacoesFrame(tk.Frame):
             self.txt_data_retirada.get().strip()
         )
     
+        if self.tipo_destino.get() == "PACIENTE":
+    
+            sala = ""
+    
+        else:
+    
+            registro = ""
+            nome = ""
+    
         self.protocolo_service.atualizar_protocolo(
     
             self.protocolo_id,
@@ -1305,6 +1314,7 @@ class SolicitacoesFrame(tk.Frame):
         self.protocolo_id = None
     
         self.limpar_tela()
+        
     def registrar(self):
 
         if self.protocolo_id:
