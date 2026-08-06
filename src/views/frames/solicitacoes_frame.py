@@ -683,6 +683,10 @@ class SolicitacoesFrame(tk.Frame):
         data_devolucao = (
             self.txt_data_devolucao.get().strip()
         )
+
+        data_retirada = (
+            self.txt_data_retirada.get().strip()
+        )
     
         # DEVOLUÇÃO
         if (
