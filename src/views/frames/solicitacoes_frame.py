@@ -295,7 +295,7 @@ class SolicitacoesFrame(tk.Frame):
         self.btn_registrar = tk.Button(
             frame_botoes,
             text="Salvar",
-            command=self.registrar
+            command=self.salvar
         )
 
         self.btn_registrar.pack(
