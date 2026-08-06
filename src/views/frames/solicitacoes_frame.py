@@ -1476,23 +1476,23 @@ class SolicitacoesFrame(tk.Frame):
         )
     
         HistoricoService.registrar(
-    
+
+            estoque_id=item_id,
+        
             tipo="SOLICITACAO",
-    
-            acao="ITEM_RETIRADO",
-    
-            paciente_nome=nome,
-    
-            paciente_registro=registro,
-    
+        
+            acao="ITEM_DEVOLVIDO",
+        
             cod_item=self.cod_item,
-    
-            nome_material=self.nome_material,
-    
+        
             lote=self.lote,
-    
-            observacao="Material entregue ao paciente"
-    
+        
+            paciente_nome=self.txt_paciente.get().strip(),
+        
+            paciente_registro=self.txt_registro.get().strip(),
+        
+            observacao=f"Material devolvido em {data}"
+        
         )
     
         messagebox.showinfo(
@@ -1559,13 +1559,23 @@ class SolicitacoesFrame(tk.Frame):
         )
     
         HistoricoService.registrar(
-    
+
+            estoque_id=item_id,
+        
             tipo="SOLICITACAO",
-    
+        
             acao="ITEM_UTILIZADO",
-    
-            referencia_id=item_id
-    
+        
+            cod_item=self.cod_item,
+        
+            lote=self.lote,
+        
+            paciente_nome=self.txt_paciente.get().strip(),
+        
+            paciente_registro=self.txt_registro.get().strip(),
+        
+            observacao=f"Material devolvido em {data}"
+        
         )
     
         messagebox.showinfo(
@@ -1632,13 +1642,23 @@ class SolicitacoesFrame(tk.Frame):
         )
         
         HistoricoService.registrar(
-    
+
+            estoque_id=item_id,
+        
             tipo="SOLICITACAO",
-    
+        
             acao="ITEM_DEVOLVIDO",
-    
-            referencia_id=item_id
-    
+        
+            cod_item=self.cod_item,
+        
+            lote=self.lote,
+        
+            paciente_nome=self.txt_paciente.get().strip(),
+        
+            paciente_registro=self.txt_registro.get().strip(),
+        
+            observacao=f"Material devolvido em {data}"
+        
         )
     
         messagebox.showinfo(
