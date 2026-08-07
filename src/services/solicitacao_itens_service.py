@@ -158,13 +158,13 @@ class SolicitacaoItensService:
     
         cursor = conn.cursor()
     
-        cursor.execute("""
-            SELECT
-    
-                Id,
-                Status
-    
-            FROM SolicitacaoItens
+        SELECT
+            Id,
+            CodItem,
+            NomeItem,
+            Lote,
+            Status
+        FROM SolicitacaoItens
     
             WHERE SolicitacaoId = ?
     
