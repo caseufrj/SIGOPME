@@ -16,8 +16,7 @@ class SolicitacaoService:
         paciente_nome,
         sala,
         especialidade,
-        observacao,
-        usuario
+        observacao
     ):
 
         conn = DatabaseService.get_connection()
@@ -34,11 +33,10 @@ class SolicitacaoService:
                 PacienteNome,
                 Sala,
                 Especialidade,
-                Observacao,
-                Usuario
+                Observacao
         
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         
         """, (
         
@@ -49,8 +47,7 @@ class SolicitacaoService:
             paciente_nome,
             sala,
             especialidade,
-            observacao,
-            usuario
+            observacao
         
         ))
         solicitacao_id = cursor.lastrowid
