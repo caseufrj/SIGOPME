@@ -1485,21 +1485,21 @@ class SolicitacoesFrame(tk.Frame):
     
         HistoricoService.registrar(
 
-            estoque_id=item_id,
-        
             tipo="SOLICITACAO",
         
-            acao="ITEM_DEVOLVIDO",
+            acao="ITEM_RETIRADO",
+        
+            paciente_nome=nome,
+        
+            paciente_registro=registro,
         
             cod_item=self.cod_item,
         
+            nome_material=self.nome_material,
+        
             lote=self.lote,
         
-            paciente_nome=self.txt_paciente.get().strip(),
-        
-            paciente_registro=self.txt_registro.get().strip(),
-        
-            observacao=f"Material devolvido em {data}"
+            observacao="Material entregue ao paciente"
         
         )
     
