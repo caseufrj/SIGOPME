@@ -33,6 +33,8 @@ class SolicitacoesFrame(tk.Frame):
             ProtocoloRastreabilidadeService()
         )
 
+        self.protocolo_id = None
+
         self.criar_componentes()
 
         self.carregar_protocolos()
@@ -712,7 +714,8 @@ class SolicitacoesFrame(tk.Frame):
             return
         
         # ALTERAÇÃO DE PROTOCOLO
-        if self.protocolo_id:
+        if getattr(self, "protocolo_id", None):
+     
             self.atualizar_protocolo()
             return
         
