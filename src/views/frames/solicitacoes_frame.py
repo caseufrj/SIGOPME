@@ -689,6 +689,11 @@ class SolicitacoesFrame(tk.Frame):
         data_retirada = (
             self.txt_data_retirada.get().strip()
         )
+
+        print("Retirada =", repr(data_retirada))
+        print("Utilizacao =", repr(data_utilizacao))
+        print("Devolucao =", repr(data_devolucao))
+        print("Protocolo =", getattr(self, "protocolo_id", None))
     
         # DEVOLUÇÃO
         if (
